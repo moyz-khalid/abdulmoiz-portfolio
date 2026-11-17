@@ -274,18 +274,41 @@
       border-color: var(--accent-secondary);
     }
 
+    /* Fluid Responsive Content Container */
+    .content-container {
+      width: 100%;
+      max-width: min(92vw, 1720px);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: clamp(1rem, 2.5vw, 3rem);
+      padding-right: clamp(1rem, 2.5vw, 3rem);
+    }
+
+    @media (min-width: 2200px) {
+      .content-container {
+        max-width: min(88vw, 2100px);
+      }
+    }
+
     /* =========================================================================
        3D ORBITING RING AROUND PORTRAIT (INSPIRED BY image_28d089.jpg)
        ========================================================================= */
     .hero-3d-stage {
       perspective: 1400px;
       transform-style: preserve-3d;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .orbit-scene {
       position: relative;
       width: 100%;
-      height: 760px;
+      height: clamp(480px, 48vw, 760px);
+      min-height: 440px;
+      max-height: 820px;
       transform-style: preserve-3d;
       display: flex;
       align-items: center;
@@ -295,19 +318,13 @@
     /* Central Studio Cutout Portrait Container at Z = 0 */
     .portrait-monolith {
       position: relative;
-      width: 450px;
-      height: 630px;
+      width: clamp(280px, 32vw, 520px);
+      height: clamp(380px, 44vw, 680px);
+      max-width: 90vw;
       transform: translateZ(0px);
       transform-style: preserve-3d;
       z-index: 20;
       pointer-events: auto;
-    }
-
-    @media (min-width: 640px) {
-      .portrait-monolith {
-        width: 520px;
-        height: 690px;
-      }
     }
 
     /* Studio Radial Aura Behind Portrait (like image_28d089.jpg) */
@@ -325,26 +342,15 @@
     /* 3D Orbiting Card Item */
     .orbit-card {
       position: absolute;
-      top: 52%;
+      top: 50%;
       left: 50%;
-      width: 158px;
-      height: 104px;
-      margin-left: -79px;
-      margin-top: -52px;
+      width: clamp(140px, 11vw, 184px);
+      height: clamp(92px, 7.5vw, 120px);
       transform-style: preserve-3d;
       backface-visibility: visible;
       transition: border-color 0.25s ease, box-shadow 0.25s ease;
       cursor: default;
       user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .orbit-card {
-        width: 184px;
-        height: 118px;
-        margin-left: -92px;
-        margin-top: -59px;
-      }
     }
 
     .orbit-card-inner {
@@ -354,7 +360,7 @@
       border: 1px solid rgba(243, 239, 230, 0.28);
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(8px);
-      padding: 10px 12px;
+      padding: clamp(8px, 0.8vw, 14px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -392,10 +398,10 @@
 
     .diagonal-ribbon {
       position: relative;
-      width: 130vw;
-      left: -15vw;
+      width: 160vw;
+      left: -30vw;
       overflow: hidden;
-      padding: 8px 0;
+      padding: clamp(6px, 0.8vw, 12px) 0;
       background: var(--text-main);
       color: var(--bg-void);
       border-top: 2px solid var(--bg-void);
@@ -498,7 +504,7 @@
        ========================================================================= */
     .sliced-wordmark-wrap {
       position: relative;
-      height: clamp(110px, 19vw, 250px);
+      height: clamp(90px, 15vw, 240px);
       width: 100%;
       overflow: hidden;
       user-select: none;
@@ -513,9 +519,9 @@
       justify-content: center;
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(3.8rem, 15.5vw, 15rem);
+      font-size: clamp(3rem, 13vw, 13rem);
       letter-spacing: -0.05em;
-      line-height: 0.85;
+      line-height: 0.9;
       white-space: nowrap;
       color: rgba(243, 239, 230, 0.22);
       transition: transform 0.15s ease-out, color 0.3s ease;
@@ -569,6 +575,12 @@
       animation: floatAnomaly 3.6s ease-in-out infinite;
       cursor: crosshair;
     }
+
+    @media (max-height: 640px) {
+      #labyrinth-hud {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -605,7 +617,7 @@
        PERSISTENT TOP EDITORIAL BRUTALIST HEADER (INSPIRED BY image_28d089.jpg)
        ========================================================================= -->
   <header class="fixed top-0 left-0 right-0 z-[90] bg-void/85 backdrop-blur-md border-b border-hairline">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+    <div class="content-container h-16 flex items-center justify-between gap-4">
 
       <!-- Left: Coordinates & Profit Saved Counter -->
       <div class="hidden md:flex items-center gap-4 font-mono text-[11px] tracking-widest text-muted-custom">
@@ -641,7 +653,7 @@
     <!-- Sub-Navigation Bar (Centered like 'ABOUT ▪ PROJECTS ▪ CASE STUDY' in image_28d089.jpg) -->
     <div class="border-t border-hairline py-2 px-4 bg-void/60 overflow-x-auto no-scrollbar">
       <nav
-        class="max-w-5xl mx-auto flex flex-nowrap whitespace-nowrap items-center justify-center gap-3 sm:gap-6 font-mono text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.22em] uppercase text-muted-custom">
+        class="content-container max-w-6xl flex flex-nowrap whitespace-nowrap items-center justify-center gap-3 sm:gap-6 font-mono text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.22em] uppercase text-muted-custom">
         <a href="#node-hero" onclick="focusMazeNode(0)" class="hover:text-main transition-colors shrink-0">01.
           STRATEGY</a>
         <span class="text-accent-1 shrink-0">▪</span>
@@ -710,13 +722,13 @@
          Directly inspired by the left half of image_28d089.jpg
          ======================================================================= -->
     <section id="node-hero" data-maze-x="80" data-maze-y="80" data-maze-rot="-2"
-      class="maze-node-section relative min-h-[92vh] flex flex-col justify-between overflow-hidden border-b border-hairline">
+      class="maze-node-section relative min-h-[clamp(580px,80vh,860px)] flex flex-col justify-center overflow-hidden border-b border-hairline pt-6 sm:pt-10 pb-6">
 
-      <div class="max-w-[1440px] mx-auto w-full px-4 sm:px-8 lg:px-12 pt-6 pb-16 my-auto relative z-20">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-4 items-center">
+      <div class="content-container w-full pt-2 pb-6 relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-10 2xl:gap-14 items-center">
 
           <!-- LEFT 6 COLUMNS: Staggered Editorial Brutalist Typography (Like 'WORK THAT BEGINS WITH STRATEGY.') -->
-          <div class="lg:col-span-6 space-y-8 relative z-30">
+          <div class="lg:col-span-6 space-y-6 sm:space-y-8 relative z-30">
             <div
               class="inline-flex items-center gap-2.5 px-3 py-1 border border-hairline bg-surface/90 font-mono text-[11px] tracking-[0.2em] uppercase text-accent-2">
               <span>:: E-COMMERCE ARCHITECT</span>
@@ -726,24 +738,25 @@
 
             <!-- Staggered Brutalist Headline Matching Reference Rhythm -->
             <h1
-              class="font-syne font-extrabold text-4xl sm:text-6xl xl:text-[4.55rem] leading-[0.94] tracking-tight uppercase text-main select-none">
-              <span class="block sm:pl-12">REVENUE THAT</span>
-              <span class="flex items-baseline justify-between max-w-xl">
+              class="font-syne font-extrabold text-[clamp(2.4rem,4.8vw,4.8rem)] 2xl:text-[clamp(4.2rem,5.6vw,6.5rem)] leading-[0.93] tracking-tight uppercase text-main select-none">
+              <span class="block sm:pl-8 lg:pl-12">REVENUE THAT</span>
+              <span class="flex items-baseline justify-between max-w-xl 2xl:max-w-2xl">
                 <span>BEGINS</span>
                 <span
-                  class="font-serif italic font-normal lowercase text-accent-2 text-5xl sm:text-7xl px-2">with</span>
+                  class="font-serif italic font-normal lowercase text-accent-2 text-[clamp(3rem,6vw,6.4rem)] 2xl:text-[clamp(5rem,6.8vw,8rem)] px-2">with</span>
                 <span>SYSTEMS.</span>
               </span>
               <span class="block text-accent-1 mt-1">NOT HYPE.</span>
             </h1>
 
             <!-- Witty, Humble & Bold Editorial Subcopy Block -->
-            <div class="max-w-md sm:pl-12 space-y-4">
-              <p class="font-mono text-[11px] sm:text-xs uppercase tracking-[0.14em] leading-relaxed text-muted-custom">
+            <div class="max-w-xl sm:pl-8 lg:pl-12 space-y-4">
+              <p
+                class="font-mono text-[11px] sm:text-xs 2xl:text-sm uppercase tracking-[0.14em] leading-relaxed text-muted-custom">
                 A SELECTION OF MULTI-PLATFORM REVENUE ENGINES, CUSTOM BROWSER EXTENSIONS, AND COMPETITOR ESPIONAGE
                 DEVELOPED OVER 5+ YEARS ACROSS <span class="text-main">WALMART, ETSY, AMAZON, AND SHOPIFY</span>.
               </p>
-              <p class="text-sm sm:text-base text-main/90 leading-relaxed border-l-2 border-accent-1 pl-4">
+              <p class="text-sm sm:text-base 2xl:text-lg text-main/90 leading-relaxed border-l-2 border-accent-1 pl-4">
                 &ldquo;Revenue is the only metric that pays rent. I&rsquo;m not an e-commerce guru posing next to a
                 rented Huracán&mdash;I&rsquo;m an IT nerd from Lahore who automates boring tasks into extinction. If a
                 human has to click it twice, I build a system so nobody clicks it again.&rdquo;
@@ -809,7 +822,7 @@
                 <!-- Subtle Floating Telemetry Tag on His Shoulder -->
                 <div
                   class="absolute bottom-14 -left-4 z-30 bg-void/90 border border-accent-2 px-3 py-1.5 font-mono text-[10px] tracking-widest uppercase shadow-xl">
-                  <span class="text-accent-2">●</span> SYS_OP: ABDUL MOIZ // 68K+ ORDERS
+                  <span class="text-accent-2">●</span> SYS_OP: ABDUL MOIZ // 100K+ ORDERS
                 </div>
               </div>
 
@@ -823,7 +836,7 @@
       </div>
 
       <!-- DIAGONAL CRISS-CROSSING TICKER RIBBONS (Directly inspired by image_28d089.jpg) -->
-      <div class="relative h-24 sm:h-28 -mt-8 pointer-events-none select-none z-30">
+      <div class="relative h-20 sm:h-24 lg:h-28 mt-4 sm:mt-6 pointer-events-none select-none z-30 overflow-hidden">
         <!-- Ribbon 1: Tilted Downward -->
         <div class="diagonal-ribbon" style="transform: rotate(-4.5deg) translateY(10px);">
           <div class="ribbon-track-left font-mono text-xs sm:text-sm font-bold tracking-[0.22em] uppercase">
@@ -870,10 +883,10 @@
          Directly inspired by bottom-left of image_28d089.jpg ('WE REJECT THE SUPERFLUOUS...')
          ======================================================================= -->
     <section id="node-manifesto" data-maze-x="1480" data-maze-y="160" data-maze-rot="3"
-      class="maze-node-section relative py-24 sm:py-36 px-4 sm:px-8 border-b border-hairline bg-void">
+      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 border-b border-hairline bg-void">
 
       <!-- Horizontal Hairline with '::' Markers on Left & Right (Exact match to reference image) -->
-      <div class="max-w-[1440px] mx-auto relative">
+      <div class="content-container relative">
         <div
           class="hidden md:flex items-center justify-between absolute inset-x-0 top-1/2 -translate-y-1/2 pointer-events-none">
           <div class="flex items-center gap-3">
@@ -887,11 +900,12 @@
         </div>
 
         <!-- Center Monumental Statement with Bright/Dimmed Typography Split -->
-        <div class="max-w-4xl mx-auto text-center px-4">
+        <div class="max-w-5xl 2xl:max-w-6xl mx-auto text-center px-4">
           <p class="font-mono text-xs tracking-[0.28em] text-accent-1 uppercase mb-5">
             :: THE OPERATING DOCTRINE (4 LAWS OF MARGIN)
           </p>
-          <h2 class="font-syne font-extrabold text-2xl sm:text-4xl lg:text-5xl leading-[1.12] tracking-tight uppercase">
+          <h2
+            class="font-syne font-extrabold text-[clamp(1.6rem,3vw,3.2rem)] 2xl:text-[clamp(2.6rem,3.4vw,4.4rem)] leading-[1.14] tracking-tight uppercase">
             <span class="text-main">WE REJECT THE MANUAL GRIND. BUILDING E-COMMERCE EMPIRES AND AUTOMATED SYSTEMS</span>
             <span class="text-muted-custom"> GROUNDED IN EXTREME MARGIN CLARITY, COMPETITOR ESPIONAGE, AND UNCOMPROMISED
               EXECUTION.</span>
@@ -901,7 +915,7 @@
 
       <!-- Bottom 4-Column Brutalist Strip (Inspired by MONOLITH | MAXIME | STONEHAVEN | GRAVIXPOINT strip at bottom-left of reference) -->
       <div
-        class="max-w-[1440px] mx-auto mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-hairline">
+        class="content-container mt-12 sm:mt-16 2xl:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-hairline !px-0">
 
         <!-- Principle 01: TEST -->
         <div
@@ -1006,22 +1020,23 @@
          Directly inspired by top-right of image_28d089.jpg ('A SELECTION OF RECENT COLLABORATIONS' + Table + 12-Card Grid)
          ======================================================================= -->
     <section id="node-archive" data-maze-x="160" data-maze-y="1180" data-maze-rot="2"
-      class="maze-node-section relative py-24 sm:py-32 px-4 sm:px-8 lg:px-12 border-b border-hairline bg-surface/50">
+      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 border-b border-hairline bg-surface/50">
 
-      <div class="max-w-[1440px] mx-auto">
+      <div class="content-container">
 
         <!-- Top Split: Left Title + Right Brutalist Ledger Table (Exact structural nod to top-right of reference) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 2xl:gap-12 items-start mb-12 sm:mb-16 2xl:mb-20">
 
           <!-- Left 4 Columns -->
           <div class="lg:col-span-4 space-y-4">
             <div class="font-mono text-lg font-bold text-accent-1">••</div>
-            <h2 class="font-syne font-extrabold text-2xl sm:text-3xl uppercase tracking-tight leading-snug text-main">
+            <h2
+              class="font-syne font-extrabold text-[clamp(1.75rem,2.8vw,3.2rem)] 2xl:text-[clamp(2.6rem,3.2vw,4rem)] uppercase tracking-tight leading-snug text-main">
               A SELECTION OF<br />
               LIVE EMPIRES, PAST<br />
               STORES &amp; LABS.
             </h2>
-            <p class="font-mono text-xs text-muted-custom leading-relaxed pt-2">
+            <p class="font-mono text-xs 2xl:text-sm text-muted-custom leading-relaxed pt-2">
               CLICK ANY LEDGER ROW OR VISUAL ARTIFACT BELOW TO LAUNCH THE LIVE PRODUCTION ENVIRONMENT. ZERO MOCKUPS
               PRETENDING TO BE STORES&mdash;REAL MARKETPLACES ONLY.
             </p>
@@ -1090,7 +1105,7 @@
         </div>
 
         <!-- Multi-Panel Editorial Bento Grid of All 5 Supported Links + GitHub Activity Matrix -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 2xl:gap-8">
 
           <!-- CARD 1: WALMART CURRENT STORE -->
           <article
@@ -1303,21 +1318,23 @@
               </p>
 
               <!-- Compact horizontal contribution heatmap -->
-              <div class="bg-void border border-hairline p-3">
-                <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom mb-2">
-                  <span>COMMIT TELEMETRY // @MOYZ-KHALID</span>
-                  <span class="text-accent-2">● VERIFIED PUBLIC GRAPH</span>
-                </div>
-                <div id="gh-matrix-grid" class="grid grid-cols-26 gap-[3px]"></div>
-                <div class="flex items-center justify-between font-mono text-[9px] text-muted-custom mt-1.5">
-                  <span>LESS</span>
-                  <div class="flex items-center gap-1">
-                    <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-white/5"></span>
-                    <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#ff331f]/45"></span>
-                    <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#ff331f]"></span>
-                    <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#d4ff00]"></span>
+              <div class="bg-void border border-hairline p-3 overflow-x-auto no-scrollbar">
+                <div class="min-w-[330px]">
+                  <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom mb-2">
+                    <span>COMMIT TELEMETRY // @MOYZ-KHALID</span>
+                    <span class="text-accent-2">● VERIFIED PUBLIC GRAPH</span>
                   </div>
-                  <span>MORE</span>
+                  <div id="gh-matrix-grid" class="grid grid-cols-26 gap-[3px]"></div>
+                  <div class="flex items-center justify-between font-mono text-[9px] text-muted-custom mt-1.5">
+                    <span>LESS</span>
+                    <div class="flex items-center gap-1">
+                      <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-white/5"></span>
+                      <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#ff331f]/45"></span>
+                      <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#ff331f]"></span>
+                      <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#d4ff00]"></span>
+                    </div>
+                    <span>MORE</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1338,10 +1355,10 @@
          Directly inspired by middle-right of image_28d089.jpg ('GOOD WORK IS BUILT ON GOOD QUESTIONS...' + Portrait surrounded by floating cards & background ribbons)
          ======================================================================= -->
     <section id="node-collage" data-maze-x="1560" data-maze-y="1280" data-maze-rot="-2.5"
-      class="maze-node-section relative py-24 sm:py-36 px-4 sm:px-8 border-b border-hairline bg-void overflow-hidden">
+      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 border-b border-hairline bg-void overflow-hidden">
 
       <!-- Monumental Editorial Quote Above Second Portrait (Exact layout match to middle-right of reference) -->
-      <div class="max-w-4xl mx-auto text-center relative z-20 mb-16">
+      <div class="content-container max-w-5xl 2xl:max-w-6xl mx-auto text-center relative z-20 mb-12 sm:mb-16">
         <div class="flex items-center justify-center gap-4 font-mono text-xs text-muted-custom mb-4">
           <span class="w-16 h-px bg-white/20"></span>
           <span class="text-accent-2 font-bold">:</span>
@@ -1350,7 +1367,8 @@
           <span class="w-16 h-px bg-white/20"></span>
         </div>
 
-        <h2 class="font-syne font-extrabold text-xl sm:text-3xl lg:text-4xl leading-[1.16] uppercase tracking-tight">
+        <h2
+          class="font-syne font-extrabold text-[clamp(1.25rem,2.2vw,2.5rem)] 2xl:text-[clamp(1.8rem,2.6vw,3.2rem)] leading-[1.18] uppercase tracking-tight">
           <span class="text-main">GOOD REVENUE IS BUILT ON GOOD SYSTEMS. DATA PROVIDES THE DIRECTION, AUTOMATION GIVES
             IT SPEED, AND</span>
           <span class="text-muted-custom"> HUMILITY ENSURES EVERY SKU SUPPORTS THE BIGGER P&amp;L.</span>
@@ -1358,7 +1376,7 @@
       </div>
 
       <!-- SECOND PORTRAIT STAGE WITH BACKGROUND TICKER RIBBONS & DRAGGABLE FLOATING COLLAGE CARDS -->
-      <div class="relative max-w-[1440px] mx-auto min-h-[620px] flex items-center justify-center">
+      <div class="relative content-container min-h-[clamp(480px,50vw,720px)] flex items-center justify-center">
 
         <!-- Background Criss-Crossing Ribbons Behind Portrait (Like lower-right of reference image) -->
         <div class="absolute inset-x-0 bottom-12 pointer-events-none select-none z-10 space-y-3">
@@ -1386,7 +1404,7 @@
 
         <!-- Second Studio Portrait of Abdul Moiz in the Center -->
         <div
-          class="relative z-20 w-80 sm:w-[500px] md:w-[600px] lg:w-[660px] h-[520px] sm:h-[620px] md:h-[680px] flex flex-col items-center justify-end select-none">
+          class="relative z-20 w-[clamp(280px,38vw,660px)] h-[clamp(380px,46vw,680px)] flex flex-col items-center justify-end select-none">
           <div class="studio-backdrop-glow"></div>
           <div class="portrait-canvas-wrap w-full h-full flex items-end justify-center">
             <!-- Exact User-Provided Low-Poly Portrait SVG (Second Collage Instance) -->
@@ -1436,7 +1454,7 @@
         <!-- FLOATING MULTI-LAYERED COLLAGE CARDS AROUND PORTRAIT (Draggable & Parallax-Reactive) -->
         <!-- Floating Card A: Top Left -->
         <div
-          class="collage-float-card hidden md:block absolute top-6 left-[4%] lg:left-[8%] z-30 w-64 bg-panel/95 border border-hairline p-4 shadow-2xl cursor-move"
+          class="collage-float-card hidden md:block absolute top-6 left-[3%] lg:left-[6%] z-30 w-[clamp(220px,18vw,290px)] bg-panel/95 border border-hairline p-4 shadow-2xl cursor-move"
           data-depth="0.04">
           <div class="flex items-center justify-between font-mono text-[10px] text-accent-2 mb-1.5">
             <span>INNOVANTIVES // 2023–2025</span>
@@ -1451,7 +1469,7 @@
 
         <!-- Floating Card B: Mid Left -->
         <div
-          class="collage-float-card hidden md:block absolute top-1/2 -translate-y-1/2 left-[1%] lg:left-[4%] z-30 w-60 bg-void/95 border border-accent-1 p-4 shadow-2xl cursor-move"
+          class="collage-float-card hidden md:block absolute top-1/2 -translate-y-1/2 left-[1%] lg:left-[3%] z-30 w-[clamp(210px,17vw,280px)] bg-void/95 border border-accent-1 p-4 shadow-2xl cursor-move"
           data-depth="-0.05">
           <div class="font-mono text-[10px] text-accent-1 mb-1">HIGH-VOLUME CO-MANAGED</div>
           <div class="font-syne font-extrabold text-2xl text-main">100K+ SALES</div>
@@ -1460,7 +1478,7 @@
 
         <!-- Floating Card C: Top Right -->
         <div
-          class="collage-float-card hidden md:block absolute top-10 right-[4%] lg:right-[8%] z-30 w-64 bg-panel/95 border border-hairline p-4 shadow-2xl cursor-move"
+          class="collage-float-card hidden md:block absolute top-10 right-[3%] lg:right-[6%] z-30 w-[clamp(220px,18vw,290px)] bg-panel/95 border border-hairline p-4 shadow-2xl cursor-move"
           data-depth="0.06">
           <div class="font-mono text-[10px] text-accent-2 mb-1">SHOPIFY &amp; META ADS // 2022–2023</div>
           <div class="font-syne font-bold text-base text-main">Full-Funnel Dropshipping</div>
@@ -1471,7 +1489,7 @@
 
         <!-- Floating Card D: Bottom Right -->
         <div
-          class="collage-float-card hidden md:block absolute bottom-20 right-[2%] lg:right-[6%] z-30 w-64 bg-void/95 border border-accent-2 p-4 shadow-2xl cursor-move"
+          class="collage-float-card hidden md:block absolute bottom-20 right-[1%] lg:right-[4%] z-30 w-[clamp(220px,18vw,290px)] bg-void/95 border border-accent-2 p-4 shadow-2xl cursor-move"
           data-depth="-0.04">
           <div class="font-mono text-[10px] text-accent-2 mb-1">AMAZON &amp; WALMART // 2021–2022</div>
           <div class="font-syne font-extrabold text-xl text-main">$7,000/MO NET PROFIT</div>
@@ -1483,7 +1501,7 @@
       </div>
 
       <!-- Mobile-Friendly Stack of the Collage Cards (Visible on small screens) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:hidden relative z-30">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:hidden content-container relative z-30">
         <div class="bg-panel border border-hairline p-4">
           <div class="font-mono text-[10px] text-accent-2">INNOVANTIVES // 2023–2025</div>
           <div class="font-syne font-bold text-base text-main mt-1">Lead Etsy Operator (9,000+ Sales)</div>
@@ -1503,16 +1521,17 @@
          Directly inspired by bottom-right of image_28d089.jpg ('LET'S CREATE SOMETHING MEANINGFUL' + Sliced Giant Typography)
          ======================================================================= -->
     <footer id="node-contact" data-maze-x="820" data-maze-y="2100" data-maze-rot="1.5"
-      class="maze-node-section relative pt-20 sm:pt-28 pb-6 px-4 sm:px-8 lg:px-12 bg-void overflow-hidden">
+      class="maze-node-section relative pt-16 sm:pt-24 2xl:pt-32 pb-8 bg-void overflow-hidden">
 
-      <div class="max-w-[1440px] mx-auto">
+      <div class="content-container">
 
         <!-- Top Footer Row: Left Callout + Right 3-Column Bracketed Directory (Exact match to bottom-right of reference) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-20 border-b border-hairline">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 2xl:gap-14 pb-12 sm:pb-16 border-b border-hairline">
 
           <!-- Left 5 Columns -->
           <div class="lg:col-span-5 space-y-5">
-            <h2 class="font-syne font-extrabold text-2xl sm:text-4xl uppercase tracking-tight text-main leading-tight">
+            <h2
+              class="font-syne font-extrabold text-[clamp(1.8rem,3.5vw,3.8rem)] 2xl:text-[clamp(2.8rem,4.2vw,5rem)] uppercase tracking-tight text-main leading-tight">
               LET&rsquo;S BUILD<br />
               SOMETHING PROFITABLE.
             </h2>
@@ -1781,17 +1800,35 @@
         ringContainer.appendChild(card);
         orbitElements.push(card);
       });
+      requestAnimationFrame(updateCardDimensions);
     }
+
+    let cachedCardW = 160;
+    let cachedCardH = 105;
+    function updateCardDimensions() {
+      if (orbitElements.length > 0) {
+        cachedCardW = orbitElements[0].offsetWidth || 160;
+        cachedCardH = orbitElements[0].offsetHeight || 105;
+      }
+    }
+    window.addEventListener('resize', updateCardDimensions);
 
     function animateOrbitRing() {
       if (!orbitPaused) {
         orbitBaseAngle += orbitSpeed * orbitDirection;
       }
 
+      const orbitBox = document.getElementById('hero-portrait-box');
+      const portraitW = orbitBox ? orbitBox.offsetWidth : 480;
+      const sceneW = ringContainer ? ringContainer.offsetWidth : window.innerWidth;
       const isMobile = window.innerWidth < 640;
-      const radiusX = isMobile ? 168 : 275;
-      const radiusZ = isMobile ? 145 : 230;
-      const tiltSlopeY = isMobile ? 48 : 78; // Creates the diagonal sweep across his chest like image_28d089.jpg
+
+      // Responsive elliptical orbit radius that scales gracefully with portrait and scene width
+      const radiusX = isMobile
+        ? Math.max(140, Math.min(sceneW * 0.44, 195))
+        : Math.max(240, Math.min(portraitW * 0.58 + 35, sceneW * 0.46));
+      const radiusZ = radiusX * 0.82;
+      const tiltSlopeY = radiusX * 0.28; // Creates the diagonal sweep across his chest like image_28d089.jpg
 
       const total = orbitElements.length;
       for (let i = 0; i < total; i++) {
@@ -1812,7 +1849,10 @@
         const scale = 0.72 + depthNorm * 0.36;
         const opacity = 0.32 + depthNorm * 0.68;
 
-        el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateZ(${rotZ}deg) rotateY(${rotY}deg) scale(${scale.toFixed(3)})`;
+        const posX = x - cachedCardW / 2;
+        const posY = y - cachedCardH / 2;
+
+        el.style.transform = `translate3d(${posX.toFixed(1)}px, ${posY.toFixed(1)}px, ${z.toFixed(1)}px) rotateZ(${rotZ}deg) rotateY(${rotY}deg) scale(${scale.toFixed(3)})`;
         el.style.opacity = opacity.toFixed(2);
 
         // Critical: Portrait sits at z-index 20 (Z = 0).
