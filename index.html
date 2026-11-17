@@ -130,48 +130,6 @@
     .shirt-1{fill:var(--shirt-1);stroke:var(--shirt-1)}
     .hair-3{fill:var(--hair-3);stroke:var(--hair-3)}
 
-    /* Theme 2: Ultraviolet & Cyan Chrome */
-    body[data-theme="ultraviolet"] {
-      --bg-void: #05050d;
-      --bg-surface: #0d0c1d;
-      --bg-panel: #14122b;
-      --accent-primary: #00f5d4;
-      --accent-secondary: #b5179e;
-      --accent-tertiary: #7209b7;
-      --text-main: #eef4f8;
-      --text-muted: #7c8da6;
-      --portrait-glow: rgba(0, 245, 212, 0.4);
-      --portrait-rim: rgba(181, 23, 158, 0.45);
-    }
-
-    /* Theme 3: Thermal Infrared */
-    body[data-theme="thermal"] {
-      --bg-void: #090306;
-      --bg-surface: #180710;
-      --bg-panel: #240b18;
-      --accent-primary: #ffbe0b;
-      --accent-secondary: #fb5607;
-      --accent-tertiary: #ff006e;
-      --text-main: #fff3e6;
-      --text-muted: #b58392;
-      --portrait-glow: rgba(255, 0, 110, 0.5);
-      --portrait-rim: rgba(255, 190, 11, 0.45);
-    }
-
-    /* Theme 4: Raw Brutalist Gallery (High-Contrast Bone & Ink) */
-    body[data-theme="gallery"] {
-      --bg-void: #0c0c0c;
-      --bg-surface: #161616;
-      --bg-panel: #202020;
-      --accent-primary: #e8e4dc;
-      --accent-secondary: #ff3b00;
-      --accent-tertiary: #a39e93;
-      --text-main: #f7f4ef;
-      --text-muted: #78756f;
-      --portrait-glow: rgba(232, 228, 220, 0.32);
-      --portrait-rim: rgba(255, 59, 0, 0.35);
-    }
-
     * {
       box-sizing: border-box;
     }
@@ -500,7 +458,7 @@
   </style>
 </head>
 
-<body data-theme="default" class="antialiased selection:bg-[#FF331F] selection:text-[#F3EFE6]">
+<body class="antialiased selection:bg-[#FF331F] selection:text-[#F3EFE6]">
 
   <!-- SVG Filters for Artistic Portrait Displacement & Chiaroscuro Rim Lighting -->
   <svg class="hidden" width="0" height="0" aria-hidden="true">
@@ -549,16 +507,8 @@
         </div>
       </a>
 
-      <!-- Right: Maze Mode Toggle + Palette Shift + Scissors Mode -->
+      <!-- Right: Cut Dead Weight Interactive Mode -->
       <div class="flex items-center gap-2 sm:gap-2.5 font-mono text-[11px]">
-        <!-- Palette / Dimension Shift -->
-        <button id="theme-shift-btn" type="button"
-          class="px-2.5 sm:px-3 py-1.5 border border-hairline bg-surface hover:border-accent-2 text-main transition-all flex items-center gap-1.5 cursor-pointer"
-          title="Shift Color Dimension">
-          <i class="fa-solid fa-swatchbook text-accent-1"></i>
-          <span class="hidden sm:inline" id="theme-label">CHROMA: VERMILION</span>
-        </button>
-
         <!-- Cut Dead Weight Interactive Game Mode -->
         <button id="cutter-mode-btn" type="button"
           class="px-2.5 sm:px-3 py-1.5 border border-hairline bg-surface hover:border-accent-1 text-main transition-all flex items-center gap-1.5 cursor-pointer"
@@ -1493,27 +1443,7 @@
     updateClock();
 
     // -------------------------------------------------------------------------
-    // 1. PALETTE / DIMENSION SHIFT (4 AVANT-GARDE COLOR THEMES)
-    // -------------------------------------------------------------------------
-    const themes = [
-      { id: 'default', name: 'CHROMA: VERMILION' },
-      { id: 'ultraviolet', name: 'CHROMA: ULTRAVIOLET' },
-      { id: 'thermal', name: 'CHROMA: THERMAL IR' },
-      { id: 'gallery', name: 'CHROMA: RAW BONE' },
-    ];
-    let currentThemeIdx = 0;
-
-    document.getElementById('theme-shift-btn')?.addEventListener('click', () => {
-      currentThemeIdx = (currentThemeIdx + 1) % themes.length;
-      const t = themes[currentThemeIdx];
-      document.body.setAttribute('data-theme', t.id);
-      const lbl = document.getElementById('theme-label');
-      if (lbl) lbl.textContent = t.name;
-      showArtToast(`COLOR DIMENSION SHIFTED -> ${t.name}`);
-    });
-
-    // -------------------------------------------------------------------------
-    // 2. LOW-POLY SVG PORTRAIT SHATTER ENGINE
+    // 1. LOW-POLY SVG PORTRAIT SHATTER ENGINE
     // -------------------------------------------------------------------------
     let facetsShattered = false;
 
