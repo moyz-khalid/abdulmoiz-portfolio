@@ -667,11 +667,9 @@
               <div id="orbit-cards-ring" class="absolute inset-0 pointer-events-none" style="transform-style: preserve-3d;"></div>
             </div>
 
-            <!-- Orbit Speed & Tilt Controls Below Portrait -->
+            <!-- Orbit Controls Below Portrait -->
             <div class="flex items-center justify-center gap-4 font-mono text-[10px] text-muted-custom -mt-4 relative z-30">
               <span>DRAG RING OR HOVER CARDS TO INSPECT</span>
-              <span class="text-accent-1">▪</span>
-              <button type="button" onclick="reverseOrbitDirection()" class="text-accent-2 hover:underline cursor-pointer">[REVERSE ORBIT ⇄]</button>
             </div>
 
           </div>
@@ -1588,11 +1586,6 @@
         ringContainer.appendChild(card);
         orbitElements.push(card);
       });
-    }
-
-    function reverseOrbitDirection() {
-      orbitDirection *= -1;
-      showArtToast(orbitDirection > 0 ? 'ORBIT DIRECTION: FORWARD' : 'ORBIT DIRECTION: REVERSED');
     }
 
     function animateOrbitRing() {
