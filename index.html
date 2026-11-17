@@ -70,50 +70,6 @@
       --hair-3: #6f3b2f;
     }
 
-    /* Low-Poly Portrait Facet Mode 2: Noir Chiaroscuro (High-Contrast Bone, Obsidian & Vermilion) */
-    body[data-facet-mode="chiaroscuro"] {
-      --skin-11: #f5f2eb;
-      --skin-10: #e6e1d6;
-      --skin-9: #d4cec3;
-      --skin-8: #c2bbb0;
-      --skin-7: #aba499;
-      --skin-6: #918a7f;
-      --skin-5: #787167;
-      --skin-4: #5e584f;
-      --skin-3: #454039;
-      --skin-2: #ff331f;
-      --skin-1: #26231f;
-      --hair-1: #09080c;
-      --hair-2: #18151f;
-      --hair-3: #ff331f;
-      --shirt-1: #0d0c12;
-      --shirt-2: #171520;
-      --shirt-3: #242130;
-      --shirt-4: #d4ff00;
-    }
-
-    /* Low-Poly Portrait Facet Mode 3: Acid Thermal (Cyber Lime, Ultraviolet & Infrared) */
-    body[data-facet-mode="thermal"] {
-      --skin-11: #d4ff00;
-      --skin-10: #ffea00;
-      --skin-9: #ffbe0b;
-      --skin-8: #ff9000;
-      --skin-7: #fb5607;
-      --skin-6: #ff331f;
-      --skin-5: #ff006e;
-      --skin-4: #c9184a;
-      --skin-3: #8338ec;
-      --skin-2: #5a189a;
-      --skin-1: #3c096c;
-      --hair-1: #0b0514;
-      --hair-2: #240046;
-      --hair-3: #00f5d4;
-      --shirt-1: #10002b;
-      --shirt-2: #240046;
-      --shirt-3: #3c096c;
-      --shirt-4: #00f5d4;
-    }
-
     /* Low-Poly Portrait Core SVG Styling */
     .portrait {
       width: 100%;
@@ -129,14 +85,8 @@
       transition:
         fill 0.45s cubic-bezier(0.16, 1, 0.3, 1),
         stroke 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 0.3s ease;
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       transform-origin: center center;
-      cursor: crosshair;
-    }
-    .portrait path:hover {
-      filter: brightness(1.22);
-      stroke: var(--accent-secondary);
     }
 
     /* Shatter / Explode Facets Mode */
@@ -455,17 +405,6 @@
       z-index: 50;
     }
 
-    /* Reality Scramble Distortion Mode */
-    body.reality-scrambled .scramble-target {
-      transform: skewX(-4deg) rotate(-1.5deg);
-    }
-    body.reality-scrambled .scramble-target-alt {
-      transform: skewX(4.5deg) rotate(1.8deg);
-    }
-    .scramble-target, .scramble-target-alt {
-      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
     /* =========================================================================
        PORTRAIT FILTER MODES (HALFTONE, THERMAL, CHROMA GLITCH, LIQUID)
        ========================================================================= */
@@ -651,7 +590,6 @@
   <aside id="labyrinth-hud" class="fixed bottom-5 right-5 z-[88] hidden sm:flex flex-col bg-panel/95 border border-hairline p-3 shadow-2xl backdrop-blur-md w-52">
     <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom border-b border-hairline pb-1.5 mb-2">
       <span>LABYRINTH RADAR</span>
-      <button type="button" onclick="scrambleReality()" class="text-accent-2 hover:underline cursor-pointer">[WARP ⟳]</button>
     </div>
     <!-- Mini Node Map SVG -->
     <svg viewBox="0 0 180 90" class="w-full h-20 bg-void border border-hairline mb-2">
@@ -697,7 +635,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-4 items-center">
 
           <!-- LEFT 6 COLUMNS: Staggered Editorial Brutalist Typography (Like 'WORK THAT BEGINS WITH STRATEGY.') -->
-          <div class="lg:col-span-6 space-y-8 relative z-30 scramble-target">
+          <div class="lg:col-span-6 space-y-8 relative z-30">
             <div class="inline-flex items-center gap-2.5 px-3 py-1 border border-hairline bg-surface/90 font-mono text-[11px] tracking-[0.2em] uppercase text-accent-2">
               <span>:: E-COMMERCE ARCHITECT</span>
               <span class="text-accent-1">/</span>
@@ -724,32 +662,14 @@
                 &ldquo;Revenue is the only metric that pays rent. I&rsquo;m not an e-commerce guru posing next to a rented Huracán&mdash;I&rsquo;m an IT nerd from Lahore who automates boring tasks into extinction. If a human has to click it twice, I build a system so nobody clicks it again.&rdquo;
               </p>
 
-              <!-- Bracketed Editorial Triggers (Exact match to '[ EXPLORE PROJECT ]  [ START A PROJECT ]' in reference) -->
-              <div class="pt-4 flex flex-wrap items-center gap-5 font-mono text-xs tracking-[0.2em] uppercase">
-                <a href="#node-archive" class="text-main hover:text-accent-2 transition-colors flex items-center gap-1.5">
-                  <span>[ EXPLORE LIVE STORES ↗ ]</span>
-                </a>
-                <button type="button" onclick="scrambleReality()" class="text-accent-1 hover:text-accent-2 transition-colors cursor-pointer">
-                  <span>[ CONFUSE THE MAZE ⟳ ]</span>
-                </button>
-              </div>
             </div>
           </div>
 
           <!-- RIGHT 6 COLUMNS: DRAMATIC STUDIO PORTRAIT + 3D ORBITING CAROUSEL RING -->
           <div class="lg:col-span-6 relative hero-3d-stage">
 
-            <!-- Interactive Low-Poly Facet Palette & Shatter Switcher -->
+            <!-- Interactive Low-Poly Shatter Mode -->
             <div class="absolute top-2 right-2 z-40 flex flex-wrap gap-1.5 font-mono text-[10px]">
-              <button type="button" onclick="setPortraitMode('original')" data-mode="original" class="portrait-mode-btn px-2.5 py-1 bg-accent-1 text-white font-bold uppercase cursor-pointer">
-                ORIGINAL LOW-POLY
-              </button>
-              <button type="button" onclick="setPortraitMode('chiaroscuro')" data-mode="chiaroscuro" class="portrait-mode-btn px-2.5 py-1 bg-surface border border-hairline text-main uppercase cursor-pointer hover:border-accent-2">
-                NOIR CHIAROSCURO
-              </button>
-              <button type="button" onclick="setPortraitMode('thermal')" data-mode="thermal" class="portrait-mode-btn px-2.5 py-1 bg-surface border border-hairline text-main uppercase cursor-pointer hover:border-accent-2">
-                ACID THERMAL
-              </button>
               <button type="button" onclick="toggleShatterFacets()" id="shatter-facets-btn" class="px-2.5 py-1 bg-surface border border-hairline text-accent-2 uppercase cursor-pointer hover:border-accent-1">
                 [SHATTER FACETS ✦]
               </button>
@@ -872,7 +792,7 @@
         </div>
 
         <!-- Center Monumental Statement with Bright/Dimmed Typography Split -->
-        <div class="max-w-4xl mx-auto text-center px-4 scramble-target-alt">
+        <div class="max-w-4xl mx-auto text-center px-4">
           <p class="font-mono text-xs tracking-[0.28em] text-accent-1 uppercase mb-5">
             :: THE OPERATING DOCTRINE (4 LAWS OF MARGIN)
           </p>
@@ -1593,30 +1513,9 @@
     });
 
     // -------------------------------------------------------------------------
-    // 2. LOW-POLY SVG PORTRAIT FACET ENGINE (PALETTE REMAPPING + SHATTER MODE)
+    // 2. LOW-POLY SVG PORTRAIT SHATTER ENGINE
     // -------------------------------------------------------------------------
-    let currentPortraitMode = 'original'; // 'original' | 'chiaroscuro' | 'thermal'
     let facetsShattered = false;
-
-    function setPortraitMode(mode) {
-      currentPortraitMode = mode;
-      if (mode === 'original') {
-        document.body.removeAttribute('data-facet-mode');
-      } else {
-        document.body.setAttribute('data-facet-mode', mode);
-      }
-
-      document.querySelectorAll('.portrait-mode-btn').forEach((btn) => {
-        if (btn.getAttribute('data-mode') === mode) {
-          btn.classList.add('bg-accent-1', 'text-white', 'font-bold');
-          btn.classList.remove('bg-surface', 'text-main');
-        } else {
-          btn.classList.remove('bg-accent-1', 'text-white', 'font-bold');
-          btn.classList.add('bg-surface', 'text-main');
-        }
-      });
-      showArtToast(`LOW-POLY FACET PALETTE: ${mode.toUpperCase()}`);
-    }
 
     function toggleShatterFacets() {
       facetsShattered = !facetsShattered;
@@ -1943,23 +1842,6 @@
     window.addEventListener('mouseup', () => {
       isDraggingMaze = false;
     });
-
-    // Reality Scramble Toggle
-    let realityScrambled = false;
-    function scrambleReality() {
-      realityScrambled = !realityScrambled;
-      document.body.classList.toggle('reality-scrambled', realityScrambled);
-      reverseOrbitDirection();
-      if (realityScrambled) {
-        setPortraitMode('thermal');
-        if (!facetsShattered) toggleShatterFacets();
-        showArtToast('PARADOX ENGAGED: LOW-POLY FACETS & ORBIT INVERTED');
-      } else {
-        setPortraitMode('original');
-        if (facetsShattered) toggleShatterFacets();
-        showArtToast('GEOMETRY STABILIZED');
-      }
-    }
 
     // -------------------------------------------------------------------------
     // 6. "CUT THE DEAD WEIGHT" INTERACTIVE SCISSORS MINI-GAME
