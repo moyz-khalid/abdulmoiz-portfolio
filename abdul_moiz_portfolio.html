@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>äbdul moiz™ — E-Commerce Systems Artist & Spatial Labyrinth</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Syne (Monumental Brutalist), Space Grotesk (Swiss Editorial), Instrument Serif (Avant-Garde Accent), JetBrains Mono (System Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            space: ['Space Grotesk', 'sans-serif'],
+            serif: ['Instrument Serif', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          gridTemplateColumns: {
+            '26': 'repeat(26, minmax(0, 1fr))',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg-void: #07060a;
+      --bg-surface: #110e18;
+      --bg-panel: #171321;
+      --accent-primary: #ff331f;   /* Electric Vermilion */
+      --accent-secondary: #d4ff00; /* Cyber Acid Lime */
+      --accent-tertiary: #8a2be2;  /* Ultraviolet Aura */
+      --text-main: #f3efe6;        /* Editorial Warm Bone */
+      --text-muted: #8e879c;
+      --border-hairline: rgba(243, 239, 230, 0.14);
+      --portrait-glow: rgba(255, 51, 31, 0.42);
+      --portrait-rim: rgba(212, 255, 0, 0.35);
+      --maze-skew: 0deg;
+
+      /* Exact Low-Poly Portrait Palette Variables from low-poly-portrait.html */
+      --skin-11: #fdc190;
+      --hair-1: #2d1f27;
+      --shirt-3: #2f5089;
+      --hair-2: #483640;
+      --shirt-2: #283e6c;
+      --shirt-4: #39659f;
+      --skin-6: #e29063;
+      --skin-10: #fbb584;
+      --skin-7: #eb9b6c;
+      --skin-9: #f0a575;
+      --skin-1: #9b553b;
+      --skin-2: #ca6354;
+      --skin-4: #d28059;
+      --skin-8: #f3977a;
+      --skin-3: #c4734f;
+      --skin-5: #c98460;
+      --shirt-1: #1f2c50;
+      --hair-3: #6f3b2f;
+    }
+
+    /* Low-Poly Portrait Facet Mode 2: Noir Chiaroscuro (High-Contrast Bone, Obsidian & Vermilion) */
+    body[data-facet-mode="chiaroscuro"] {
+      --skin-11: #f5f2eb;
+      --skin-10: #e6e1d6;
+      --skin-9: #d4cec3;
+      --skin-8: #c2bbb0;
+      --skin-7: #aba499;
+      --skin-6: #918a7f;
+      --skin-5: #787167;
+      --skin-4: #5e584f;
+      --skin-3: #454039;
+      --skin-2: #ff331f;
+      --skin-1: #26231f;
+      --hair-1: #09080c;
+      --hair-2: #18151f;
+      --hair-3: #ff331f;
+      --shirt-1: #0d0c12;
+      --shirt-2: #171520;
+      --shirt-3: #242130;
+      --shirt-4: #d4ff00;
+    }
+
+    /* Low-Poly Portrait Facet Mode 3: Acid Thermal (Cyber Lime, Ultraviolet & Infrared) */
+    body[data-facet-mode="thermal"] {
+      --skin-11: #d4ff00;
+      --skin-10: #ffea00;
+      --skin-9: #ffbe0b;
+      --skin-8: #ff9000;
+      --skin-7: #fb5607;
+      --skin-6: #ff331f;
+      --skin-5: #ff006e;
+      --skin-4: #c9184a;
+      --skin-3: #8338ec;
+      --skin-2: #5a189a;
+      --skin-1: #3c096c;
+      --hair-1: #0b0514;
+      --hair-2: #240046;
+      --hair-3: #00f5d4;
+      --shirt-1: #10002b;
+      --shirt-2: #240046;
+      --shirt-3: #3c096c;
+      --shirt-4: #00f5d4;
+    }
+
+    /* Low-Poly Portrait Core SVG Styling */
+    .portrait {
+      width: 100%;
+      height: 100%;
+      display: block;
+      shape-rendering: geometricPrecision;
+      overflow: visible;
+      filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.85));
+    }
+    .portrait path {
+      fill-rule: evenodd;
+      stroke-linejoin: round;
+      transition:
+        fill 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        stroke 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.3s ease;
+      transform-origin: center center;
+      cursor: crosshair;
+    }
+    .portrait path:hover {
+      filter: brightness(1.22);
+      stroke: var(--accent-secondary);
+    }
+
+    /* Shatter / Explode Facets Mode */
+    body.facets-shattered .portrait path:nth-child(4n+1) {
+      transform: translate(-18px, -14px) rotate(-2.5deg) scale(0.97);
+      stroke: var(--accent-secondary);
+      stroke-width: 4px;
+    }
+    body.facets-shattered .portrait path:nth-child(4n+2) {
+      transform: translate(19px, -10px) rotate(2.2deg) scale(0.97);
+      stroke: var(--accent-primary);
+      stroke-width: 4px;
+    }
+    body.facets-shattered .portrait path:nth-child(4n+3) {
+      transform: translate(-14px, 16px) rotate(1.8deg) scale(0.97);
+      stroke: #00f5d4;
+      stroke-width: 4px;
+    }
+    body.facets-shattered .portrait path:nth-child(4n) {
+      transform: translate(16px, 18px) rotate(-2deg) scale(0.97);
+      stroke: var(--text-main);
+      stroke-width: 4px;
+    }
+
+    .skin-11{fill:var(--skin-11);stroke:var(--skin-11)}
+    .hair-1{fill:var(--hair-1);stroke:var(--hair-1)}
+    .shirt-3{fill:var(--shirt-3);stroke:var(--shirt-3)}
+    .hair-2{fill:var(--hair-2);stroke:var(--hair-2)}
+    .shirt-2{fill:var(--shirt-2);stroke:var(--shirt-2)}
+    .shirt-4{fill:var(--shirt-4);stroke:var(--shirt-4)}
+    .skin-6{fill:var(--skin-6);stroke:var(--skin-6)}
+    .skin-10{fill:var(--skin-10);stroke:var(--skin-10)}
+    .skin-7{fill:var(--skin-7);stroke:var(--skin-7)}
+    .skin-9{fill:var(--skin-9);stroke:var(--skin-9)}
+    .skin-1{fill:var(--skin-1);stroke:var(--skin-1)}
+    .skin-2{fill:var(--skin-2);stroke:var(--skin-2)}
+    .skin-4{fill:var(--skin-4);stroke:var(--skin-4)}
+    .skin-8{fill:var(--skin-8);stroke:var(--skin-8)}
+    .skin-3{fill:var(--skin-3);stroke:var(--skin-3)}
+    .skin-5{fill:var(--skin-5);stroke:var(--skin-5)}
+    .shirt-1{fill:var(--shirt-1);stroke:var(--shirt-1)}
+    .hair-3{fill:var(--hair-3);stroke:var(--hair-3)}
+
+    /* Theme 2: Ultraviolet & Cyan Chrome */
+    body[data-theme="ultraviolet"] {
+      --bg-void: #05050d;
+      --bg-surface: #0d0c1d;
+      --bg-panel: #14122b;
+      --accent-primary: #00f5d4;
+      --accent-secondary: #b5179e;
+      --accent-tertiary: #7209b7;
+      --text-main: #eef4f8;
+      --text-muted: #7c8da6;
+      --portrait-glow: rgba(0, 245, 212, 0.4);
+      --portrait-rim: rgba(181, 23, 158, 0.45);
+    }
+
+    /* Theme 3: Thermal Infrared */
+    body[data-theme="thermal"] {
+      --bg-void: #090306;
+      --bg-surface: #180710;
+      --bg-panel: #240b18;
+      --accent-primary: #ffbe0b;
+      --accent-secondary: #fb5607;
+      --accent-tertiary: #ff006e;
+      --text-main: #fff3e6;
+      --text-muted: #b58392;
+      --portrait-glow: rgba(255, 0, 110, 0.5);
+      --portrait-rim: rgba(255, 190, 11, 0.45);
+    }
+
+    /* Theme 4: Raw Brutalist Gallery (High-Contrast Bone & Ink) */
+    body[data-theme="gallery"] {
+      --bg-void: #0c0c0c;
+      --bg-surface: #161616;
+      --bg-panel: #202020;
+      --accent-primary: #e8e4dc;
+      --accent-secondary: #ff3b00;
+      --accent-tertiary: #a39e93;
+      --text-main: #f7f4ef;
+      --text-muted: #78756f;
+      --portrait-glow: rgba(232, 228, 220, 0.32);
+      --portrait-rim: rgba(255, 59, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-void);
+      color: var(--text-main);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.4s ease;
+    }
+
+    /* Subtle Film Noise Overlay */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9990;
+      opacity: 0.045;
+      background-image: radial-gradient(rgba(255,255,255,0.6) 1px, transparent 0);
+      background-size: 3px 3px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-void);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-primary);
+    }
+
+    /* Dynamic Theme Utility Classes */
+    .bg-void { background-color: var(--bg-void); }
+    .bg-surface { background-color: var(--bg-surface); }
+    .bg-panel { background-color: var(--bg-panel); }
+    .text-main { color: var(--text-main); }
+    .text-muted-custom { color: var(--text-muted); }
+    .text-accent-1 { color: var(--accent-primary); }
+    .text-accent-2 { color: var(--accent-secondary); }
+    .bg-accent-1 { background-color: var(--accent-primary); }
+    .bg-accent-2 { background-color: var(--accent-secondary); }
+    .border-hairline { border-color: var(--border-hairline); }
+    .border-accent-1 { border-color: var(--accent-primary); }
+    .border-accent-2 { border-color: var(--accent-secondary); }
+
+    /* =========================================================================
+       3D ORBITING RING AROUND PORTRAIT (INSPIRED BY image_28d089.jpg)
+       ========================================================================= */
+    .hero-3d-stage {
+      perspective: 1400px;
+      transform-style: preserve-3d;
+    }
+
+    .orbit-scene {
+      position: relative;
+      width: 100%;
+      height: 760px;
+      transform-style: preserve-3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Central Studio Cutout Portrait Container at Z = 0 */
+    .portrait-monolith {
+      position: relative;
+      width: 450px;
+      height: 630px;
+      transform: translateZ(0px);
+      transform-style: preserve-3d;
+      z-index: 20;
+      pointer-events: auto;
+    }
+
+    @media (min-width: 640px) {
+      .portrait-monolith {
+        width: 520px;
+        height: 690px;
+      }
+    }
+
+    /* Studio Radial Aura Behind Portrait (like image_28d089.jpg) */
+    .studio-backdrop-glow {
+      position: absolute;
+      inset: -12% -18%;
+      background:
+        radial-gradient(circle at 62% 38%, var(--portrait-glow) 0%, rgba(123, 44, 191, 0.22) 38%, transparent 72%),
+        radial-gradient(circle at 32% 55%, var(--portrait-rim) 0%, transparent 55%);
+      filter: blur(28px);
+      transform: translateZ(-60px);
+      pointer-events: none;
+    }
+
+    /* 3D Orbiting Card Item */
+    .orbit-card {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      width: 158px;
+      height: 104px;
+      margin-left: -79px;
+      margin-top: -52px;
+      transform-style: preserve-3d;
+      backface-visibility: visible;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .orbit-card {
+        width: 184px;
+        height: 118px;
+        margin-left: -92px;
+        margin-top: -59px;
+      }
+    }
+
+    .orbit-card-inner {
+      width: 100%;
+      height: 100%;
+      background: rgba(14, 12, 20, 0.92);
+      border: 1px solid rgba(243, 239, 230, 0.28);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .orbit-card:hover .orbit-card-inner {
+      border-color: var(--accent-secondary);
+      box-shadow: 0 0 28px var(--portrait-rim);
+    }
+
+    /* =========================================================================
+       CRISS-CROSSING DIAGONAL TICKER TAPES (INSPIRED BY image_28d089.jpg)
+       ========================================================================= */
+    @keyframes tickerLeft {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    @keyframes tickerRight {
+      0% { transform: translate3d(-50%, 0, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+
+    .diagonal-ribbon {
+      position: relative;
+      width: 130vw;
+      left: -15vw;
+      overflow: hidden;
+      padding: 8px 0;
+      background: var(--text-main);
+      color: var(--bg-void);
+      border-top: 2px solid var(--bg-void);
+      border-bottom: 2px solid var(--bg-void);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+      z-index: 30;
+    }
+
+    .diagonal-ribbon.dark-ribbon {
+      background: var(--bg-panel);
+      color: var(--text-main);
+      border-top: 1px solid var(--accent-primary);
+      border-bottom: 1px solid var(--accent-primary);
+    }
+
+    .diagonal-ribbon.lime-ribbon {
+      background: var(--accent-secondary);
+      color: #07060a;
+    }
+
+    .ribbon-track-left {
+      display: flex;
+      width: max-content;
+      animation: tickerLeft 26s linear infinite;
+    }
+    .ribbon-track-right {
+      display: flex;
+      width: max-content;
+      animation: tickerRight 29s linear infinite;
+    }
+
+    /* =========================================================================
+       LABYRINTH / MAZE SPATIAL OVERVIEW MODE (CONFUSING ARTISTIC ARCHITECTURE)
+       ========================================================================= */
+    #labyrinth-world {
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: center top;
+    }
+
+    body.maze-overview-active {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    body.maze-overview-active #labyrinth-world {
+      position: fixed;
+      inset: 0;
+      overflow: visible;
+      cursor: grab;
+    }
+
+    body.maze-overview-active #labyrinth-world:active {
+      cursor: grabbing;
+    }
+
+    body.maze-overview-active .maze-node-section {
+      position: absolute !important;
+      width: 1180px !important;
+      border: 2px solid var(--accent-primary);
+      box-shadow: 0 35px 100px rgba(0, 0, 0, 0.92), 0 0 0 1px rgba(212, 255, 0, 0.25);
+      border-radius: 16px;
+      background: var(--bg-void);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+
+    body.maze-overview-active .maze-node-section:hover {
+      border-color: var(--accent-secondary);
+      box-shadow: 0 40px 120px rgba(255, 51, 31, 0.35);
+      z-index: 50;
+    }
+
+    /* Reality Scramble Distortion Mode */
+    body.reality-scrambled .scramble-target {
+      transform: skewX(-4deg) rotate(-1.5deg);
+    }
+    body.reality-scrambled .scramble-target-alt {
+      transform: skewX(4.5deg) rotate(1.8deg);
+    }
+    .scramble-target, .scramble-target-alt {
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* =========================================================================
+       PORTRAIT FILTER MODES (HALFTONE, THERMAL, CHROMA GLITCH, LIQUID)
+       ========================================================================= */
+    .portrait-canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(to bottom, black 72%, transparent 99%);
+      -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 99%);
+    }
+
+    /* Scanline & Brutalist Crosshair Overlay on Portrait */
+    .portrait-scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.28) 3px,
+        rgba(0, 0, 0, 0.28) 4px
+      );
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    /* =========================================================================
+       SPLICED / DIAGONALLY SLICED GIANT FOOTER WORDMARK (like image_28d089.jpg)
+       ========================================================================= */
+    .sliced-wordmark-wrap {
+      position: relative;
+      height: clamp(110px, 19vw, 250px);
+      width: 100%;
+      overflow: hidden;
+      user-select: none;
+      cursor: ew-resize;
+    }
+
+    .sliced-layer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.8rem, 15.5vw, 15rem);
+      letter-spacing: -0.05em;
+      line-height: 0.85;
+      white-space: nowrap;
+      color: rgba(243, 239, 230, 0.22);
+      transition: transform 0.15s ease-out, color 0.3s ease;
+    }
+
+    .sliced-wordmark-wrap:hover .sliced-layer {
+      color: rgba(243, 239, 230, 0.42);
+    }
+
+    .sliced-layer.slice-top {
+      clip-path: polygon(0 0, 100% 0, 100% 36%, 0 48%);
+      transform: translateX(-14px) skewX(-8deg);
+    }
+    .sliced-layer.slice-mid {
+      clip-path: polygon(0 45%, 100% 33%, 100% 68%, 0 78%);
+      transform: translateX(18px) skewX(12deg);
+      color: var(--accent-primary);
+      opacity: 0.72;
+    }
+    .sliced-layer.slice-bot {
+      clip-path: polygon(0 75%, 100% 65%, 100% 100%, 0 100%);
+      transform: translateX(-10px) skewX(-5deg);
+    }
+
+    /* Brutalist Table Row Hover */
+    .archive-row {
+      transition: background-color 0.25s ease, padding-left 0.25s ease;
+    }
+    .archive-row:hover {
+      background-color: rgba(255, 51, 31, 0.09);
+      padding-left: 1rem;
+    }
+
+    /* Dead-Weight Floating Target Pill */
+    @keyframes floatAnomaly {
+      0%, 100% { transform: translateY(0px) rotate(-2deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
+    }
+    .dead-weight-pill {
+      animation: floatAnomaly 3.6s ease-in-out infinite;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+
+<body data-theme="default" class="antialiased selection:bg-[#FF331F] selection:text-[#F3EFE6]">
+
+  <!-- SVG Filters for Artistic Portrait Displacement & Chiaroscuro Rim Lighting -->
+  <svg class="hidden" width="0" height="0" aria-hidden="true">
+    <defs>
+      <filter id="liquid-warp-filter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence id="turbulence-node" type="fractalNoise" baseFrequency="0.015 0.03" numOctaves="2" result="noise" seed="2" />
+        <feDisplacementMap id="displacement-node" in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Subtle Film Grain Overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- NON-BLOCKING TELEMETRY TOAST -->
+  <div id="art-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+    <div class="bg-panel border border-accent-2 px-5 py-3 shadow-2xl flex items-center gap-3">
+      <span class="w-2.5 h-2.5 rounded-full bg-accent-2 animate-ping"></span>
+      <span id="art-toast-text" class="font-mono text-xs tracking-widest uppercase text-main">SYSTEMS ONLINE</span>
+    </div>
+  </div>
+
+  <!-- DEAD WEIGHT CUTTER OVERLAY LAYER (Spawns Interactive Manual Tasks to Slice) -->
+  <div id="deadweight-arena" class="fixed inset-0 pointer-events-none z-[85] overflow-hidden hidden"></div>
+
+  <!-- =========================================================================
+       PERSISTENT TOP EDITORIAL BRUTALIST HEADER (INSPIRED BY image_28d089.jpg)
+       ========================================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-[90] bg-void/85 backdrop-blur-md border-b border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+
+      <!-- Left: Coordinates & Profit Saved Counter -->
+      <div class="hidden md:flex items-center gap-4 font-mono text-[11px] tracking-widest text-muted-custom">
+        <span class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-accent-2 animate-pulse"></span>
+          LHR_PK // <span id="pkt-clock">23:23 PKT</span>
+        </span>
+        <span class="text-accent-1">▪</span>
+        <span id="profit-harvest-counter" class="text-accent-2 font-semibold">DEAD WEIGHT CUT: $0 SAVED</span>
+      </div>
+
+      <!-- Center: Iconic Lowercase Brutalist Wordmark (like 'ëthan mercer' in image_28d089.jpg) -->
+      <a href="#node-hero" onclick="exitMazeIfActive()" class="text-center group">
+        <div class="font-syne font-extrabold text-xl sm:text-2xl tracking-tight text-main group-hover:text-accent-1 transition-colors">
+          äbdul moiz<sup class="font-mono text-[10px] text-accent-2 ml-0.5">TM</sup>
+        </div>
+      </a>
+
+      <!-- Right: Maze Mode Toggle + Palette Shift + Scissors Mode -->
+      <div class="flex items-center gap-2 sm:gap-2.5 font-mono text-[11px]">
+        <!-- Palette / Dimension Shift -->
+        <button id="theme-shift-btn" type="button"
+          class="px-2.5 sm:px-3 py-1.5 border border-hairline bg-surface hover:border-accent-2 text-main transition-all flex items-center gap-1.5 cursor-pointer"
+          title="Shift Color Dimension">
+          <i class="fa-solid fa-swatchbook text-accent-1"></i>
+          <span class="hidden sm:inline" id="theme-label">CHROMA: VERMILION</span>
+        </button>
+
+        <!-- Cut Dead Weight Interactive Game Mode -->
+        <button id="cutter-mode-btn" type="button"
+          class="px-2.5 sm:px-3 py-1.5 border border-hairline bg-surface hover:border-accent-1 text-main transition-all flex items-center gap-1.5 cursor-pointer"
+          title="Slice manual e-commerce tasks for instant ROI">
+          <i class="fa-solid fa-scissors text-accent-2"></i>
+          <span class="hidden lg:inline">CUT DEAD WEIGHT</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Sub-Navigation Bar (Centered like 'ABOUT ▪ PROJECTS ▪ CASE STUDY' in image_28d089.jpg) -->
+    <div class="border-t border-hairline py-2 px-4 bg-void/60 overflow-x-auto no-scrollbar">
+      <nav class="max-w-5xl mx-auto flex flex-nowrap whitespace-nowrap items-center justify-center gap-3 sm:gap-6 font-mono text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.22em] uppercase text-muted-custom">
+        <a href="#node-hero" onclick="focusMazeNode(0)" class="hover:text-main transition-colors shrink-0">01. STRATEGY</a>
+        <span class="text-accent-1 shrink-0">▪</span>
+        <a href="#node-manifesto" onclick="focusMazeNode(1)" class="hover:text-main transition-colors shrink-0">02. MANIFESTO</a>
+        <span class="text-accent-2 shrink-0">▪</span>
+        <a href="#node-archive" onclick="focusMazeNode(2)" class="hover:text-main transition-colors shrink-0">03. STORE ARCHIVE</a>
+        <span class="text-accent-1 shrink-0">▪</span>
+        <a href="#node-collage" onclick="focusMazeNode(3)" class="hover:text-main transition-colors shrink-0">04. COLLAGE LAB</a>
+        <span class="text-accent-2 shrink-0">▪</span>
+        <a href="#node-contact" onclick="focusMazeNode(4)" class="hover:text-main transition-colors shrink-0">05. TERMINAL</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- FLOATING CORNER LABYRINTH MINIMAP HUD -->
+  <aside id="labyrinth-hud" class="fixed bottom-5 right-5 z-[88] hidden sm:flex flex-col bg-panel/95 border border-hairline p-3 shadow-2xl backdrop-blur-md w-52">
+    <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom border-b border-hairline pb-1.5 mb-2">
+      <span>LABYRINTH RADAR</span>
+      <button type="button" onclick="scrambleReality()" class="text-accent-2 hover:underline cursor-pointer">[WARP ⟳]</button>
+    </div>
+    <!-- Mini Node Map SVG -->
+    <svg viewBox="0 0 180 90" class="w-full h-20 bg-void border border-hairline mb-2">
+      <!-- Connecting Maze Paths -->
+      <path d="M 25 25 C 65 10, 75 70, 95 45 C 115 20, 135 75, 160 35" stroke="rgba(255,51,31,0.45)" stroke-width="1.5" fill="none" stroke-dasharray="3 3" />
+      <path d="M 25 25 L 60 70 L 125 68 L 160 35" stroke="rgba(212,255,0,0.3)" stroke-width="1" fill="none" />
+      <!-- Clickable Node Dots -->
+      <circle cx="25" cy="25" r="5" fill="#ff331f" class="cursor-pointer" onclick="focusMazeNode(0)" />
+      <circle cx="60" cy="70" r="4" fill="#f3efe6" class="cursor-pointer" onclick="focusMazeNode(1)" />
+      <circle cx="95" cy="45" r="4.5" fill="#d4ff00" class="cursor-pointer" onclick="focusMazeNode(2)" />
+      <circle cx="125" cy="68" r="4" fill="#f3efe6" class="cursor-pointer" onclick="focusMazeNode(3)" />
+      <circle cx="160" cy="35" r="5" fill="#ff331f" class="cursor-pointer" onclick="focusMazeNode(4)" />
+      <!-- Active Pulse Indicator -->
+      <circle id="radar-active-dot" cx="25" cy="25" r="8" stroke="#d4ff00" stroke-width="1.5" fill="none" />
+    </svg>
+    <div class="flex items-center justify-between font-mono text-[10px]">
+      <span id="hud-node-name" class="text-main truncate">NODE 01 // STRATEGY</span>
+      <span class="text-accent-2">5+ YRS</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       SPATIAL LABYRINTH WORLD WRAPPER (Supports Both Scroll & 2D Maze Dragging)
+       ========================================================================= -->
+  <div id="labyrinth-world" class="pt-24 relative">
+
+    <!-- SVG Connecting Data Pipes (Visible when zoomed out in 2D Maze View) -->
+    <svg id="maze-pipes-svg" class="hidden fixed inset-0 w-[4200px] h-[3200px] pointer-events-none z-0" viewBox="0 0 4200 3200">
+      <path d="M 700 500 C 1450 200, 1600 900, 2100 450" stroke="#ff331f" stroke-width="4" fill="none" stroke-dasharray="14 10" />
+      <path d="M 2100 450 C 2600 950, 900 1300, 800 1650" stroke="#d4ff00" stroke-width="4" fill="none" stroke-dasharray="10 8" />
+      <path d="M 800 1650 C 1500 1900, 1900 1400, 2350 1700" stroke="#ff331f" stroke-width="4" fill="none" />
+      <path d="M 2350 1700 C 2600 2200, 1400 2450, 1550 2650" stroke="#d4ff00" stroke-width="4" fill="none" stroke-dasharray="12 12" />
+    </svg>
+
+    <!-- =======================================================================
+         NODE 01: HERO SECTION (MONUMENTAL STAGGERED TYPE + 3D ORBITING PORTRAIT)
+         Directly inspired by the left half of image_28d089.jpg
+         ======================================================================= -->
+    <section id="node-hero" data-maze-x="80" data-maze-y="80" data-maze-rot="-2"
+      class="maze-node-section relative min-h-[92vh] flex flex-col justify-between overflow-hidden border-b border-hairline">
+
+      <div class="max-w-[1440px] mx-auto w-full px-4 sm:px-8 lg:px-12 pt-6 pb-16 my-auto relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-4 items-center">
+
+          <!-- LEFT 6 COLUMNS: Staggered Editorial Brutalist Typography (Like 'WORK THAT BEGINS WITH STRATEGY.') -->
+          <div class="lg:col-span-6 space-y-8 relative z-30 scramble-target">
+            <div class="inline-flex items-center gap-2.5 px-3 py-1 border border-hairline bg-surface/90 font-mono text-[11px] tracking-[0.2em] uppercase text-accent-2">
+              <span>:: E-COMMERCE ARCHITECT</span>
+              <span class="text-accent-1">/</span>
+              <span>NOT YOUR AVERAGE "GURU"</span>
+            </div>
+
+            <!-- Staggered Brutalist Headline Matching Reference Rhythm -->
+            <h1 class="font-syne font-extrabold text-4xl sm:text-6xl xl:text-[4.55rem] leading-[0.94] tracking-tight uppercase text-main select-none">
+              <span class="block sm:pl-12">REVENUE THAT</span>
+              <span class="flex items-baseline justify-between max-w-xl">
+                <span>BEGINS</span>
+                <span class="font-serif italic font-normal lowercase text-accent-2 text-5xl sm:text-7xl px-2">with</span>
+                <span>SYSTEMS.</span>
+              </span>
+              <span class="block text-accent-1 mt-1">NOT HYPE.</span>
+            </h1>
+
+            <!-- Witty, Humble & Bold Editorial Subcopy Block -->
+            <div class="max-w-md sm:pl-12 space-y-4">
+              <p class="font-mono text-[11px] sm:text-xs uppercase tracking-[0.14em] leading-relaxed text-muted-custom">
+                A SELECTION OF MULTI-PLATFORM REVENUE ENGINES, CUSTOM BROWSER EXTENSIONS, AND COMPETITOR ESPIONAGE DEVELOPED OVER 5+ YEARS ACROSS <span class="text-main">WALMART, ETSY, AMAZON, AND SHOPIFY</span>.
+              </p>
+              <p class="text-sm sm:text-base text-main/90 leading-relaxed border-l-2 border-accent-1 pl-4">
+                &ldquo;Revenue is the only metric that pays rent. I&rsquo;m not an e-commerce guru posing next to a rented Huracán&mdash;I&rsquo;m an IT nerd from Lahore who automates boring tasks into extinction. If a human has to click it twice, I build a system so nobody clicks it again.&rdquo;
+              </p>
+
+              <!-- Bracketed Editorial Triggers (Exact match to '[ EXPLORE PROJECT ]  [ START A PROJECT ]' in reference) -->
+              <div class="pt-4 flex flex-wrap items-center gap-5 font-mono text-xs tracking-[0.2em] uppercase">
+                <a href="#node-archive" class="text-main hover:text-accent-2 transition-colors flex items-center gap-1.5">
+                  <span>[ EXPLORE LIVE STORES ↗ ]</span>
+                </a>
+                <button type="button" onclick="scrambleReality()" class="text-accent-1 hover:text-accent-2 transition-colors cursor-pointer">
+                  <span>[ CONFUSE THE MAZE ⟳ ]</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT 6 COLUMNS: DRAMATIC STUDIO PORTRAIT + 3D ORBITING CAROUSEL RING -->
+          <div class="lg:col-span-6 relative hero-3d-stage">
+
+            <!-- Interactive Low-Poly Facet Palette & Shatter Switcher -->
+            <div class="absolute top-2 right-2 z-40 flex flex-wrap gap-1.5 font-mono text-[10px]">
+              <button type="button" onclick="setPortraitMode('original')" data-mode="original" class="portrait-mode-btn px-2.5 py-1 bg-accent-1 text-white font-bold uppercase cursor-pointer">
+                ORIGINAL LOW-POLY
+              </button>
+              <button type="button" onclick="setPortraitMode('chiaroscuro')" data-mode="chiaroscuro" class="portrait-mode-btn px-2.5 py-1 bg-surface border border-hairline text-main uppercase cursor-pointer hover:border-accent-2">
+                NOIR CHIAROSCURO
+              </button>
+              <button type="button" onclick="setPortraitMode('thermal')" data-mode="thermal" class="portrait-mode-btn px-2.5 py-1 bg-surface border border-hairline text-main uppercase cursor-pointer hover:border-accent-2">
+                ACID THERMAL
+              </button>
+              <button type="button" onclick="toggleShatterFacets()" id="shatter-facets-btn" class="px-2.5 py-1 bg-surface border border-hairline text-accent-2 uppercase cursor-pointer hover:border-accent-1">
+                [SHATTER FACETS ✦]
+              </button>
+            </div>
+
+            <!-- 3D Scene Containing Both the Portrait (Z=0) and the 10 Orbiting Cards (Z = -R to +R) -->
+            <div id="hero-orbit-scene" class="orbit-scene">
+
+              <!-- Central Portrait Monolith (Sits at Z=0 so front cards pass in front of his chest and back cards pass behind his shoulders!) -->
+              <div id="hero-portrait-box" class="portrait-monolith select-none">
+                <div class="studio-backdrop-glow"></div>
+
+                <div class="portrait-canvas-wrap flex items-end justify-center">
+                  <!-- Exact User-Provided Low-Poly Portrait SVG -->
+                  <svg class="portrait" viewBox="0 0 1312 1199" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Low-poly portrait of Abdul Moiz">
+                    <path class="skin-11" stroke-width="3" d="M539 397 536 410 524 519 528 527 527 533 533 555 534 565 538 577 538 583 541 596 538 597 528 591 518 581 516 577 517 574 516 566 513 558 508 562 506 567 501 572 499 572 488 584 488 587 510 609 511 612 509 614 470 607 464 604 463 593 464 592 468 540 470 538 478 539 499 549 512 553 511 544 504 518 499 514 468 497 465 497 462 500 432 545 432 553 438 581 438 590 441 594 448 631 464 639 465 642 475 645 508 661 514 661 531 650 536 649 539 653 549 702 547 704 545 703 528 681 526 691 522 736 520 739 521 740 520 763 518 771 514 818 512 826 512 836 510 838 512 848 512 867 513 868 513 886 515 905 515 930 561 973 576 985 680 1010 684 1010 713 1018 726 1020 735 1023 743 1023 751 998 751 989 755 974 754 972 749 969 739 969 738 970 722 970 712 968 692 969 687 965 590 770 588 762 561 733 560 730 562 728 602 744 615 751 701 780 711 780 712 781 810 780 805 768 789 745 784 735 778 728 773 715 766 707 761 694 735 693 731 689 726 679 725 674 730 670 736 669 738 667 681 646 668 638 659 635 652 635 649 632 649 629 652 626 672 627 676 625 742 609 753 609 750 605 721 583 713 575 708 551 714 547 752 538 760 499 761 488 764 479 765 457 764 455 761 455 741 464 732 463 669 426 660 422 653 415 633 411 624 411 570 432 562 433 561 430 563 425 561 421 546 403ZM871 389 853 326 850 309 844 292 845 283 841 274 839 272 833 271 745 240 740 241 738 246 718 274 694 312 689 317 644 336 644 340 651 355 650 360 623 335 620 316 618 315 588 374 577 398 577 402 622 380 632 380 651 383 724 390 729 395 734 422 791 436 807 403 811 399 865 401 871 398Z"/>
+                    <path class="hair-1" stroke-width="3" d="M465 643 483 715 513 735 520 738 523 720 525 691 528 680 545 702 547 703 548 702 537 651 533 650 514 662 508 662 475 646ZM869 40 855 38 764 34 790 55 791 60 804 67 864 114 865 124 849 188 846 193 844 193 841 189 808 100 805 88 801 82 783 82 660 96 607 147 606 150 608 152 753 160 758 161 761 164 759 167 549 277 547 279 547 285 559 351 558 361 552 360 500 321 492 264 490 262 487 263 409 337 405 335 405 331 445 223 449 219 482 213 573 200 578 195 586 178 593 167 595 160 594 159 586 160 494 196 492 192 495 188 498 178 515 144 523 124 426 158 384 264 353 280 376 370 378 374 380 388 420 392 483 395 487 398 485 401 409 443 390 452 379 459 378 496 377 497 377 529 437 589 437 581 432 559 431 545 461 500 465 496 468 496 499 513 505 518 512 544 513 554 518 571 517 577 519 581 528 590 540 596 537 583 537 577 534 569 532 555 526 533 527 527 523 519 536 402 539 396 547 403 562 421 564 425 562 432 570 431 624 410 641 411 654 415 659 413 726 422 733 421 728 395 724 391 651 384 632 381 622 381 581 402 577 403 576 398 615 317 618 314 621 316 624 335 650 359 650 355 643 340 643 336 638 328 638 321 651 278 656 273 742 239 745 239 833 270 839 271 842 274 845 282 851 286 860 299 877 319 879 325 881 325 892 338 903 400 903 404 901 406 895 403 889 403 884 401 874 402 871 399 865 402 811 400 808 403 792 436 793 437 803 437 811 435 821 435 873 429 885 429 911 458 910 468 894 519 895 541 897 547 896 551 899 565 897 580 921 542 945 519 956 430 971 424 998 416 999 412 996 408 979 351 958 292 956 290 949 288 849 274 844 271 844 267 848 261 865 244 879 234 899 223 920 225 985 235 995 234 991 229 941 187 923 192 889 206 883 207 873 212 869 210 870 207 878 199 901 169 904 163 910 139 909 138 910 131 908 129 906 98Z"/>
+                    <path class="shirt-3" stroke-width="3" d="M81 1198 248 1198 248 1193 282 1091 288 1068 294 1056 297 1056 308 1061 318 1068 331 1074 340 1081 442 1139 448 1146 464 1188 466 1198 476 1198 478 1195 504 1183 516 1179 581 1150 649 1122 665 1114 680 1109 700 1099 748 1079 752 1079 754 1081 712 1162 706 1171 694 1195 694 1198 962 1198 963 1195 982 1176 1093 1074 984 1020 893 973 902 988 906 992 908 999 916 1010 918 1015 918 1020 915 1023 846 1047 826 1056 815 1059 782 1072 761 1071 740 1066 727 1065 675 1055 561 1037 553 1034 460 955 447 946 407 976 377 996 295 1055 272 1051 239 1042 208 1036 176 1028 170 1024 166 1025 91 1150Z"/>
+                    <path class="hair-2" stroke-width="3" d="M349 430 379 458 390 451 409 442 485 400 486 398 483 396 420 393 380 389 377 395 371 401ZM911 131 910 144 905 163 902 169 879 199 871 207 870 210 871 211 876 210 883 206 889 205 923 191 941 186 991 228 996 234 994 236 985 236 920 226 899 224 879 235 865 245 849 261 845 267 845 271 854 274 862 274 874 277 949 287 956 289 959 292 990 382 997 408 1000 412 1029 352 1004 306 1004 297 1029 251 1031 243 985 146ZM864 116 862 113 818 80 808 71 790 60 789 62 780 62 777 60 711 46 668 35 660 36 579 69 560 78 547 82 527 122 523 126 516 144 499 178 493 194 495 195 503 191 509 190 519 185 586 159 594 158 596 160 594 167 587 178 579 195 575 200 570 202 548 204 449 220 445 225 434 257 420 291 414 311 407 327 406 335 409 336 487 262 490 261 493 264 501 321 552 359 558 360 558 351 546 285 546 279 549 276 756 168 760 164 758 162 753 161 608 153 605 150 606 147 660 95 783 81 801 81 806 88 806 91 821 133 844 192 847 191 864 124Z"/>
+                    <path class="shirt-2" stroke-width="3" d="M1125 1090 1093 1075 982 1177 964 1195 963 1198 1180 1198ZM293 1058 249 1193 249 1198 465 1198 463 1188 446 1144 442 1140 340 1082 331 1075 318 1069 308 1062 297 1057ZM402 906 553 1033 561 1036 675 1054 727 1064 740 1065 761 1070 782 1071 804 1062 826 1055 846 1046 915 1022 917 1020 917 1015 915 1010 907 999 905 992 872 947 821 919 820 925 827 933 827 936 843 978 845 987 841 991 826 998 817 999 813 1002 790 1009 770 1017 747 1024 744 1023 735 1024 574 985 527 943 514 929 505 923 475 896 463 883 456 880 449 873 448 870 441 869Z"/>
+                    <path class="shirt-4" stroke-width="3" d="M753 1081 748 1080 738 1085 728 1088 687 1107 665 1115 649 1123 595 1145 516 1180 504 1184 478 1196 477 1198 693 1198 693 1195 705 1171 711 1162ZM446 945 442 940 402 907 400 907 281 966 170 1023 176 1027 208 1035 239 1041 272 1050 295 1054 377 995 407 975 429 958 443 949Z"/>
+                    <path class="skin-6" stroke-width="3" d="M589 763 591 770 688 965 692 968 709 968 739 883 750 858 752 844 693 844 680 835 594 765ZM655 415 655 417 660 421 669 425 719 455 735 463 741 463 763 454 778 446 790 437 739 425 733 422 726 423 659 414ZM845 284 846 296 851 309 854 326 872 389 872 399 874 401 884 400 889 402 895 402 901 405 902 400 891 338 886 331 881 326 878 325 876 319 859 299 850 286ZM739 242 732 243 656 274 652 278 639 321 639 328 642 334 645 335 689 316 693 312 707 289Z"/>
+                    <path class="skin-10" stroke-width="3" d="M895 551 861 559 827 564 821 566 806 585 800 586 796 584 787 584 788 594 792 605 795 607 795 609 801 614 833 632 838 636 838 638 831 644 825 645 818 651 806 656 793 664 789 668 786 686 783 693 781 694 762 694 767 707 774 715 779 728 785 735 790 745 806 768 811 780 824 790 826 788 826 769 852 738 855 722 862 700 863 692 869 674 881 626 889 601 889 597 891 594 892 588 896 582 898 565ZM764 454 766 457 765 479 762 488 761 499 753 538 782 551 808 546 807 539 803 533 796 514 788 498 788 495 773 466 768 452Z"/>
+                    <path class="skin-7" stroke-width="3" d="M509 839 464 882 464 884 505 922 514 928 511 848ZM719 579 721 582 750 604 756 611 763 615 773 616 785 613 794 609 794 607 791 605 787 594 785 583 767 588 762 585 758 585 746 580 724 579 723 578ZM885 430 852 432 821 436 811 436 803 438 791 437 781 445 769 452 774 466 789 495 789 498 797 514 804 533 808 539 809 547 814 552 821 565 837 561 843 561 894 551 896 549 894 541 893 519 909 468 910 458Z"/>
+                    <path class="skin-9" stroke-width="3" d="M814 783 753 844 751 858 740 883 711 965 711 967 722 969 749 968 755 972 756 974 753 983 752 998 744 1022 745 1023 770 1016 790 1008 813 1001 817 998 818 945 820 928 819 902 820 901 825 791Z"/>
+                    <path class="skin-1" stroke-width="1.6" d="M561 730 562 733 589 762 594 764 680 834 693 843 753 843 813 783 811 781 800 781 799 782 701 781 615 752 602 745 562 729Z"/>
+                    <path class="skin-2" stroke-width="1.6" d="M672 628 680 636 721 636 722 637 745 637 746 638 769 638 770 639 793 639 794 640 820 641 826 637 835 635 825 628 801 615 795 610 773 617 763 616 754 610 742 610 676 626Z"/>
+                    <path class="skin-4" stroke-width="1.6" d="M709 551 713 572 716 577 746 579 758 584 762 584 767 587 783 582 804 585 820 566 813 552 808 547 782 552 754 539 749 539 741 542 714 548ZM781 572 786 567 796 564 799 567 804 577 802 579 798 579 792 575 786 575 783 577ZM761 568 758 572 749 570 723 576 721 574 727 569 744 559 750 559 754 561Z"/>
+                    <path class="skin-8" stroke-width="1.6" d="M669 638 681 645 733 663 739 667 788 668 799 659 818 650 824 645 820 642 794 641 793 640 770 640 769 639 746 639 745 638 722 638 721 637 680 637 679 636Z"/>
+                    <path class="skin-3" stroke-width="1.6" d="M470 539 468 544 467 570 464 593 465 604 470 606 509 613 510 612 509 609 487 587 487 584 499 571 501 571 505 567 505 565 513 557 513 555 487 545 478 540Z"/>
+                    <path class="skin-5" stroke-width="1.6" d="M726 674 727 679 732 689 735 692 781 693 784 690 788 669 738 668Z"/>
+                    <path class="shirt-1" stroke-width="1.6" d="M822 928 820 929 820 944 819 945 818 998 826 997 841 990 844 987 844 984 828 942 826 933ZM449 870 450 873 461 882 463 882 472 873Z"/>
+                    <path class="hair-3" stroke-width="1.6" d="M837 636 826 638 822 640 821 642 824 644 831 643 837 638ZM650 629 650 632 652 634 659 634 666 637 677 635 671 628 652 627ZM782 572 783 576 786 574 792 574 798 578 803 577 796 565 788 567ZM760 568 754 562 750 560 744 560 722 574 723 575 749 569 758 571Z"/>
+                  </svg>
+                  <div class="portrait-scanlines"></div>
+                </div>
+
+                <!-- Subtle Floating Telemetry Tag on His Shoulder -->
+                <div class="absolute bottom-14 -left-4 z-30 bg-void/90 border border-accent-2 px-3 py-1.5 font-mono text-[10px] tracking-widest uppercase shadow-xl">
+                  <span class="text-accent-2">●</span> SYS_OP: ABDUL MOIZ // 68K+ ORDERS
+                </div>
+              </div>
+
+              <!-- 3D Orbiting Ring Cards Container (Populated & Animated in 3D via JS) -->
+              <div id="orbit-cards-ring" class="absolute inset-0 pointer-events-none" style="transform-style: preserve-3d;"></div>
+            </div>
+
+            <!-- Orbit Speed & Tilt Controls Below Portrait -->
+            <div class="flex items-center justify-center gap-4 font-mono text-[10px] text-muted-custom -mt-4 relative z-30">
+              <span>DRAG RING OR HOVER CARDS TO INSPECT</span>
+              <span class="text-accent-1">▪</span>
+              <button type="button" onclick="reverseOrbitDirection()" class="text-accent-2 hover:underline cursor-pointer">[REVERSE ORBIT ⇄]</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- DIAGONAL CRISS-CROSSING TICKER RIBBONS (Directly inspired by image_28d089.jpg) -->
+      <div class="relative h-24 sm:h-28 -mt-8 pointer-events-none select-none z-30">
+        <!-- Ribbon 1: Tilted Downward -->
+        <div class="diagonal-ribbon" style="transform: rotate(-4.5deg) translateY(10px);">
+          <div class="ribbon-track-left font-mono text-xs sm:text-sm font-bold tracking-[0.22em] uppercase">
+            <span class="mx-6">TURNING DEAD WEIGHT INTO NET PROFIT</span><span>••</span>
+            <span class="mx-6">100K+ SALES CO-MANAGED ETSY</span><span>••</span>
+            <span class="mx-6">9,000+ SALES PRIMARY ETSY</span><span>••</span>
+            <span class="mx-6">1,100+ SKUS LAUNCHED</span><span>••</span>
+            <span class="mx-6">WALMART SELLER #103229962</span><span>••</span>
+            <span class="mx-6">CUSTOM BROWSER EXTENSIONS</span><span>••</span>
+            <span class="mx-6">TURNING DEAD WEIGHT INTO NET PROFIT</span><span>••</span>
+            <span class="mx-6">100K+ SALES CO-MANAGED ETSY</span><span>••</span>
+            <span class="mx-6">9,000+ SALES PRIMARY ETSY</span><span>••</span>
+            <span class="mx-6">1,100+ SKUS LAUNCHED</span><span>••</span>
+            <span class="mx-6">WALMART SELLER #103229962</span><span>••</span>
+            <span class="mx-6">CUSTOM BROWSER EXTENSIONS</span><span>••</span>
+          </div>
+        </div>
+
+        <!-- Ribbon 2: Tilted Upward & Crossing -->
+        <div class="diagonal-ribbon dark-ribbon" style="transform: rotate(3.2deg) translateY(-28px);">
+          <div class="ribbon-track-right font-mono text-xs sm:text-sm font-bold tracking-[0.22em] uppercase">
+            <span class="mx-6 text-accent-2">TEST</span><span>::</span>
+            <span class="mx-6 text-main">AUTOMATE</span><span>::</span>
+            <span class="mx-6 text-accent-1">SCALE</span><span>::</span>
+            <span class="mx-6 text-accent-2">CUT THE DEAD WEIGHT</span><span>::</span>
+            <span class="mx-6 text-main">$7K/MO PEAK NET PROFIT</span><span>::</span>
+            <span class="mx-6 text-accent-1">&lt;5% DEFECT RATE</span><span>::</span>
+            <span class="mx-6 text-accent-2">10+ HRS/WK SAVED</span><span>::</span>
+            <span class="mx-6 text-accent-2">TEST</span><span>::</span>
+            <span class="mx-6 text-main">AUTOMATE</span><span>::</span>
+            <span class="mx-6 text-accent-1">SCALE</span><span>::</span>
+            <span class="mx-6 text-accent-2">CUT THE DEAD WEIGHT</span><span>::</span>
+            <span class="mx-6 text-main">$7K/MO PEAK NET PROFIT</span><span>::</span>
+            <span class="mx-6 text-accent-1">&lt;5% DEFECT RATE</span><span>::</span>
+            <span class="mx-6 text-accent-2">10+ HRS/WK SAVED</span><span>::</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =======================================================================
+         NODE 02: MONUMENTAL MANIFESTO & THE 4 PRINCIPLES
+         Directly inspired by bottom-left of image_28d089.jpg ('WE REJECT THE SUPERFLUOUS...')
+         ======================================================================= -->
+    <section id="node-manifesto" data-maze-x="1480" data-maze-y="160" data-maze-rot="3"
+      class="maze-node-section relative py-24 sm:py-36 px-4 sm:px-8 border-b border-hairline bg-void">
+
+      <!-- Horizontal Hairline with '::' Markers on Left & Right (Exact match to reference image) -->
+      <div class="max-w-[1440px] mx-auto relative">
+        <div class="hidden md:flex items-center justify-between absolute inset-x-0 top-1/2 -translate-y-1/2 pointer-events-none">
+          <div class="flex items-center gap-3">
+            <div class="w-24 lg:w-44 h-px bg-white/20"></div>
+            <span class="font-mono text-lg text-main font-bold">:</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-lg text-main font-bold">:</span>
+            <div class="w-24 lg:w-44 h-px bg-white/20"></div>
+          </div>
+        </div>
+
+        <!-- Center Monumental Statement with Bright/Dimmed Typography Split -->
+        <div class="max-w-4xl mx-auto text-center px-4 scramble-target-alt">
+          <p class="font-mono text-xs tracking-[0.28em] text-accent-1 uppercase mb-5">
+            :: THE OPERATING DOCTRINE (4 LAWS OF MARGIN)
+          </p>
+          <h2 class="font-syne font-extrabold text-2xl sm:text-4xl lg:text-5xl leading-[1.12] tracking-tight uppercase">
+            <span class="text-main">WE REJECT THE MANUAL GRIND. BUILDING E-COMMERCE EMPIRES AND AUTOMATED SYSTEMS</span>
+            <span class="text-muted-custom"> GROUNDED IN EXTREME MARGIN CLARITY, COMPETITOR ESPIONAGE, AND UNCOMPROMISED EXECUTION.</span>
+          </h2>
+        </div>
+      </div>
+
+      <!-- Bottom 4-Column Brutalist Strip (Inspired by MONOLITH | MAXIME | STONEHAVEN | GRAVIXPOINT strip at bottom-left of reference) -->
+      <div class="max-w-[1440px] mx-auto mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-hairline">
+
+        <!-- Principle 01: TEST -->
+        <div class="border-r border-b border-hairline p-6 sm:p-8 bg-surface/40 hover:bg-panel transition-all group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-hairline pb-3 mb-6">
+              <span class="px-2.5 py-1 bg-main text-void font-mono text-xs font-bold uppercase">01 // TEST</span>
+              <span class="font-mono text-xs text-accent-2">•• DEMAND FIRST</span>
+            </div>
+            <h3 class="font-syne font-bold text-xl text-main mb-3 group-hover:text-accent-2 transition-colors">
+              1,100+ SKUs Launched to Isolate 50+ Runaway Winners
+            </h3>
+            <p class="font-mono text-xs text-muted-custom leading-relaxed">
+              FOR EVERY STOREFRONT, WE ENGINEER WEEKLY COMPETITOR &amp; TREND TRACKING USING HELIUM 10, EVERBEE, KEEPA, AND GOOGLE DORKING. OPINIONS DON&rsquo;T LAUNCH PRODUCTS&mdash;SEARCH VOLUME DOES.
+            </p>
+          </div>
+          <div class="mt-8 pt-3 border-t border-hairline flex items-center justify-between font-mono text-[11px] text-accent-1">
+            <span>WIN RATE: SURGICAL</span>
+            <span>[01]</span>
+          </div>
+        </div>
+
+        <!-- Principle 02: AUTOMATE -->
+        <div class="border-r border-b border-hairline p-6 sm:p-8 bg-surface/40 hover:bg-panel transition-all group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-hairline pb-3 mb-6">
+              <span class="px-2.5 py-1 bg-accent-1 text-white font-mono text-xs font-bold uppercase">02 // AUTOMATE</span>
+              <span class="font-mono text-xs text-muted-custom">•• IT BACKBONE</span>
+            </div>
+            <h3 class="font-syne font-bold text-xl text-main mb-3 group-hover:text-accent-1 transition-colors">
+              Custom Browser Extensions &amp; Scrapers Saving 10+ Hrs/Wk
+            </h3>
+            <p class="font-mono text-xs text-muted-custom leading-relaxed">
+              ARMED WITH A B.S. IN INFORMATION TECHNOLOGY, IF A TASK REPEATS TWICE, IT GETS REPLACED BY CODE. CUSTOM EXTENSIONS, API PIPELINES, AND AUTOMATED FULFILLMENT TRACKING.
+            </p>
+          </div>
+          <div class="mt-8 pt-3 border-t border-hairline flex items-center justify-between font-mono text-[11px] text-accent-2">
+            <span>HUMAN ERROR: ~0%</span>
+            <span>[02]</span>
+          </div>
+        </div>
+
+        <!-- Principle 03: SCALE -->
+        <div class="border-r border-b border-hairline p-6 sm:p-8 bg-surface/40 hover:bg-panel transition-all group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-hairline pb-3 mb-6">
+              <span class="px-2.5 py-1 bg-accent-2 text-black font-mono text-xs font-bold uppercase">03 // SCALE</span>
+              <span class="font-mono text-xs text-muted-custom">•• MULTI-STORE</span>
+            </div>
+            <h3 class="font-syne font-bold text-xl text-main mb-3 group-hover:text-accent-2 transition-colors">
+              109,000+ Combined Etsy Sales &amp; 7,800+ Verified Reviews
+            </h3>
+            <p class="font-mono text-xs text-muted-custom leading-relaxed">
+              SCALED PRIMARY ETSY STORE TO 9,000+ SALES (800+ 5★ REVIEWS) WHILE CO-MANAGING A HIGH-VOLUME JUGGERNAUT PAST 100K+ SALES AND 7,000+ REVIEWS SIMULTANEOUSLY.
+            </p>
+          </div>
+          <div class="mt-8 pt-3 border-t border-hairline flex items-center justify-between font-mono text-[11px] text-accent-1">
+            <span>VELOCITY: COMPOUNDING</span>
+            <span>[03]</span>
+          </div>
+        </div>
+
+        <!-- Principle 04: CUT DEAD WEIGHT -->
+        <div class="border-r border-b border-hairline p-6 sm:p-8 bg-surface/40 hover:bg-panel transition-all group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-hairline pb-3 mb-6">
+              <span class="px-2.5 py-1 border border-accent-1 text-accent-1 font-mono text-xs font-bold uppercase">04 // CUT WEIGHT</span>
+              <span class="font-mono text-xs text-accent-1">•• &lt;5% DEFECT</span>
+            </div>
+            <h3 class="font-syne font-bold text-xl text-main mb-3 group-hover:text-accent-1 transition-colors">
+              Up to $7K/Mo Net Profit on Amazon &amp; Walmart
+            </h3>
+            <p class="font-mono text-xs text-muted-custom leading-relaxed">
+              BLEEDING AD SETS AND LOW-MARGIN SKUS GET AXED WITHOUT EMOTION. MAINTAINED STRICT SUB-5% DEFECT RATES ACROSS AMAZON &amp; WALMART DROPSHIPPING AND MARKETPLACE OPS.
+            </p>
+          </div>
+          <div class="mt-8 pt-3 border-t border-hairline flex items-center justify-between font-mono text-[11px] text-accent-2">
+            <button type="button" onclick="toggleDeadWeightMode()" class="underline cursor-pointer hover:text-main">LAUNCH CUTTER SIM ✂</button>
+            <span>[04]</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         NODE 03: BRUTALIST ARCHIVE MATRIX & SUPPORTED LINKS SHOWCASE
+         Directly inspired by top-right of image_28d089.jpg ('A SELECTION OF RECENT COLLABORATIONS' + Table + 12-Card Grid)
+         ======================================================================= -->
+    <section id="node-archive" data-maze-x="160" data-maze-y="1180" data-maze-rot="2"
+      class="maze-node-section relative py-24 sm:py-32 px-4 sm:px-8 lg:px-12 border-b border-hairline bg-surface/50">
+
+      <div class="max-w-[1440px] mx-auto">
+
+        <!-- Top Split: Left Title + Right Brutalist Ledger Table (Exact structural nod to top-right of reference) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-20">
+
+          <!-- Left 4 Columns -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="font-mono text-lg font-bold text-accent-1">••</div>
+            <h2 class="font-syne font-extrabold text-2xl sm:text-3xl uppercase tracking-tight leading-snug text-main">
+              A SELECTION OF<br />
+              LIVE EMPIRES, PAST<br />
+              STORES &amp; LABS.
+            </h2>
+            <p class="font-mono text-xs text-muted-custom leading-relaxed pt-2">
+              CLICK ANY LEDGER ROW OR VISUAL ARTIFACT BELOW TO LAUNCH THE LIVE PRODUCTION ENVIRONMENT. ZERO MOCKUPS PRETENDING TO BE STORES&mdash;REAL MARKETPLACES ONLY.
+            </p>
+          </div>
+
+          <!-- Right 8 Columns: High-Contrast Header Bar + Brutalist Tabular Index -->
+          <div class="lg:col-span-8 w-full">
+            <!-- White Highlighted Top Bar (Like 'MONOLITH REAL ESTATE | BRAND IDENTITY | 2024' in reference) -->
+            <a href="https://www.walmart.com/seller/103229962" target="_blank" rel="noopener noreferrer"
+              class="w-full bg-main text-void px-4 py-3 font-mono text-xs font-bold uppercase tracking-wider flex flex-wrap items-center justify-between gap-2 hover:bg-accent-2 transition-colors">
+              <span>•• WALMART MARKETPLACE (SELLER #103229962)</span>
+              <span>ACTIVE CLIENT STOREFRONT</span>
+              <span>2025—PRESENT ↗</span>
+            </a>
+
+            <!-- Tabular Rows -->
+            <div class="divide-y divide-white/10 border-b border-hairline font-mono text-xs">
+              <a href="https://www.etsy.com/shop/Onestopdesignart" target="_blank" rel="noopener noreferrer"
+                class="archive-row py-3.5 px-2 flex flex-wrap items-center justify-between gap-2 text-main">
+                <span class="font-bold w-48 sm:w-60">ONESTOPDESIGNART</span>
+                <span class="text-muted-custom flex-1">ETSY STOREFRONT // DIGITAL &amp; TREND ART SEO</span>
+                <span class="text-accent-2">VISIT SHOP ↗</span>
+              </a>
+
+              <a href="https://www.etsy.com/shop/OrispotMockups" target="_blank" rel="noopener noreferrer"
+                class="archive-row py-3.5 px-2 flex flex-wrap items-center justify-between gap-2 text-main">
+                <span class="font-bold w-48 sm:w-60">ORISPOTMOCKUPS</span>
+                <span class="text-muted-custom flex-1">ETSY STOREFRONT // B2B SELLER MOCKUP ENGINE</span>
+                <span class="text-accent-2">VISIT SHOP ↗</span>
+              </a>
+
+              <a href="https://www.behance.net/moizkhalyd_gd/projects" target="_blank" rel="noopener noreferrer"
+                class="archive-row py-3.5 px-2 flex flex-wrap items-center justify-between gap-2 text-main">
+                <span class="font-bold w-48 sm:w-60">BEHANCE // MOIZKHALYD_GD</span>
+                <span class="text-muted-custom flex-1">YOUTUBE &amp; SOCIAL MEDIA CLIENT DESIGN ARCHIVE</span>
+                <span class="text-accent-1">VIEW GALLERY ↗</span>
+              </a>
+
+              <a href="https://github.com/moyz-khalid" target="_blank" rel="noopener noreferrer"
+                class="archive-row py-3.5 px-2 flex flex-wrap items-center justify-between gap-2 text-main">
+                <span class="font-bold w-48 sm:w-60">GITHUB // @MOYZ-KHALID</span>
+                <span class="text-muted-custom flex-1">PRIVATE AUTOMATION VAULT (PUBLIC ACTIVITY CHART)</span>
+                <span class="text-accent-2">VERIFY PULSE ↗</span>
+              </a>
+
+              <div class="archive-row py-3.5 px-2 flex flex-wrap items-center justify-between gap-2 text-main">
+                <span class="font-bold w-48 sm:w-60">INNOVANTIVES // ETSY LEAD</span>
+                <span class="text-muted-custom flex-1">1,100+ SKUS • 9,000+ SALES (PRIMARY) • 100K+ (CO-MANAGED)</span>
+                <span class="text-muted-custom">2023—2025</span>
+              </div>
+
+              <div class="archive-row py-3.5 px-2 flex flex-wrap items-center justify-between gap-2 text-main">
+                <span class="font-bold w-48 sm:w-60">INNOVANTIVES // SHOPIFY &amp; META</span>
+                <span class="text-muted-custom flex-1">END-TO-END DROPSHIPPING • META AD LIBRARY ESPIONAGE</span>
+                <span class="text-muted-custom">2022—2023</span>
+              </div>
+
+              <div class="archive-row py-3.5 px-2 flex flex-wrap items-center justify-between gap-2 text-main">
+                <span class="font-bold w-48 sm:w-60">AMAZON &amp; WALMART OPS</span>
+                <span class="text-muted-custom flex-1">$7K/MO PEAK NET PROFIT • &lt;5% DEFECT • 10+ HRS/WK AUTOMATED</span>
+                <span class="text-muted-custom">2021—2022</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-Panel Editorial Bento Grid of All 5 Supported Links + GitHub Activity Matrix -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- CARD 1: WALMART CURRENT STORE -->
+          <article class="bg-panel border border-hairline hover:border-accent-2 transition-all p-6 flex flex-col justify-between group relative overflow-hidden">
+            <div>
+              <div class="flex items-center justify-between font-mono text-[11px] mb-4">
+                <span class="text-accent-2 font-bold">•• 01 / LIVE WALMART OPS</span>
+                <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">CURRENTLY SCALING</span>
+              </div>
+
+              <!-- Stylized Multi-Frame Preview Graphic (like the miniature layout collages in reference) -->
+              <div class="h-44 bg-void border border-hairline mb-5 p-3 relative overflow-hidden flex flex-col justify-between group-hover:border-accent-2/50 transition-colors">
+                <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom">
+                  <span>WALMART.COM/SELLER/103229962</span>
+                  <span class="text-accent-2">BUY-BOX: LOCKED</span>
+                </div>
+                <div class="my-auto grid grid-cols-3 gap-2">
+                  <div class="bg-surface border border-hairline p-2.5">
+                    <div class="font-mono text-[9px] text-muted-custom">PRICING</div>
+                    <div class="font-syne font-bold text-sm text-main mt-1">ALGO</div>
+                  </div>
+                  <div class="bg-accent-1/20 border border-accent-1 p-2.5">
+                    <div class="font-mono text-[9px] text-accent-2">CATALOG</div>
+                    <div class="font-syne font-bold text-sm text-main mt-1">SEO+</div>
+                  </div>
+                  <div class="bg-surface border border-hairline p-2.5">
+                    <div class="font-mono text-[9px] text-muted-custom">SLA HEALTH</div>
+                    <div class="font-syne font-bold text-sm text-accent-2 mt-1">99.2%</div>
+                  </div>
+                </div>
+                <div class="font-mono text-[10px] text-accent-1 tracking-widest uppercase">
+                  [ PRODUCT RESEARCH • CATALOG • CUSTOMER OPS ]
+                </div>
+              </div>
+
+              <h3 class="font-syne font-bold text-xl text-main mb-2">
+                Walmart Marketplace Storefront
+              </h3>
+              <p class="text-xs sm:text-sm text-muted-custom leading-relaxed mb-6">
+                Currently managing end-to-end Walmart Marketplace operations for a client while running an independent Etsy shop. Handling product hunting, keyword architecture, dynamic pricing, and catalog expansion.
+              </p>
+            </div>
+
+            <a href="https://www.walmart.com/seller/103229962" target="_blank" rel="noopener noreferrer"
+              class="pt-3 border-t border-hairline font-mono text-xs uppercase tracking-widest text-main group-hover:text-accent-2 flex items-center justify-between">
+              <span>[ SEE LIVE WALMART STORE ]</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </article>
+
+          <!-- CARD 2: ETSY STORE — ONESTOP DESIGN ART -->
+          <article class="bg-panel border border-hairline hover:border-accent-1 transition-all p-6 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between font-mono text-[11px] mb-4">
+                <span class="text-accent-1 font-bold">•• 02 / ETSY ARCHIVE I</span>
+                <span class="text-muted-custom">PAST STOREFRONT</span>
+              </div>
+
+              <div class="h-44 bg-void border border-hairline mb-5 p-3 relative overflow-hidden flex flex-col justify-between">
+                <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom">
+                  <span>ETSY.COM/SHOP/ONESTOPDESIGNART</span>
+                  <span class="text-accent-1">TREND VELOCITY</span>
+                </div>
+                <div class="my-auto flex items-center gap-3">
+                  <div class="w-16 h-16 bg-accent-1 text-white flex items-center justify-center font-syne font-extrabold text-xl">
+                    ART
+                  </div>
+                  <div class="flex-1 space-y-1.5 font-mono text-[10px]">
+                    <div class="h-2 bg-white/20 w-full"></div>
+                    <div class="h-2 bg-accent-2 w-4/5"></div>
+                    <div class="h-2 bg-white/10 w-3/5"></div>
+                    <div class="text-main pt-1">NICHE CLUSTERING + HIGH-CTR THUMBNAILS</div>
+                  </div>
+                </div>
+                <div class="font-mono text-[10px] text-accent-2 tracking-widest uppercase">
+                  [ EVERBEE • ALURA • ORGANIC RANKING ]
+                </div>
+              </div>
+
+              <h3 class="font-syne font-bold text-xl text-main mb-2">
+                OneStopDesignArt (Etsy)
+              </h3>
+              <p class="text-xs sm:text-sm text-muted-custom leading-relaxed mb-6">
+                Engineered high-converting listings and deep long-tail keyword matrices so buyers found our designs before the trend even peaked on TikTok.
+              </p>
+            </div>
+
+            <a href="https://www.etsy.com/shop/Onestopdesignart" target="_blank" rel="noopener noreferrer"
+              class="pt-3 border-t border-hairline font-mono text-xs uppercase tracking-widest text-main group-hover:text-accent-1 flex items-center justify-between">
+              <span>[ VISIT ONESTOPDESIGNART ]</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </article>
+
+          <!-- CARD 3: ETSY STORE — ORISPOT MOCKUPS -->
+          <article class="bg-panel border border-hairline hover:border-accent-2 transition-all p-6 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between font-mono text-[11px] mb-4">
+                <span class="text-accent-2 font-bold">•• 03 / ETSY ARCHIVE II</span>
+                <span class="text-muted-custom">PAST STOREFRONT</span>
+              </div>
+
+              <div class="h-44 bg-void border border-hairline mb-5 p-3 relative overflow-hidden flex flex-col justify-between">
+                <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom">
+                  <span>ETSY.COM/SHOP/ORISPOTMOCKUPS</span>
+                  <span class="text-accent-2">B2B ASSET ENGINE</span>
+                </div>
+                <div class="my-auto grid grid-cols-2 gap-2 font-mono text-[10px]">
+                  <div class="border border-hairline p-2.5 bg-surface">
+                    <div class="text-muted-custom">MODEL</div>
+                    <div class="text-main font-bold mt-0.5">PICKAXES FOR SELLERS</div>
+                  </div>
+                  <div class="border border-accent-2/50 p-2.5 bg-accent-2/10">
+                    <div class="text-accent-2">WORKFLOW</div>
+                    <div class="text-main font-bold mt-0.5">BATCH AUTOMATED</div>
+                  </div>
+                </div>
+                <div class="font-mono text-[10px] text-muted-custom tracking-widest uppercase">
+                  [ MOCKUP ARCHITECTURE • REPEAT BUYERS ]
+                </div>
+              </div>
+
+              <h3 class="font-syne font-bold text-xl text-main mb-2">
+                OrispotMockups (Etsy)
+              </h3>
+              <p class="text-xs sm:text-sm text-muted-custom leading-relaxed mb-6">
+                When everyone is panning for gold, sell premium pickaxes. Built a specialized mockup storefront serving digital &amp; POD merchants with high-converting visual assets.
+              </p>
+            </div>
+
+            <a href="https://www.etsy.com/shop/OrispotMockups" target="_blank" rel="noopener noreferrer"
+              class="pt-3 border-t border-hairline font-mono text-xs uppercase tracking-widest text-main group-hover:text-accent-2 flex items-center justify-between">
+              <span>[ VISIT ORISPOTMOCKUPS ]</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </article>
+
+          <!-- CARD 4: BEHANCE DESIGN PORTFOLIO (YOUTUBE & SOCIAL MEDIA) -->
+          <article class="bg-panel border border-hairline hover:border-accent-1 transition-all p-6 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between font-mono text-[11px] mb-4">
+                <span class="text-accent-1 font-bold">•• 04 / CREATIVE DIRECTION</span>
+                <span class="text-muted-custom">YOUTUBE &amp; SOCIAL</span>
+              </div>
+
+              <div class="h-44 bg-void border border-hairline mb-5 p-3 relative overflow-hidden flex flex-col justify-between">
+                <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom">
+                  <span>BEHANCE.NET/MOIZKHALYD_GD</span>
+                  <span class="text-accent-1">CTR PSYCHOLOGY</span>
+                </div>
+                <div class="my-auto flex items-center justify-between gap-2">
+                  <div class="flex-1 bg-surface border border-hairline p-3">
+                    <div class="font-syne font-extrabold text-sm text-accent-2">YOUTUBE + SOCIAL</div>
+                    <div class="font-mono text-[10px] text-muted-custom mt-1">PS • AI • CAPCUT • GEN-AI</div>
+                  </div>
+                  <div class="w-12 h-12 rounded-full border border-accent-1 flex items-center justify-center text-accent-1">
+                    <i class="fa-brands fa-behance text-xl"></i>
+                  </div>
+                </div>
+                <div class="font-mono text-[10px] text-muted-custom tracking-widest uppercase">
+                  [ CLIENT VISUALS • ATTENTION ENGINEERING ]
+                </div>
+              </div>
+
+              <h3 class="font-syne font-bold text-xl text-main mb-2">
+                Behance Client Design Vault
+              </h3>
+              <p class="text-xs sm:text-sm text-muted-custom leading-relaxed mb-6">
+                Proof that a systems &amp; spreadsheets guy actually understands visual aesthetics. Showcasing client design posts for YouTube channels and social media campaigns.
+              </p>
+            </div>
+
+            <a href="https://www.behance.net/moizkhalyd_gd/projects" target="_blank" rel="noopener noreferrer"
+              class="pt-3 border-t border-hairline font-mono text-xs uppercase tracking-widest text-main group-hover:text-accent-1 flex items-center justify-between">
+              <span>[ INSPECT BEHANCE GALLERY ]</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </article>
+
+          <!-- CARD 5 (SPANS 2 COLUMNS): GITHUB PRIVATE AUTOMATION VAULT & PUBLIC ACTIVITY PULSE -->
+          <article class="md:col-span-2 bg-panel border border-hairline hover:border-accent-2 transition-all p-5 flex flex-col justify-between group">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] mb-3">
+                <span class="text-accent-2 font-bold">•• 05 / CLASSIFIED GITHUB REPOS (@MOYZ-KHALID)</span>
+                <span class="px-2.5 py-0.5 bg-accent-1/20 text-accent-1 border border-accent-1/40">REPOS: PRIVATE // ACTIVITY CHART: PUBLIC</span>
+              </div>
+
+              <h3 class="font-syne font-bold text-lg text-main mb-1">
+                Why Are the Repos Private? Because Free Alpha Doesn&rsquo;t Pay Rent.
+              </h3>
+              <p class="text-xs text-muted-custom leading-relaxed mb-3">
+                My repos house custom browser extensions, niche scrapers &amp; e-commerce automation scripts. Code locked — but public contribution graph verifies the daily engineering pulse.
+              </p>
+
+              <!-- Compact horizontal contribution heatmap -->
+              <div class="bg-void border border-hairline p-3">
+                <div class="flex items-center justify-between font-mono text-[10px] text-muted-custom mb-2">
+                  <span>COMMIT TELEMETRY // @MOYZ-KHALID</span>
+                  <span class="text-accent-2">● VERIFIED PUBLIC GRAPH</span>
+                </div>
+                <div id="gh-matrix-grid" class="grid grid-cols-26 gap-[3px]"></div>
+                <div class="flex items-center justify-between font-mono text-[9px] text-muted-custom mt-1.5">
+                  <span>LESS</span>
+                  <div class="flex items-center gap-1">
+                    <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-white/5"></span>
+                    <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#ff331f]/45"></span>
+                    <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#ff331f]"></span>
+                    <span class="inline-block w-2.5 h-2.5 rounded-[2px] bg-[#d4ff00]"></span>
+                  </div>
+                  <span>MORE</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="https://github.com/moyz-khalid" target="_blank" rel="noopener noreferrer"
+              class="mt-4 pt-3 border-t border-hairline font-mono text-xs uppercase tracking-widest text-main group-hover:text-accent-2 flex items-center justify-between">
+              <span><i class="fa-brands fa-github mr-2"></i>[ CHECK LIVE GITHUB ACTIVITY CHART ]</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         NODE 04: SECOND PORTRAIT & FLOATING SPATIAL COLLAGE SECTION
+         Directly inspired by middle-right of image_28d089.jpg ('GOOD WORK IS BUILT ON GOOD QUESTIONS...' + Portrait surrounded by floating cards & background ribbons)
+         ======================================================================= -->
+    <section id="node-collage" data-maze-x="1560" data-maze-y="1280" data-maze-rot="-2.5"
+      class="maze-node-section relative py-24 sm:py-36 px-4 sm:px-8 border-b border-hairline bg-void overflow-hidden">
+
+      <!-- Monumental Editorial Quote Above Second Portrait (Exact layout match to middle-right of reference) -->
+      <div class="max-w-4xl mx-auto text-center relative z-20 mb-16">
+        <div class="flex items-center justify-center gap-4 font-mono text-xs text-muted-custom mb-4">
+          <span class="w-16 h-px bg-white/20"></span>
+          <span class="text-accent-2 font-bold">:</span>
+          <span>ARCHITECTURAL REFLECTION</span>
+          <span class="text-accent-2 font-bold">:</span>
+          <span class="w-16 h-px bg-white/20"></span>
+        </div>
+
+        <h2 class="font-syne font-extrabold text-xl sm:text-3xl lg:text-4xl leading-[1.16] uppercase tracking-tight">
+          <span class="text-main">GOOD REVENUE IS BUILT ON GOOD SYSTEMS. DATA PROVIDES THE DIRECTION, AUTOMATION GIVES IT SPEED, AND</span>
+          <span class="text-muted-custom"> HUMILITY ENSURES EVERY SKU SUPPORTS THE BIGGER P&amp;L.</span>
+        </h2>
+      </div>
+
+      <!-- SECOND PORTRAIT STAGE WITH BACKGROUND TICKER RIBBONS & DRAGGABLE FLOATING COLLAGE CARDS -->
+      <div class="relative max-w-[1440px] mx-auto min-h-[620px] flex items-center justify-center">
+
+        <!-- Background Criss-Crossing Ribbons Behind Portrait (Like lower-right of reference image) -->
+        <div class="absolute inset-x-0 bottom-12 pointer-events-none select-none z-10 space-y-3">
+          <div class="diagonal-ribbon" style="transform: rotate(4deg);">
+            <div class="ribbon-track-left font-mono text-xs font-bold tracking-[0.22em] uppercase">
+              <span class="mx-6">TURNING COMPLEXITY INTO MARGIN</span><span>••</span>
+              <span class="mx-6">SYSTEMS ARCHITECT</span><span>••</span>
+              <span class="mx-6">B.S. INFORMATION TECHNOLOGY (VU)</span><span>••</span>
+              <span class="mx-6">LAHORE TO GLOBAL</span><span>••</span>
+              <span class="mx-6">TURNING COMPLEXITY INTO MARGIN</span><span>••</span>
+              <span class="mx-6">SYSTEMS ARCHITECT</span><span>••</span>
+              <span class="mx-6">B.S. INFORMATION TECHNOLOGY (VU)</span><span>••</span>
+              <span class="mx-6">LAHORE TO GLOBAL</span><span>••</span>
+            </div>
+          </div>
+          <div class="diagonal-ribbon lime-ribbon" style="transform: rotate(-2.5deg);">
+            <div class="ribbon-track-right font-mono text-xs font-bold tracking-[0.22em] uppercase">
+              <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META AD LIBRARY • DORKING</span><span>••</span>
+              <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META AD LIBRARY • DORKING</span><span>••</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second Studio Portrait of Abdul Moiz in the Center -->
+        <div class="relative z-20 w-80 sm:w-[500px] md:w-[600px] lg:w-[660px] h-[520px] sm:h-[620px] md:h-[680px] flex flex-col items-center justify-end select-none">
+          <div class="studio-backdrop-glow"></div>
+          <div class="portrait-canvas-wrap w-full h-full flex items-end justify-center">
+            <!-- Exact User-Provided Low-Poly Portrait SVG (Second Collage Instance) -->
+            <svg class="portrait" viewBox="0 0 1312 1199" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Low-poly portrait of Abdul Moiz">
+              <path class="skin-11" stroke-width="3" d="M539 397 536 410 524 519 528 527 527 533 533 555 534 565 538 577 538 583 541 596 538 597 528 591 518 581 516 577 517 574 516 566 513 558 508 562 506 567 501 572 499 572 488 584 488 587 510 609 511 612 509 614 470 607 464 604 463 593 464 592 468 540 470 538 478 539 499 549 512 553 511 544 504 518 499 514 468 497 465 497 462 500 432 545 432 553 438 581 438 590 441 594 448 631 464 639 465 642 475 645 508 661 514 661 531 650 536 649 539 653 549 702 547 704 545 703 528 681 526 691 522 736 520 739 521 740 520 763 518 771 514 818 512 826 512 836 510 838 512 848 512 867 513 868 513 886 515 905 515 930 561 973 576 985 680 1010 684 1010 713 1018 726 1020 735 1023 743 1023 751 998 751 989 755 974 754 972 749 969 739 969 738 970 722 970 712 968 692 969 687 965 590 770 588 762 561 733 560 730 562 728 602 744 615 751 701 780 711 780 712 781 810 780 805 768 789 745 784 735 778 728 773 715 766 707 761 694 735 693 731 689 726 679 725 674 730 670 736 669 738 667 681 646 668 638 659 635 652 635 649 632 649 629 652 626 672 627 676 625 742 609 753 609 750 605 721 583 713 575 708 551 714 547 752 538 760 499 761 488 764 479 765 457 764 455 761 455 741 464 732 463 669 426 660 422 653 415 633 411 624 411 570 432 562 433 561 430 563 425 561 421 546 403ZM871 389 853 326 850 309 844 292 845 283 841 274 839 272 833 271 745 240 740 241 738 246 718 274 694 312 689 317 644 336 644 340 651 355 650 360 623 335 620 316 618 315 588 374 577 398 577 402 622 380 632 380 651 383 724 390 729 395 734 422 791 436 807 403 811 399 865 401 871 398Z"/>
+              <path class="hair-1" stroke-width="3" d="M465 643 483 715 513 735 520 738 523 720 525 691 528 680 545 702 547 703 548 702 537 651 533 650 514 662 508 662 475 646ZM869 40 855 38 764 34 790 55 791 60 804 67 864 114 865 124 849 188 846 193 844 193 841 189 808 100 805 88 801 82 783 82 660 96 607 147 606 150 608 152 753 160 758 161 761 164 759 167 549 277 547 279 547 285 559 351 558 361 552 360 500 321 492 264 490 262 487 263 409 337 405 335 405 331 445 223 449 219 482 213 573 200 578 195 586 178 593 167 595 160 594 159 586 160 494 196 492 192 495 188 498 178 515 144 523 124 426 158 384 264 353 280 376 370 378 374 380 388 420 392 483 395 487 398 485 401 409 443 390 452 379 459 378 496 377 497 377 529 437 589 437 581 432 559 431 545 461 500 465 496 468 496 499 513 505 518 512 544 513 554 518 571 517 577 519 581 528 590 540 596 537 583 537 577 534 569 532 555 526 533 527 527 523 519 536 402 539 396 547 403 562 421 564 425 562 432 570 431 624 410 641 411 654 415 659 413 726 422 733 421 728 395 724 391 651 384 632 381 622 381 581 402 577 403 576 398 615 317 618 314 621 316 624 335 650 359 650 355 643 340 643 336 638 328 638 321 651 278 656 273 742 239 745 239 833 270 839 271 842 274 845 282 851 286 860 299 877 319 879 325 881 325 892 338 903 400 903 404 901 406 895 403 889 403 884 401 874 402 871 399 865 402 811 400 808 403 792 436 793 437 803 437 811 435 821 435 873 429 885 429 911 458 910 468 894 519 895 541 897 547 896 551 899 565 897 580 921 542 945 519 956 430 971 424 998 416 999 412 996 408 979 351 958 292 956 290 949 288 849 274 844 271 844 267 848 261 865 244 879 234 899 223 920 225 985 235 995 234 991 229 941 187 923 192 889 206 883 207 873 212 869 210 870 207 878 199 901 169 904 163 910 139 909 138 910 131 908 129 906 98Z"/>
+              <path class="shirt-3" stroke-width="3" d="M81 1198 248 1198 248 1193 282 1091 288 1068 294 1056 297 1056 308 1061 318 1068 331 1074 340 1081 442 1139 448 1146 464 1188 466 1198 476 1198 478 1195 504 1183 516 1179 581 1150 649 1122 665 1114 680 1109 700 1099 748 1079 752 1079 754 1081 712 1162 706 1171 694 1195 694 1198 962 1198 963 1195 982 1176 1093 1074 984 1020 893 973 902 988 906 992 908 999 916 1010 918 1015 918 1020 915 1023 846 1047 826 1056 815 1059 782 1072 761 1071 740 1066 727 1065 675 1055 561 1037 553 1034 460 955 447 946 407 976 377 996 295 1055 272 1051 239 1042 208 1036 176 1028 170 1024 166 1025 91 1150Z"/>
+              <path class="hair-2" stroke-width="3" d="M349 430 379 458 390 451 409 442 485 400 486 398 483 396 420 393 380 389 377 395 371 401ZM911 131 910 144 905 163 902 169 879 199 871 207 870 210 871 211 876 210 883 206 889 205 923 191 941 186 991 228 996 234 994 236 985 236 920 226 899 224 879 235 865 245 849 261 845 267 845 271 854 274 862 274 874 277 949 287 956 289 959 292 990 382 997 408 1000 412 1029 352 1004 306 1004 297 1029 251 1031 243 985 146ZM864 116 862 113 818 80 808 71 790 60 789 62 780 62 777 60 711 46 668 35 660 36 579 69 560 78 547 82 527 122 523 126 516 144 499 178 493 194 495 195 503 191 509 190 519 185 586 159 594 158 596 160 594 167 587 178 579 195 575 200 570 202 548 204 449 220 445 225 434 257 420 291 414 311 407 327 406 335 409 336 487 262 490 261 493 264 501 321 552 359 558 360 558 351 546 285 546 279 549 276 756 168 760 164 758 162 753 161 608 153 605 150 606 147 660 95 783 81 801 81 806 88 806 91 821 133 844 192 847 191 864 124Z"/>
+              <path class="shirt-2" stroke-width="3" d="M1125 1090 1093 1075 982 1177 964 1195 963 1198 1180 1198ZM293 1058 249 1193 249 1198 465 1198 463 1188 446 1144 442 1140 340 1082 331 1075 318 1069 308 1062 297 1057ZM402 906 553 1033 561 1036 675 1054 727 1064 740 1065 761 1070 782 1071 804 1062 826 1055 846 1046 915 1022 917 1020 917 1015 915 1010 907 999 905 992 872 947 821 919 820 925 827 933 827 936 843 978 845 987 841 991 826 998 817 999 813 1002 790 1009 770 1017 747 1024 744 1023 735 1024 574 985 527 943 514 929 505 923 475 896 463 883 456 880 449 873 448 870 441 869Z"/>
+              <path class="shirt-4" stroke-width="3" d="M753 1081 748 1080 738 1085 728 1088 687 1107 665 1115 649 1123 595 1145 516 1180 504 1184 478 1196 477 1198 693 1198 693 1195 705 1171 711 1162ZM446 945 442 940 402 907 400 907 281 966 170 1023 176 1027 208 1035 239 1041 272 1050 295 1054 377 995 407 975 429 958 443 949Z"/>
+              <path class="skin-6" stroke-width="3" d="M589 763 591 770 688 965 692 968 709 968 739 883 750 858 752 844 693 844 680 835 594 765ZM655 415 655 417 660 421 669 425 719 455 735 463 741 463 763 454 778 446 790 437 739 425 733 422 726 423 659 414ZM845 284 846 296 851 309 854 326 872 389 872 399 874 401 884 400 889 402 895 402 901 405 902 400 891 338 886 331 881 326 878 325 876 319 859 299 850 286ZM739 242 732 243 656 274 652 278 639 321 639 328 642 334 645 335 689 316 693 312 707 289Z"/>
+              <path class="skin-10" stroke-width="3" d="M895 551 861 559 827 564 821 566 806 585 800 586 796 584 787 584 788 594 792 605 795 607 795 609 801 614 833 632 838 636 838 638 831 644 825 645 818 651 806 656 793 664 789 668 786 686 783 693 781 694 762 694 767 707 774 715 779 728 785 735 790 745 806 768 811 780 824 790 826 788 826 769 852 738 855 722 862 700 863 692 869 674 881 626 889 601 889 597 891 594 892 588 896 582 898 565ZM764 454 766 457 765 479 762 488 761 499 753 538 782 551 808 546 807 539 803 533 796 514 788 498 788 495 773 466 768 452Z"/>
+              <path class="skin-7" stroke-width="3" d="M509 839 464 882 464 884 505 922 514 928 511 848ZM719 579 721 582 750 604 756 611 763 615 773 616 785 613 794 609 794 607 791 605 787 594 785 583 767 588 762 585 758 585 746 580 724 579 723 578ZM885 430 852 432 821 436 811 436 803 438 791 437 781 445 769 452 774 466 789 495 789 498 797 514 804 533 808 539 809 547 814 552 821 565 837 561 843 561 894 551 896 549 894 541 893 519 909 468 910 458Z"/>
+              <path class="skin-9" stroke-width="3" d="M814 783 753 844 751 858 740 883 711 965 711 967 722 969 749 968 755 972 756 974 753 983 752 998 744 1022 745 1023 770 1016 790 1008 813 1001 817 998 818 945 820 928 819 902 820 901 825 791Z"/>
+              <path class="skin-1" stroke-width="1.6" d="M561 730 562 733 589 762 594 764 680 834 693 843 753 843 813 783 811 781 800 781 799 782 701 781 615 752 602 745 562 729Z"/>
+              <path class="skin-2" stroke-width="1.6" d="M672 628 680 636 721 636 722 637 745 637 746 638 769 638 770 639 793 639 794 640 820 641 826 637 835 635 825 628 801 615 795 610 773 617 763 616 754 610 742 610 676 626Z"/>
+              <path class="skin-4" stroke-width="1.6" d="M709 551 713 572 716 577 746 579 758 584 762 584 767 587 783 582 804 585 820 566 813 552 808 547 782 552 754 539 749 539 741 542 714 548ZM781 572 786 567 796 564 799 567 804 577 802 579 798 579 792 575 786 575 783 577ZM761 568 758 572 749 570 723 576 721 574 727 569 744 559 750 559 754 561Z"/>
+              <path class="skin-8" stroke-width="1.6" d="M669 638 681 645 733 663 739 667 788 668 799 659 818 650 824 645 820 642 794 641 793 640 770 640 769 639 746 639 745 638 722 638 721 637 680 637 679 636Z"/>
+              <path class="skin-3" stroke-width="1.6" d="M470 539 468 544 467 570 464 593 465 604 470 606 509 613 510 612 509 609 487 587 487 584 499 571 501 571 505 567 505 565 513 557 513 555 487 545 478 540Z"/>
+              <path class="skin-5" stroke-width="1.6" d="M726 674 727 679 732 689 735 692 781 693 784 690 788 669 738 668Z"/>
+              <path class="shirt-1" stroke-width="1.6" d="M822 928 820 929 820 944 819 945 818 998 826 997 841 990 844 987 844 984 828 942 826 933ZM449 870 450 873 461 882 463 882 472 873Z"/>
+              <path class="hair-3" stroke-width="1.6" d="M837 636 826 638 822 640 821 642 824 644 831 643 837 638ZM650 629 650 632 652 634 659 634 666 637 677 635 671 628 652 627ZM782 572 783 576 786 574 792 574 798 578 803 577 796 565 788 567ZM760 568 754 562 750 560 744 560 722 574 723 575 749 569 758 571Z"/>
+            </svg>
+            <div class="portrait-scanlines"></div>
+          </div>
+          <!-- Subtle Caption On Chest (Like '[ VIEW PROJECTS ] [ GET IN TOUCH ]' on the shirt in reference) -->
+          <div class="absolute bottom-8 inset-x-0 z-30 flex items-center justify-center gap-6 font-mono text-[10px] tracking-[0.2em] uppercase">
+            <a href="#node-archive" class="bg-void/90 border border-hairline px-3 py-1.5 text-main hover:border-accent-2">[ VIEW STORES ]</a>
+            <a href="#node-contact" class="bg-void/90 border border-hairline px-3 py-1.5 text-accent-2 hover:border-accent-1">[ GET IN TOUCH ]</a>
+          </div>
+        </div>
+
+        <!-- FLOATING MULTI-LAYERED COLLAGE CARDS AROUND PORTRAIT (Draggable & Parallax-Reactive) -->
+        <!-- Floating Card A: Top Left -->
+        <div class="collage-float-card hidden md:block absolute top-6 left-[4%] lg:left-[8%] z-30 w-64 bg-panel/95 border border-hairline p-4 shadow-2xl cursor-move" data-depth="0.04">
+          <div class="flex items-center justify-between font-mono text-[10px] text-accent-2 mb-1.5">
+            <span>INNOVANTIVES // 2023–2025</span>
+            <span>[DRAG ME]</span>
+          </div>
+          <div class="font-syne font-bold text-base text-main">Lead Etsy Operator</div>
+          <p class="font-mono text-[11px] text-muted-custom mt-1">
+            Supervised 2 graphic designers. Launched 1,100+ SKUs &rarr; 50+ winners &rarr; 9,000+ sales &amp; 800+ 5★ reviews.
+          </p>
+        </div>
+
+        <!-- Floating Card B: Mid Left -->
+        <div class="collage-float-card hidden md:block absolute top-1/2 -translate-y-1/2 left-[1%] lg:left-[4%] z-30 w-60 bg-void/95 border border-accent-1 p-4 shadow-2xl cursor-move" data-depth="-0.05">
+          <div class="font-mono text-[10px] text-accent-1 mb-1">HIGH-VOLUME CO-MANAGED</div>
+          <div class="font-syne font-extrabold text-2xl text-main">100K+ SALES</div>
+          <div class="font-mono text-[11px] text-accent-2 mt-0.5">7,000+ VERIFIED REVIEWS</div>
+        </div>
+
+        <!-- Floating Card C: Top Right -->
+        <div class="collage-float-card hidden md:block absolute top-10 right-[4%] lg:right-[8%] z-30 w-64 bg-panel/95 border border-hairline p-4 shadow-2xl cursor-move" data-depth="0.06">
+          <div class="font-mono text-[10px] text-accent-2 mb-1">SHOPIFY &amp; META ADS // 2022–2023</div>
+          <div class="font-syne font-bold text-base text-main">Full-Funnel Dropshipping</div>
+          <p class="font-mono text-[11px] text-muted-custom mt-1">
+            Meta Ad Library espionage, high-converting SEO product pages, and relentless creative iteration.
+          </p>
+        </div>
+
+        <!-- Floating Card D: Bottom Right -->
+        <div class="collage-float-card hidden md:block absolute bottom-20 right-[2%] lg:right-[6%] z-30 w-64 bg-void/95 border border-accent-2 p-4 shadow-2xl cursor-move" data-depth="-0.04">
+          <div class="font-mono text-[10px] text-accent-2 mb-1">AMAZON &amp; WALMART // 2021–2022</div>
+          <div class="font-syne font-extrabold text-xl text-main">$7,000/MO NET PROFIT</div>
+          <p class="font-mono text-[11px] text-muted-custom mt-1">
+            Maintained &lt;5% defect rate while automating recurring tasks to save 10+ hours/week.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Mobile-Friendly Stack of the Collage Cards (Visible on small screens) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:hidden relative z-30">
+        <div class="bg-panel border border-hairline p-4">
+          <div class="font-mono text-[10px] text-accent-2">INNOVANTIVES // 2023–2025</div>
+          <div class="font-syne font-bold text-base text-main mt-1">Lead Etsy Operator (9,000+ Sales)</div>
+          <p class="font-mono text-xs text-muted-custom mt-1">1,100+ SKUs launched, 50+ winners, 800+ 5★ reviews.</p>
+        </div>
+        <div class="bg-panel border border-hairline p-4">
+          <div class="font-mono text-[10px] text-accent-1">CO-MANAGED ETSY STORE</div>
+          <div class="font-syne font-bold text-base text-main mt-1">100K+ Sales &amp; 7,000+ Reviews</div>
+          <p class="font-mono text-xs text-muted-custom mt-1">High-volume catalog &amp; support orchestration.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =======================================================================
+         NODE 05: FOOTER & DIAGONALLY SLICED GIANT WORDMARK
+         Directly inspired by bottom-right of image_28d089.jpg ('LET'S CREATE SOMETHING MEANINGFUL' + Sliced Giant Typography)
+         ======================================================================= -->
+    <footer id="node-contact" data-maze-x="820" data-maze-y="2100" data-maze-rot="1.5"
+      class="maze-node-section relative pt-20 sm:pt-28 pb-6 px-4 sm:px-8 lg:px-12 bg-void overflow-hidden">
+
+      <div class="max-w-[1440px] mx-auto">
+
+        <!-- Top Footer Row: Left Callout + Right 3-Column Bracketed Directory (Exact match to bottom-right of reference) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-20 border-b border-hairline">
+
+          <!-- Left 5 Columns -->
+          <div class="lg:col-span-5 space-y-5">
+            <h2 class="font-syne font-extrabold text-2xl sm:text-4xl uppercase tracking-tight text-main leading-tight">
+              LET&rsquo;S BUILD<br />
+              SOMETHING PROFITABLE.
+            </h2>
+            <p class="font-mono text-xs text-muted-custom leading-relaxed max-w-sm">
+              WHETHER YOU WANT TO SCALE A WALMART OR ETSY STOREFRONT, AUTOMATE YOUR OPERATIONS TEAM, OR AUDIT YOUR CATALOG&mdash;CLICK BELOW TO COPY DIRECT COORDINATES.
+            </p>
+
+            <div class="pt-2 flex flex-wrap gap-3 font-mono text-xs">
+              <button type="button" onclick="copyContact('moyzkrehman@gmail.com', 'EMAIL COPIED')"
+                class="px-4 py-3 bg-main text-void font-bold uppercase tracking-wider hover:bg-accent-2 transition-colors cursor-pointer">
+                [ COPY: MOYZKREHMAN@GMAIL.COM ]
+              </button>
+              <button type="button" onclick="copyContact('+92 347 8490570', 'PHONE / WHATSAPP COPIED')"
+                class="px-4 py-3 border border-hairline bg-surface text-main hover:border-accent-1 transition-colors cursor-pointer">
+                [ +92 347 8490570 ]
+              </button>
+            </div>
+          </div>
+
+          <!-- Right 7 Columns: 3-Column Bracketed Index (Like [HOME] [BRAND STRATEGY] [INSTAGRAM] in reference) -->
+          <div class="lg:col-span-7 flex flex-col justify-between">
+            <div class="flex justify-end mb-6">
+              <a href="mailto:moyzkrehman@gmail.com" class="font-mono text-xs text-accent-2 tracking-[0.2em] uppercase hover:underline">
+                [ CONTACT ME ↗ ]
+              </a>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 font-mono text-[11px] tracking-[0.16em] uppercase text-muted-custom">
+              <!-- Col 1: Navigation -->
+              <div class="space-y-2.5 flex flex-col">
+                <span class="text-main font-bold mb-1">:: NAVIGATION</span>
+                <a href="#node-hero" class="hover:text-main">[ HOME / PORTRAIT ]</a>
+                <a href="#node-manifesto" class="hover:text-main">[ 4 LAWS DOCTRINE ]</a>
+                <a href="#node-archive" class="hover:text-main">[ STORE ARCHIVE ]</a>
+                <a href="#node-collage" class="hover:text-main">[ COLLAGE LAB ]</a>
+                <button type="button" onclick="toggleMazeOverview()" class="text-left text-accent-2 hover:underline cursor-pointer">[ 2D MAZE VIEW ]</button>
+              </div>
+
+              <!-- Col 2: Core Capabilities -->
+              <div class="space-y-2.5 flex flex-col">
+                <span class="text-main font-bold mb-1">:: SYSTEMS</span>
+                <span class="text-muted-custom">[ WALMART SELLER OPS ]</span>
+                <span class="text-muted-custom">[ ETSY SEO &amp; SCALE ]</span>
+                <span class="text-muted-custom">[ AMAZON &amp; SHOPIFY ]</span>
+                <span class="text-muted-custom">[ CUSTOM EXTENSIONS ]</span>
+                <span class="text-muted-custom">[ B.S. IT // VU LAHORE ]</span>
+              </div>
+
+              <!-- Col 3: Verified External Links -->
+              <div class="space-y-2.5 flex flex-col col-span-2 sm:col-span-1">
+                <span class="text-main font-bold mb-1">:: VERIFIED PORTALS</span>
+                <a href="https://www.walmart.com/seller/103229962" target="_blank" rel="noopener noreferrer" class="text-accent-2 hover:underline">[ WALMART STORE ↗ ]</a>
+                <a href="https://www.etsy.com/shop/Onestopdesignart" target="_blank" rel="noopener noreferrer" class="hover:text-main">[ ONESTOPDESIGNART ↗ ]</a>
+                <a href="https://www.etsy.com/shop/OrispotMockups" target="_blank" rel="noopener noreferrer" class="hover:text-main">[ ORISPOTMOCKUPS ↗ ]</a>
+                <a href="https://www.behance.net/moizkhalyd_gd/projects" target="_blank" rel="noopener noreferrer" class="hover:text-main">[ BEHANCE DESIGN ↗ ]</a>
+                <a href="https://github.com/moyz-khalid" target="_blank" rel="noopener noreferrer" class="hover:text-main">[ GITHUB ACTIVITY ↗ ]</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- GIANT SPLICED / FRAGMENTED FOOTER WORDMARK (Directly inspired by 'ëthan mercer' sliced typography at bottom-right of image_28d089.jpg) -->
+        <div id="sliced-footer-wordmark" class="sliced-wordmark-wrap mt-8" title="Move cursor across to shear the architectural wordmark">
+          <div class="sliced-layer slice-top" id="slice-layer-1">äbdul moiz</div>
+          <div class="sliced-layer slice-mid" id="slice-layer-2">äbdul moiz</div>
+          <div class="sliced-layer slice-bot" id="slice-layer-3">äbdul moiz</div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-4 font-mono text-[10px] tracking-[0.2em] uppercase text-muted-custom">
+          <span>LAHORE, PAKISTAN // OPEN TO REMOTE WORLDWIDE</span>
+          <span>ALL RIGHTS RESERVED &copy; ABDUL MOIZ</span>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- =========================================================================
+       JAVASCRIPT ENGINE:
+       1. Studio Portrait Renderer (Uses uploaded `WhatsApp Image 2026-11-07 at 5.28.24 PM.jpg` + Fallback + Real-Time Shaders)
+       2. True 3D Orbiting Carousel Ring (Passing behind shoulders & in front of chest)
+       3. 2D Draggable Labyrinth Spatial Overview Mode
+       4. Dead-Weight Cutter Interactive Mini-Game
+       5. Sliced Footer Wordmark Interactive Shear
+       ========================================================================= -->
+  <script>
+    // -------------------------------------------------------------------------
+    // 0. TOAST & CLIPBOARD HELPERS
+    // -------------------------------------------------------------------------
+    let toastTimeout = null;
+    function showArtToast(msg) {
+      const toast = document.getElementById('art-toast');
+      const label = document.getElementById('art-toast-text');
+      if (!toast || !label) return;
+      label.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-4');
+      }, 2800);
+    }
+
+    function copyContact(text, label) {
+      try {
+        const el = document.createElement('textarea');
+        el.value = text;
+        el.style.position = 'fixed';
+        el.style.opacity = '0';
+        document.body.appendChild(el);
+        el.focus();
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        showArtToast(label + ': ' + text);
+      } catch (e) {
+        showArtToast(text);
+      }
+    }
+
+    // Live Lahore PKT Clock
+    function updateClock() {
+      const el = document.getElementById('pkt-clock');
+      if (!el) return;
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+      const pkt = new Date(utc + 3600000 * 5);
+      const hh = String(pkt.getHours()).padStart(2, '0');
+      const mm = String(pkt.getMinutes()).padStart(2, '0');
+      const ss = String(pkt.getSeconds()).padStart(2, '0');
+      el.textContent = `${hh}:${mm}:${ss} PKT`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // -------------------------------------------------------------------------
+    // 1. PALETTE / DIMENSION SHIFT (4 AVANT-GARDE COLOR THEMES)
+    // -------------------------------------------------------------------------
+    const themes = [
+      { id: 'default', name: 'CHROMA: VERMILION' },
+      { id: 'ultraviolet', name: 'CHROMA: ULTRAVIOLET' },
+      { id: 'thermal', name: 'CHROMA: THERMAL IR' },
+      { id: 'gallery', name: 'CHROMA: RAW BONE' },
+    ];
+    let currentThemeIdx = 0;
+
+    document.getElementById('theme-shift-btn')?.addEventListener('click', () => {
+      currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+      const t = themes[currentThemeIdx];
+      document.body.setAttribute('data-theme', t.id);
+      const lbl = document.getElementById('theme-label');
+      if (lbl) lbl.textContent = t.name;
+      showArtToast(`COLOR DIMENSION SHIFTED -> ${t.name}`);
+    });
+
+    // -------------------------------------------------------------------------
+    // 2. LOW-POLY SVG PORTRAIT FACET ENGINE (PALETTE REMAPPING + SHATTER MODE)
+    // -------------------------------------------------------------------------
+    let currentPortraitMode = 'original'; // 'original' | 'chiaroscuro' | 'thermal'
+    let facetsShattered = false;
+
+    function setPortraitMode(mode) {
+      currentPortraitMode = mode;
+      if (mode === 'original') {
+        document.body.removeAttribute('data-facet-mode');
+      } else {
+        document.body.setAttribute('data-facet-mode', mode);
+      }
+
+      document.querySelectorAll('.portrait-mode-btn').forEach((btn) => {
+        if (btn.getAttribute('data-mode') === mode) {
+          btn.classList.add('bg-accent-1', 'text-white', 'font-bold');
+          btn.classList.remove('bg-surface', 'text-main');
+        } else {
+          btn.classList.remove('bg-accent-1', 'text-white', 'font-bold');
+          btn.classList.add('bg-surface', 'text-main');
+        }
+      });
+      showArtToast(`LOW-POLY FACET PALETTE: ${mode.toUpperCase()}`);
+    }
+
+    function toggleShatterFacets() {
+      facetsShattered = !facetsShattered;
+      document.body.classList.toggle('facets-shattered', facetsShattered);
+      const btn = document.getElementById('shatter-facets-btn');
+      if (btn) {
+        if (facetsShattered) {
+          btn.classList.add('bg-accent-2', 'text-black', 'font-bold');
+          btn.classList.remove('bg-surface', 'text-accent-2');
+          btn.textContent = '[REASSEMBLE FACETS ✦]';
+        } else {
+          btn.classList.remove('bg-accent-2', 'text-black', 'font-bold');
+          btn.classList.add('bg-surface', 'text-accent-2');
+          btn.textContent = '[SHATTER FACETS ✦]';
+        }
+      }
+      showArtToast(
+        facetsShattered
+          ? 'LOW-POLY GEOMETRY SHATTERED INTO 3D SPACE'
+          : 'LOW-POLY FACETS LOCKED'
+      );
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. TRUE 3D ORBITING RING AROUND PORTRAIT (INSPIRED BY image_28d089.jpg)
+    //    Cards orbit in a tilted 3D ellipse. When sin(angle) > 0, Z > 0 (in front of chest).
+    //    When sin(angle) < 0, Z < 0 (physically behind head/shoulders).
+    // -------------------------------------------------------------------------
+    const orbitProjects = [
+      {
+        tag: 'LIVE WALMART',
+        title: 'Seller #103229962',
+        metric: 'ACTIVE OPS',
+        accent: '#d4ff00',
+        url: 'https://www.walmart.com/seller/103229962',
+      },
+      {
+        tag: 'ETSY SHOP 01',
+        title: 'OneStopDesignArt',
+        metric: 'TREND SEO',
+        accent: '#ff331f',
+        url: 'https://www.etsy.com/shop/Onestopdesignart',
+      },
+      {
+        tag: 'ETSY SHOP 02',
+        title: 'OrispotMockups',
+        metric: 'B2B MOCKUPS',
+        accent: '#d4ff00',
+        url: 'https://www.etsy.com/shop/OrispotMockups',
+      },
+      {
+        tag: 'CO-MANAGED',
+        title: '100K+ Sales',
+        metric: '7,000+ REVIEWS',
+        accent: '#ff331f',
+        url: '#node-archive',
+      },
+      {
+        tag: 'LEAD OPERATOR',
+        title: '9,000+ Sales',
+        metric: '1,100+ SKUS',
+        accent: '#d4ff00',
+        url: '#node-archive',
+      },
+      {
+        tag: 'CREATIVE LAB',
+        title: 'Behance Portfolio',
+        metric: 'YT & SOCIAL',
+        accent: '#ff331f',
+        url: 'https://www.behance.net/moizkhalyd_gd/projects',
+      },
+      {
+        tag: 'CODE VAULT',
+        title: 'GitHub @moyz-khalid',
+        metric: 'PUBLIC PULSE',
+        accent: '#d4ff00',
+        url: 'https://github.com/moyz-khalid',
+      },
+      {
+        tag: 'AMZ & WMT',
+        title: '$7K/Mo Net Profit',
+        metric: '<5% DEFECT',
+        accent: '#ff331f',
+        url: '#node-manifesto',
+      },
+      {
+        tag: 'AUTOMATION',
+        title: 'Custom Extensions',
+        metric: '10+ HRS/WK SAVED',
+        accent: '#d4ff00',
+        url: '#node-manifesto',
+      },
+      {
+        tag: 'SHOPIFY ADS',
+        title: 'Meta Ad Espionage',
+        metric: 'HIGH-CONVERT',
+        accent: '#ff331f',
+        url: '#node-collage',
+      },
+    ];
+
+    const ringContainer = document.getElementById('orbit-cards-ring');
+    const orbitElements = [];
+    let orbitBaseAngle = 0;
+    let orbitSpeed = 0.0055;
+    let orbitDirection = 1;
+    let orbitPaused = false;
+
+    function buildOrbitRing() {
+      if (!ringContainer) return;
+      ringContainer.innerHTML = '';
+      orbitElements.length = 0;
+
+      orbitProjects.forEach((proj, idx) => {
+        const card = document.createElement('a');
+        card.href = proj.url;
+        if (proj.url.startsWith('http')) {
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+        }
+        card.className = 'orbit-card pointer-events-auto block';
+        card.innerHTML = `
+          <div class="orbit-card-inner">
+            <div class="flex items-center justify-between font-mono text-[9px] tracking-widest uppercase">
+              <span style="color:${proj.accent}">•• ${proj.tag}</span>
+              <span class="text-white/50">0${idx + 1}</span>
+            </div>
+            <div class="font-syne font-extrabold text-xs sm:text-sm text-white leading-tight mt-1">
+              ${proj.title}
+            </div>
+            <div class="pt-1.5 border-t border-white/15 flex items-center justify-between font-mono text-[9px] text-white/80">
+              <span>${proj.metric}</span>
+              <span style="color:${proj.accent}">↗</span>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('mouseenter', () => {
+          orbitPaused = true;
+        });
+        card.addEventListener('mouseleave', () => {
+          orbitPaused = false;
+        });
+
+        ringContainer.appendChild(card);
+        orbitElements.push(card);
+      });
+    }
+
+    function reverseOrbitDirection() {
+      orbitDirection *= -1;
+      showArtToast(orbitDirection > 0 ? 'ORBIT DIRECTION: FORWARD' : 'ORBIT DIRECTION: REVERSED');
+    }
+
+    function animateOrbitRing() {
+      if (!orbitPaused) {
+        orbitBaseAngle += orbitSpeed * orbitDirection;
+      }
+
+      const isMobile = window.innerWidth < 640;
+      const radiusX = isMobile ? 168 : 275;
+      const radiusZ = isMobile ? 145 : 230;
+      const tiltSlopeY = isMobile ? 48 : 78; // Creates the diagonal sweep across his chest like image_28d089.jpg
+
+      const total = orbitElements.length;
+      for (let i = 0; i < total; i++) {
+        const el = orbitElements[i];
+        const theta = orbitBaseAngle + (i / total) * Math.PI * 2;
+
+        const x = Math.cos(theta) * radiusX;
+        const z = Math.sin(theta) * radiusZ;
+        // Diagonal tilt so right side dips lower and left side rises higher (matching reference image ring)
+        const y = -Math.cos(theta) * tiltSlopeY + Math.sin(theta) * 26;
+
+        // Rotate card so it curves naturally along the cylindrical band
+        const rotY = (-Math.cos(theta) * 38).toFixed(1);
+        const rotZ = -11;
+
+        // Scale & opacity based on depth Z
+        const depthNorm = (z + radiusZ) / (2 * radiusZ); // 0 (back) to 1 (front)
+        const scale = 0.72 + depthNorm * 0.36;
+        const opacity = 0.32 + depthNorm * 0.68;
+
+        el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateZ(${rotZ}deg) rotateY(${rotY}deg) scale(${scale.toFixed(3)})`;
+        el.style.opacity = opacity.toFixed(2);
+
+        // Critical: Portrait sits at z-index 20 (Z = 0).
+        // When z > 0, card is IN FRONT of his chest (z-index 35).
+        // When z < 0, card passes BEHIND his shoulders/head (z-index 5).
+        el.style.zIndex = z > 0 ? '35' : '5';
+      }
+
+      requestAnimationFrame(animateOrbitRing);
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. GITHUB CONTRIBUTION HEATMAP GENERATOR
+    // -------------------------------------------------------------------------
+    function populateGithubMatrix() {
+      const grid = document.getElementById('gh-matrix-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      // 26 cols × 2 rows = 52 cells — wide & flat like a real contribution graph
+      for (let i = 0; i < 52; i++) {
+        const cell = document.createElement('div');
+        const val = (i * 11 + (i % 7) * 5) % 10;
+        let bg = 'bg-white/5';
+        if (val > 7) bg = 'bg-[#d4ff00] shadow-[0_0_6px_#d4ff00]';
+        else if (val > 5) bg = 'bg-[#ff331f]';
+        else if (val > 2) bg = 'bg-[#ff331f]/45';
+        cell.className = `h-2.5 rounded-[2px] ${bg} transition-transform hover:scale-125`;
+        cell.title = `Verified Activity Pulse // Node #${i + 1}`;
+        grid.appendChild(cell);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. CONFUSING ARTISTIC MAZE VIEW (2D SPATIAL CANVAS PANNING) & REALITY SCRAMBLE
+    // -------------------------------------------------------------------------
+    let mazeOverviewActive = false;
+    let panX = -60;
+    let panY = -40;
+    let mazeScale = 0.42;
+    let isDraggingMaze = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+
+    const worldEl = document.getElementById('labyrinth-world');
+    const pipesSvg = document.getElementById('maze-pipes-svg');
+    const mazeBtnLabel = document.getElementById('maze-btn-label');
+
+    function applyMazeTransform() {
+      if (!mazeOverviewActive) {
+        worldEl.style.transform = '';
+        return;
+      }
+      worldEl.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${mazeScale})`;
+    }
+
+    function toggleMazeOverview() {
+      mazeOverviewActive = !mazeOverviewActive;
+      document.body.classList.toggle('maze-overview-active', mazeOverviewActive);
+      pipesSvg.classList.toggle('hidden', !mazeOverviewActive);
+
+      const sections = document.querySelectorAll('.maze-node-section');
+      if (mazeOverviewActive) {
+        if (mazeBtnLabel) mazeBtnLabel.textContent = 'EXIT MAZE [SCROLL]';
+        sections.forEach((sec) => {
+          const x = sec.getAttribute('data-maze-x') || 0;
+          const y = sec.getAttribute('data-maze-y') || 0;
+          const rot = sec.getAttribute('data-maze-rot') || 0;
+          sec.style.left = `${x}px`;
+          sec.style.top = `${y}px`;
+          sec.style.transform = `rotate(${rot}deg)`;
+        });
+        panX = -80;
+        panY = -30;
+        mazeScale = window.innerWidth < 768 ? 0.26 : 0.42;
+        applyMazeTransform();
+        showArtToast('2D LABYRINTH ACTIVE: DRAG ANYWHERE TO PAN AROUND ABDUL’S MIND MAZE');
+      } else {
+        if (mazeBtnLabel) mazeBtnLabel.textContent = 'MAZE VIEW [2D]';
+        sections.forEach((sec) => {
+          sec.style.left = '';
+          sec.style.top = '';
+          sec.style.transform = '';
+        });
+        worldEl.style.transform = '';
+        showArtToast('EDITORIAL SCROLL RESTORED');
+      }
+    }
+
+    function exitMazeIfActive() {
+      if (mazeOverviewActive) toggleMazeOverview();
+    }
+
+    function focusMazeNode(index) {
+      const sections = document.querySelectorAll('.maze-node-section');
+      const target = sections[index];
+      if (!target) return;
+
+      // Update Radar Dot
+      const coords = [
+        { cx: 25, cy: 25, name: 'NODE 01 // STRATEGY' },
+        { cx: 60, cy: 70, name: 'NODE 02 // MANIFESTO' },
+        { cx: 95, cy: 45, name: 'NODE 03 // ARCHIVE' },
+        { cx: 125, cy: 68, name: 'NODE 04 // COLLAGE' },
+        { cx: 160, cy: 35, name: 'NODE 05 // TERMINAL' },
+      ];
+      const dot = document.getElementById('radar-active-dot');
+      const label = document.getElementById('hud-node-name');
+      if (dot && coords[index]) {
+        dot.setAttribute('cx', coords[index].cx);
+        dot.setAttribute('cy', coords[index].cy);
+      }
+      if (label && coords[index]) {
+        label.textContent = coords[index].name;
+      }
+
+      if (mazeOverviewActive) {
+        const x = parseFloat(target.getAttribute('data-maze-x') || '0');
+        const y = parseFloat(target.getAttribute('data-maze-y') || '0');
+        panX = -x * mazeScale + window.innerWidth * 0.22;
+        panY = -y * mazeScale + window.innerHeight * 0.15;
+        applyMazeTransform();
+      }
+    }
+
+    document.getElementById('maze-toggle-btn')?.addEventListener('click', toggleMazeOverview);
+
+    // Drag to pan in 2D Maze Overview
+    window.addEventListener('mousedown', (e) => {
+      if (!mazeOverviewActive) return;
+      isDraggingMaze = true;
+      dragStartX = e.clientX - panX;
+      dragStartY = e.clientY - panY;
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!mazeOverviewActive || !isDraggingMaze) return;
+      panX = e.clientX - dragStartX;
+      panY = e.clientY - dragStartY;
+      applyMazeTransform();
+    });
+    window.addEventListener('mouseup', () => {
+      isDraggingMaze = false;
+    });
+
+    // Reality Scramble Toggle
+    let realityScrambled = false;
+    function scrambleReality() {
+      realityScrambled = !realityScrambled;
+      document.body.classList.toggle('reality-scrambled', realityScrambled);
+      reverseOrbitDirection();
+      if (realityScrambled) {
+        setPortraitMode('thermal');
+        if (!facetsShattered) toggleShatterFacets();
+        showArtToast('PARADOX ENGAGED: LOW-POLY FACETS & ORBIT INVERTED');
+      } else {
+        setPortraitMode('original');
+        if (facetsShattered) toggleShatterFacets();
+        showArtToast('GEOMETRY STABILIZED');
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 6. "CUT THE DEAD WEIGHT" INTERACTIVE SCISSORS MINI-GAME
+    // -------------------------------------------------------------------------
+    let cutterActive = false;
+    let profitSavedTotal = 0;
+    const deadWeightTasks = [
+      { label: 'Copy-Pasting 400 Tracking #s at 2AM', value: 1200 },
+      { label: 'Bleeding 0.6 ROAS Meta Ad Set', value: 2450 },
+      { label: '47-Tab Manual Inventory Spreadsheet', value: 950 },
+      { label: 'Unoptimized Generic Title Tags', value: 1800 },
+      { label: 'Slow Supplier Eating 14% Margin', value: 3100 },
+      { label: 'Repetitive Manual Price Checking', value: 1400 },
+    ];
+
+    function toggleDeadWeightMode() {
+      const arena = document.getElementById('deadweight-arena');
+      if (!arena) return;
+      cutterActive = !cutterActive;
+
+      if (cutterActive) {
+        arena.classList.remove('hidden');
+        arena.innerHTML = '';
+        deadWeightTasks.forEach((task, i) => {
+          const pill = document.createElement('button');
+          pill.type = 'button';
+          pill.className =
+            'dead-weight-pill pointer-events-auto fixed z-[95] px-4 py-2.5 bg-[#ff331f] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-2xl border-2 border-[#d4ff00] flex items-center gap-2 hover:scale-110 transition-transform';
+          pill.style.left = `${10 + ((i * 15) % 72)}vw`;
+          pill.style.top = `${18 + ((i * 13) % 64)}vh`;
+          pill.style.animationDelay = `${i * 0.3}s`;
+          pill.innerHTML = `<i class="fa-solid fa-scissors text-[#d4ff00]"></i> <span>DEAD WEIGHT: ${task.label}</span>`;
+
+          pill.addEventListener('click', () => {
+            profitSavedTotal += task.value;
+            const counter = document.getElementById('profit-harvest-counter');
+            if (counter) {
+              counter.textContent = `DEAD WEIGHT CUT: $${profitSavedTotal.toLocaleString()} SAVED`;
+            }
+            pill.innerHTML = `<span class="text-[#d4ff00]">AUTOMATED VIA PYTHON/JS! +$${task.value}/MO</span>`;
+            pill.classList.remove('bg-[#ff331f]');
+            pill.classList.add('bg-black', 'scale-90', 'opacity-0', 'transition-all', 'duration-500');
+            setTimeout(() => pill.remove(), 500);
+            showArtToast(`AUTOMATED "${task.label}" -> +$${task.value}/MO SAVED!`);
+          });
+
+          arena.appendChild(pill);
+        });
+        showArtToast('SCISSORS ARMED: CLICK FLOATING MANUAL TASKS TO SLICE & AUTOMATE THEM!');
+      } else {
+        arena.classList.add('hidden');
+        arena.innerHTML = '';
+        showArtToast('DEAD WEIGHT CUTTER CLOSED');
+      }
+    }
+
+    document.getElementById('cutter-mode-btn')?.addEventListener('click', toggleDeadWeightMode);
+
+    // -------------------------------------------------------------------------
+    // 7. DRAGGABLE FLOATING COLLAGE CARDS & SLICED FOOTER WORDMARK INTERACTION
+    // -------------------------------------------------------------------------
+    document.querySelectorAll('.collage-float-card').forEach((card) => {
+      let draggingCard = false;
+      let startX = 0;
+      let startY = 0;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      card.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        draggingCard = true;
+        startX = e.clientX - offsetX;
+        startY = e.clientY - offsetY;
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!draggingCard) return;
+        offsetX = e.clientX - startX;
+        offsetY = e.clientY - startY;
+        card.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
+      });
+      window.addEventListener('mouseup', () => {
+        draggingCard = false;
+      });
+    });
+
+    // Sliced Giant Footer Wordmark Shear on Cursor Move
+    const slicedWrap = document.getElementById('sliced-footer-wordmark');
+    const slice1 = document.getElementById('slice-layer-1');
+    const slice2 = document.getElementById('slice-layer-2');
+    const slice3 = document.getElementById('slice-layer-3');
+
+    slicedWrap?.addEventListener('mousemove', (e) => {
+      const rect = slicedWrap.getBoundingClientRect();
+      const normX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to +0.5
+      if (slice1) slice1.style.transform = `translateX(${normX * -90}px) skewX(${-8 + normX * 15}deg)`;
+      if (slice2) slice2.style.transform = `translateX(${normX * 110}px) skewX(${12 - normX * 20}deg)`;
+      if (slice3) slice3.style.transform = `translateX(${normX * -65}px) skewX(${-5 + normX * 10}deg)`;
+    });
+
+    slicedWrap?.addEventListener('mouseleave', () => {
+      if (slice1) slice1.style.transform = 'translateX(-14px) skewX(-8deg)';
+      if (slice2) slice2.style.transform = 'translateX(18px) skewX(12deg)';
+      if (slice3) slice3.style.transform = 'translateX(-10px) skewX(-5deg)';
+    });
+
+    // Update Radar HUD on Scroll
+    window.addEventListener('scroll', () => {
+      if (mazeOverviewActive) return;
+      const sections = document.querySelectorAll('.maze-node-section');
+      const mid = window.scrollY + window.innerHeight * 0.4;
+      sections.forEach((sec, idx) => {
+        if (sec.offsetTop <= mid) {
+          focusMazeNode(idx);
+        }
+      });
+    }, { passive: true });
+
+    // Initialize Everything on Window Load
+    window.onload = function () {
+      buildOrbitRing();
+      animateOrbitRing();
+      populateGithubMatrix();
+    };
+  </script>
+</body>
+</html>
