@@ -348,9 +348,9 @@
       height: clamp(80px, 18vw, 120px);
       transform-style: preserve-3d;
       backface-visibility: visible;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
       cursor: default;
       user-select: none;
+      pointer-events: none;
     }
 
     .orbit-card-inner {
@@ -366,11 +366,6 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-    }
-
-    .orbit-card:hover .orbit-card-inner {
-      border-color: var(--accent-secondary);
-      box-shadow: 0 0 28px var(--portrait-rim);
     }
 
     /* =========================================================================
@@ -1774,7 +1769,6 @@
     let orbitBaseAngle = 0;
     let orbitSpeed = 0.0055;
     let orbitDirection = 1;
-    let orbitPaused = false;
 
     function buildOrbitRing() {
       if (!ringContainer) return;
@@ -1783,7 +1777,7 @@
 
       orbitProjects.forEach((proj, idx) => {
         const card = document.createElement('div');
-        card.className = 'orbit-card pointer-events-auto block select-none';
+        card.className = 'orbit-card pointer-events-none block select-none';
         card.innerHTML = `
           <div class="orbit-card-inner">
             <div class="flex items-center justify-between font-mono text-[8px] sm:text-[9px] tracking-widest uppercase">
@@ -1799,13 +1793,6 @@
             </div>
           </div>
         `;
-
-        card.addEventListener('mouseenter', () => {
-          orbitPaused = true;
-        });
-        card.addEventListener('mouseleave', () => {
-          orbitPaused = false;
-        });
 
         ringContainer.appendChild(card);
         orbitElements.push(card);
@@ -1824,9 +1811,7 @@
     window.addEventListener('resize', updateCardDimensions);
 
     function animateOrbitRing() {
-      if (!orbitPaused) {
-        orbitBaseAngle += orbitSpeed * orbitDirection;
-      }
+      orbitBaseAngle += orbitSpeed * orbitDirection;
 
       const orbitBox = document.getElementById('hero-portrait-box');
       const portraitW = orbitBox ? orbitBox.offsetWidth : 480;
