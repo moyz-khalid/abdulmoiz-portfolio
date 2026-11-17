@@ -306,8 +306,8 @@
     .orbit-scene {
       position: relative;
       width: 100%;
-      height: clamp(480px, 48vw, 760px);
-      min-height: 440px;
+      height: clamp(400px, 48vw, 760px);
+      min-height: 360px;
       max-height: 820px;
       transform-style: preserve-3d;
       display: flex;
@@ -318,8 +318,8 @@
     /* Central Studio Cutout Portrait Container at Z = 0 */
     .portrait-monolith {
       position: relative;
-      width: clamp(280px, 32vw, 520px);
-      height: clamp(380px, 44vw, 680px);
+      width: clamp(230px, 62vw, 520px);
+      height: clamp(310px, 80vw, 680px);
       max-width: 90vw;
       transform: translateZ(0px);
       transform-style: preserve-3d;
@@ -344,8 +344,8 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: clamp(140px, 11vw, 184px);
-      height: clamp(92px, 7.5vw, 120px);
+      width: clamp(118px, 28vw, 184px);
+      height: clamp(80px, 18vw, 120px);
       transform-style: preserve-3d;
       backface-visibility: visible;
       transition: border-color 0.25s ease, box-shadow 0.25s ease;
@@ -360,7 +360,7 @@
       border: 1px solid rgba(243, 239, 230, 0.28);
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(8px);
-      padding: clamp(8px, 0.8vw, 14px);
+      padding: clamp(6px, 1.8vw, 14px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -504,7 +504,7 @@
        ========================================================================= */
     .sliced-wordmark-wrap {
       position: relative;
-      height: clamp(90px, 15vw, 240px);
+      height: clamp(75px, 14vw, 240px);
       width: 100%;
       overflow: hidden;
       user-select: none;
@@ -519,7 +519,7 @@
       justify-content: center;
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(3rem, 13vw, 13rem);
+      font-size: clamp(2.3rem, 11.5vw, 13rem);
       letter-spacing: -0.05em;
       line-height: 0.9;
       white-space: nowrap;
@@ -651,9 +651,9 @@
     </div>
 
     <!-- Sub-Navigation Bar (Centered like 'ABOUT ▪ PROJECTS ▪ CASE STUDY' in image_28d089.jpg) -->
-    <div class="border-t border-hairline py-2 px-4 bg-void/60 overflow-x-auto no-scrollbar">
+    <div class="border-t border-hairline py-2 px-3 sm:px-4 bg-void/60 overflow-x-auto no-scrollbar">
       <nav
-        class="content-container max-w-6xl flex flex-nowrap whitespace-nowrap items-center justify-center gap-3 sm:gap-6 font-mono text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.22em] uppercase text-muted-custom">
+        class="content-container max-w-6xl flex flex-nowrap whitespace-nowrap items-center justify-start md:justify-center gap-3 sm:gap-6 font-mono text-[10px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.22em] uppercase text-muted-custom">
         <a href="#node-hero" onclick="focusMazeNode(0)" class="hover:text-main transition-colors shrink-0">01.
           STRATEGY</a>
         <span class="text-accent-1 shrink-0">▪</span>
@@ -728,37 +728,37 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-10 2xl:gap-14 items-center">
 
           <!-- LEFT 6 COLUMNS: Staggered Editorial Brutalist Typography (Like 'WORK THAT BEGINS WITH STRATEGY.') -->
-          <div class="lg:col-span-6 space-y-6 sm:space-y-8 relative z-30">
+          <div class="lg:col-span-6 space-y-4 sm:space-y-8 relative z-30">
             <div
-              class="inline-flex items-center gap-2.5 px-3 py-1 border border-hairline bg-surface/90 font-mono text-[11px] tracking-[0.2em] uppercase text-accent-2">
+              class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 px-3 py-1 border border-hairline bg-surface/90 font-mono text-[10px] sm:text-[11px] tracking-[0.12em] sm:tracking-[0.2em] uppercase text-accent-2 max-w-full">
               <span>:: E-COMMERCE ARCHITECT</span>
               <span class="text-accent-1">/</span>
-              <span>NOT YOUR AVERAGE "GURU"</span>
+              <span class="text-muted-custom">NOT YOUR AVERAGE "GURU"</span>
             </div>
 
             <!-- Staggered Brutalist Headline Matching Reference Rhythm -->
             <h1
-              class="font-syne font-extrabold text-[clamp(2.4rem,4.8vw,4.8rem)] 2xl:text-[clamp(4.2rem,5.6vw,6.5rem)] leading-[0.93] tracking-tight uppercase text-main select-none">
+              class="font-syne font-extrabold text-[clamp(1.35rem,6.2vw,2.4rem)] sm:text-[clamp(2.4rem,4.8vw,4.8rem)] 2xl:text-[clamp(4.2rem,5.6vw,6.5rem)] leading-[0.96] sm:leading-[0.93] tracking-tight uppercase text-main select-none w-full">
               <span class="block sm:pl-8 lg:pl-12">REVENUE THAT</span>
-              <span class="flex items-baseline justify-between max-w-xl 2xl:max-w-2xl">
+              <span class="flex items-baseline justify-between max-w-xl 2xl:max-w-2xl w-full">
                 <span>BEGINS</span>
                 <span
-                  class="font-serif italic font-normal lowercase text-accent-2 text-[clamp(3rem,6vw,6.4rem)] 2xl:text-[clamp(5rem,6.8vw,8rem)] px-2">with</span>
+                  class="font-serif italic font-normal lowercase text-accent-2 text-[clamp(1.6rem,7.5vw,2.8rem)] sm:text-[clamp(3rem,6vw,6.4rem)] 2xl:text-[clamp(5rem,6.8vw,8rem)] px-1 sm:px-2">with</span>
                 <span>SYSTEMS.</span>
               </span>
               <span class="block text-accent-1 mt-1">NOT HYPE.</span>
             </h1>
 
             <!-- Witty, Humble & Bold Editorial Subcopy Block -->
-            <div class="max-w-xl sm:pl-8 lg:pl-12 space-y-4">
+            <div class="max-w-xl sm:pl-8 lg:pl-12 space-y-3 sm:space-y-4">
               <p
-                class="font-mono text-[11px] sm:text-xs 2xl:text-sm uppercase tracking-[0.14em] leading-relaxed text-muted-custom">
+                class="font-mono text-[10px] sm:text-xs 2xl:text-sm uppercase tracking-[0.1em] sm:tracking-[0.14em] leading-relaxed text-muted-custom">
                 A SELECTION OF MULTI-PLATFORM REVENUE ENGINES, CUSTOM BROWSER EXTENSIONS, AND COMPETITOR ESPIONAGE
                 DEVELOPED OVER 5+ YEARS ACROSS <span class="text-main">WALMART, ETSY, AMAZON, AND SHOPIFY</span>.
               </p>
-              <p class="text-sm sm:text-base 2xl:text-lg text-main/90 leading-relaxed border-l-2 border-accent-1 pl-4">
+              <p class="text-xs sm:text-base 2xl:text-lg text-main/90 leading-relaxed border-l-2 border-accent-1 pl-3 sm:pl-4">
                 &ldquo;Revenue is the only metric that pays rent. I&rsquo;m not an e-commerce guru posing next to a
-                rented Huracán&mdash;I&rsquo;m an IT nerd from Lahore who automates boring tasks into extinction. If a
+                rented Hurac&aacute;n&mdash;I&rsquo;m an IT nerd from Lahore who automates boring tasks into extinction. If a
                 human has to click it twice, I build a system so nobody clicks it again.&rdquo;
               </p>
 
@@ -821,7 +821,7 @@
 
                 <!-- Subtle Floating Telemetry Tag on His Shoulder -->
                 <div
-                  class="absolute bottom-14 -left-4 z-30 bg-void/90 border border-accent-2 px-3 py-1.5 font-mono text-[10px] tracking-widest uppercase shadow-xl">
+                  class="absolute bottom-8 sm:bottom-14 left-2 sm:-left-4 z-30 bg-void/90 border border-accent-2 px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest uppercase shadow-xl">
                   <span class="text-accent-2">●</span> SYS_OP: ABDUL MOIZ // 100K+ ORDERS
                 </div>
               </div>
@@ -1512,6 +1512,16 @@
           <div class="font-syne font-bold text-base text-main mt-1">100K+ Sales &amp; 7,000+ Reviews</div>
           <p class="font-mono text-xs text-muted-custom mt-1">High-volume catalog &amp; support orchestration.</p>
         </div>
+        <div class="bg-panel border border-hairline p-4">
+          <div class="font-mono text-[10px] text-accent-2">SHOPIFY &amp; META ADS // 2022–2023</div>
+          <div class="font-syne font-bold text-base text-main mt-1">Full-Funnel Dropshipping</div>
+          <p class="font-mono text-xs text-muted-custom mt-1">Meta Ad Library espionage &amp; high-converting pages.</p>
+        </div>
+        <div class="bg-panel border border-hairline p-4">
+          <div class="font-mono text-[10px] text-accent-1">AMAZON &amp; WALMART // 2021–2022</div>
+          <div class="font-syne font-bold text-base text-main mt-1">$7,000/MO NET PROFIT</div>
+          <p class="font-mono text-xs text-muted-custom mt-1">&lt;5% defect rate with 10+ hrs/wk automated.</p>
+        </div>
       </div>
 
     </section>
@@ -1776,14 +1786,14 @@
         card.className = 'orbit-card pointer-events-auto block select-none';
         card.innerHTML = `
           <div class="orbit-card-inner">
-            <div class="flex items-center justify-between font-mono text-[9px] tracking-widest uppercase">
+            <div class="flex items-center justify-between font-mono text-[8px] sm:text-[9px] tracking-widest uppercase">
               <span style="color:${proj.accent}">•• ${proj.tag}</span>
               <span class="text-white/50">0${idx + 1}</span>
             </div>
-            <div class="font-syne font-extrabold text-xs sm:text-sm text-white leading-tight mt-1">
+            <div class="font-syne font-extrabold text-[11px] sm:text-sm text-white leading-tight mt-0.5 sm:mt-1 truncate">
               ${proj.title}
             </div>
-            <div class="pt-1.5 border-t border-white/15 flex items-center justify-between font-mono text-[9px] text-white/80">
+            <div class="pt-1 sm:pt-1.5 border-t border-white/15 flex items-center justify-between font-mono text-[8px] sm:text-[9px] text-white/80">
               <span>${proj.metric}</span>
               <span style="color:${proj.accent}">●</span>
             </div>
@@ -1825,10 +1835,10 @@
 
       // Responsive elliptical orbit radius that scales gracefully with portrait and scene width
       const radiusX = isMobile
-        ? Math.max(140, Math.min(sceneW * 0.44, 195))
+        ? Math.max(95, Math.min(sceneW * 0.33, 135))
         : Math.max(240, Math.min(portraitW * 0.58 + 35, sceneW * 0.46));
-      const radiusZ = radiusX * 0.82;
-      const tiltSlopeY = radiusX * 0.28; // Creates the diagonal sweep across his chest like image_28d089.jpg
+      const radiusZ = isMobile ? radiusX * 0.8 : radiusX * 0.82;
+      const tiltSlopeY = isMobile ? radiusX * 0.22 : radiusX * 0.28; // Creates the diagonal sweep across his chest like image_28d089.jpg
 
       const total = orbitElements.length;
       for (let i = 0; i < total; i++) {
