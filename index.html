@@ -78,37 +78,13 @@
       shape-rendering: geometricPrecision;
       overflow: visible;
       filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.85));
+      pointer-events: none;
+      user-select: none;
     }
     .portrait path {
       fill-rule: evenodd;
       stroke-linejoin: round;
-      transition:
-        fill 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        stroke 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      transform-origin: center center;
-    }
-
-    /* Shatter / Explode Facets Mode */
-    body.facets-shattered .portrait path:nth-child(4n+1) {
-      transform: translate(-18px, -14px) rotate(-2.5deg) scale(0.97);
-      stroke: var(--accent-secondary);
-      stroke-width: 4px;
-    }
-    body.facets-shattered .portrait path:nth-child(4n+2) {
-      transform: translate(19px, -10px) rotate(2.2deg) scale(0.97);
-      stroke: var(--accent-primary);
-      stroke-width: 4px;
-    }
-    body.facets-shattered .portrait path:nth-child(4n+3) {
-      transform: translate(-14px, 16px) rotate(1.8deg) scale(0.97);
-      stroke: #00f5d4;
-      stroke-width: 4px;
-    }
-    body.facets-shattered .portrait path:nth-child(4n) {
-      transform: translate(16px, 18px) rotate(-2deg) scale(0.97);
-      stroke: var(--text-main);
-      stroke-width: 4px;
+      pointer-events: none;
     }
 
     .skin-11{fill:var(--skin-11);stroke:var(--skin-11)}
@@ -617,13 +593,6 @@
 
           <!-- RIGHT 6 COLUMNS: DRAMATIC STUDIO PORTRAIT + 3D ORBITING CAROUSEL RING -->
           <div class="lg:col-span-6 relative hero-3d-stage">
-
-            <!-- Interactive Low-Poly Shatter Mode -->
-            <div class="absolute top-2 right-2 z-40 flex flex-wrap gap-1.5 font-mono text-[10px]">
-              <button type="button" onclick="toggleShatterFacets()" id="shatter-facets-btn" class="px-2.5 py-1 bg-surface border border-hairline text-accent-2 uppercase cursor-pointer hover:border-accent-1">
-                [SHATTER FACETS ✦]
-              </button>
-            </div>
 
             <!-- 3D Scene Containing Both the Portrait (Z=0) and the 10 Orbiting Cards (Z = -R to +R) -->
             <div id="hero-orbit-scene" class="orbit-scene">
@@ -1436,34 +1405,7 @@
     updateClock();
 
     // -------------------------------------------------------------------------
-    // 1. LOW-POLY SVG PORTRAIT SHATTER ENGINE
-    // -------------------------------------------------------------------------
-    let facetsShattered = false;
-
-    function toggleShatterFacets() {
-      facetsShattered = !facetsShattered;
-      document.body.classList.toggle('facets-shattered', facetsShattered);
-      const btn = document.getElementById('shatter-facets-btn');
-      if (btn) {
-        if (facetsShattered) {
-          btn.classList.add('bg-accent-2', 'text-black', 'font-bold');
-          btn.classList.remove('bg-surface', 'text-accent-2');
-          btn.textContent = '[REASSEMBLE FACETS ✦]';
-        } else {
-          btn.classList.remove('bg-accent-2', 'text-black', 'font-bold');
-          btn.classList.add('bg-surface', 'text-accent-2');
-          btn.textContent = '[SHATTER FACETS ✦]';
-        }
-      }
-      showArtToast(
-        facetsShattered
-          ? 'LOW-POLY GEOMETRY SHATTERED INTO 3D SPACE'
-          : 'LOW-POLY FACETS LOCKED'
-      );
-    }
-
-    // -------------------------------------------------------------------------
-    // 3. TRUE 3D ORBITING RING AROUND PORTRAIT (INSPIRED BY image_28d089.jpg)
+    // 1. TRUE 3D ORBITING RING AROUND PORTRAIT (INSPIRED BY image_28d089.jpg)
     //    Cards orbit in a tilted 3D ellipse. When sin(angle) > 0, Z > 0 (in front of chest).
     //    When sin(angle) < 0, Z < 0 (physically behind head/shoulders).
     // -------------------------------------------------------------------------
