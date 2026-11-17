@@ -391,30 +391,36 @@
       }
     }
 
+    /* =========================================================================
+       SEAMLESS FULL-WIDTH ANIMATED TICKER BANNERS (EDGE-TO-EDGE, UNCLIPPED)
+       ========================================================================= */
+    .ticker-banner,
     .diagonal-ribbon {
       position: relative;
-      width: 160vw;
-      left: -30vw;
+      width: 100%;
       overflow: hidden;
-      padding: clamp(6px, 0.8vw, 12px) 0;
+      padding: clamp(8px, 0.9vw, 14px) 0;
       background: var(--text-main);
       color: var(--bg-void);
-      border-top: 2px solid var(--bg-void);
-      border-bottom: 2px solid var(--bg-void);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
       z-index: 30;
+      display: flex;
+      align-items: center;
     }
 
+    .ticker-banner.dark-banner,
     .diagonal-ribbon.dark-ribbon {
       background: var(--bg-panel);
       color: var(--text-main);
-      border-top: 1px solid var(--accent-primary);
-      border-bottom: 1px solid var(--accent-primary);
+      border-top: 1px solid rgba(243, 239, 230, 0.12);
+      border-bottom: 1px solid rgba(243, 239, 230, 0.12);
     }
 
+    .ticker-banner.lime-banner,
     .diagonal-ribbon.lime-ribbon {
       background: var(--accent-secondary);
       color: #07060a;
+      border: none;
     }
 
     .ribbon-track-left {
@@ -717,7 +723,7 @@
          Directly inspired by the left half of image_28d089.jpg
          ======================================================================= -->
     <section id="node-hero" data-maze-x="80" data-maze-y="80" data-maze-rot="-2"
-      class="maze-node-section relative min-h-[clamp(580px,80vh,860px)] flex flex-col justify-center overflow-hidden border-b border-hairline pt-6 sm:pt-10 pb-6">
+      class="maze-node-section relative min-h-[clamp(580px,80vh,860px)] flex flex-col justify-center overflow-hidden pt-6 sm:pt-10 pb-6">
 
       <div class="content-container w-full pt-2 pb-6 relative z-20">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-10 2xl:gap-14 items-center">
@@ -830,11 +836,11 @@
         </div>
       </div>
 
-      <!-- DIAGONAL CRISS-CROSSING TICKER RIBBONS (Directly inspired by image_28d089.jpg) -->
-      <div class="relative h-20 sm:h-24 lg:h-28 mt-4 sm:mt-6 pointer-events-none select-none z-30 overflow-hidden">
-        <!-- Ribbon 1: Tilted Downward -->
-        <div class="diagonal-ribbon" style="transform: rotate(-4.5deg) translateY(10px);">
-          <div class="ribbon-track-left font-mono text-xs sm:text-sm font-bold tracking-[0.22em] uppercase">
+      <!-- SEAMLESS FULL-WIDTH ANIMATED TICKER BANNERS (Edge-to-Edge, Unclipped) -->
+      <div class="w-full relative z-30 pointer-events-none select-none mt-8 sm:mt-12 space-y-2 overflow-hidden">
+        <!-- Banner 1: Primary Warm Bone Banner (Scrolling Left) -->
+        <div class="ticker-banner">
+          <div class="ribbon-track-left font-mono text-xs sm:text-sm font-bold tracking-[0.22em] uppercase whitespace-nowrap">
             <span class="mx-6">TURNING DEAD WEIGHT INTO NET PROFIT</span><span>••</span>
             <span class="mx-6">100K+ SALES CO-MANAGED ETSY</span><span>••</span>
             <span class="mx-6">9,000+ SALES PRIMARY ETSY</span><span>••</span>
@@ -850,9 +856,9 @@
           </div>
         </div>
 
-        <!-- Ribbon 2: Tilted Upward & Crossing -->
-        <div class="diagonal-ribbon dark-ribbon" style="transform: rotate(3.2deg) translateY(-28px);">
-          <div class="ribbon-track-right font-mono text-xs sm:text-sm font-bold tracking-[0.22em] uppercase">
+        <!-- Banner 2: Dark Editorial Banner with Vermilion & Acid Lime Accents (Scrolling Right) -->
+        <div class="ticker-banner dark-banner">
+          <div class="ribbon-track-right font-mono text-xs sm:text-sm font-bold tracking-[0.22em] uppercase whitespace-nowrap">
             <span class="mx-6 text-accent-2">TEST</span><span>::</span>
             <span class="mx-6 text-main">AUTOMATE</span><span>::</span>
             <span class="mx-6 text-accent-1">SCALE</span><span>::</span>
@@ -878,7 +884,7 @@
          Directly inspired by bottom-left of image_28d089.jpg ('WE REJECT THE SUPERFLUOUS...')
          ======================================================================= -->
     <section id="node-manifesto" data-maze-x="1480" data-maze-y="160" data-maze-rot="3"
-      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 border-b border-hairline bg-void">
+      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 bg-void">
 
       <!-- Horizontal Hairline with '::' Markers on Left & Right (Exact match to reference image) -->
       <div class="content-container relative">
@@ -1015,7 +1021,7 @@
          Directly inspired by top-right of image_28d089.jpg ('A SELECTION OF RECENT COLLABORATIONS' + Table + 12-Card Grid)
          ======================================================================= -->
     <section id="node-archive" data-maze-x="160" data-maze-y="1180" data-maze-rot="2"
-      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 border-b border-hairline bg-surface/50">
+      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 bg-surface/50">
 
       <div class="content-container">
 
@@ -1350,7 +1356,7 @@
          Directly inspired by middle-right of image_28d089.jpg ('GOOD WORK IS BUILT ON GOOD QUESTIONS...' + Portrait surrounded by floating cards & background ribbons)
          ======================================================================= -->
     <section id="node-collage" data-maze-x="1560" data-maze-y="1280" data-maze-rot="-2.5"
-      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 border-b border-hairline bg-void overflow-hidden">
+      class="maze-node-section relative py-16 sm:py-24 2xl:py-32 bg-void overflow-hidden">
 
       <!-- Monumental Editorial Quote Above Second Portrait (Exact layout match to middle-right of reference) -->
       <div class="content-container max-w-5xl 2xl:max-w-6xl mx-auto text-center relative z-20 mb-12 sm:mb-16">
@@ -1373,10 +1379,10 @@
       <!-- SECOND PORTRAIT STAGE WITH BACKGROUND TICKER RIBBONS & DRAGGABLE FLOATING COLLAGE CARDS -->
       <div class="relative content-container min-h-[clamp(480px,50vw,720px)] flex items-center justify-center">
 
-        <!-- Background Criss-Crossing Ribbons Behind Portrait (Like lower-right of reference image) -->
-        <div class="absolute inset-x-0 bottom-12 pointer-events-none select-none z-10 space-y-3">
-          <div class="diagonal-ribbon" style="transform: rotate(4deg);">
-            <div class="ribbon-track-left font-mono text-xs font-bold tracking-[0.22em] uppercase">
+        <!-- Background Ribbons Behind Portrait -->
+        <div class="absolute inset-x-0 bottom-12 pointer-events-none select-none z-10 space-y-2.5 overflow-hidden">
+          <div class="ticker-banner dark-banner">
+            <div class="ribbon-track-left font-mono text-xs font-bold tracking-[0.22em] uppercase whitespace-nowrap">
               <span class="mx-6">TURNING COMPLEXITY INTO MARGIN</span><span>••</span>
               <span class="mx-6">SYSTEMS ARCHITECT</span><span>••</span>
               <span class="mx-6">B.S. INFORMATION TECHNOLOGY (VU)</span><span>••</span>
@@ -1387,8 +1393,8 @@
               <span class="mx-6">LAHORE TO GLOBAL</span><span>••</span>
             </div>
           </div>
-          <div class="diagonal-ribbon lime-ribbon" style="transform: rotate(-2.5deg);">
-            <div class="ribbon-track-right font-mono text-xs font-bold tracking-[0.22em] uppercase">
+          <div class="ticker-banner lime-banner">
+            <div class="ribbon-track-right font-mono text-xs font-bold tracking-[0.22em] uppercase whitespace-nowrap">
               <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META
                 AD LIBRARY • DORKING</span><span>••</span>
               <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META
