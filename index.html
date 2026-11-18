@@ -1360,12 +1360,20 @@
       </div>
 
       <!-- SECOND PORTRAIT STAGE WITH BACKGROUND TICKER RIBBONS & DRAGGABLE FLOATING COLLAGE CARDS -->
-      <div class="relative content-container min-h-[clamp(480px,50vw,720px)] flex items-center justify-center">
+      <div class="relative w-full min-h-[clamp(480px,50vw,720px)] flex items-center justify-center overflow-hidden">
 
-        <!-- Background Ribbons Behind Portrait -->
-        <div class="absolute inset-x-0 bottom-12 pointer-events-none select-none z-10 space-y-2.5 overflow-hidden">
+        <!-- Background Ribbons Behind Portrait (Full-Width Edge-to-Edge Across Viewport) -->
+        <div class="absolute inset-x-0 bottom-12 pointer-events-none select-none z-10 space-y-2.5 overflow-hidden w-full">
           <div class="ticker-banner dark-banner">
             <div class="ribbon-track-left font-mono text-xs font-bold tracking-[0.22em] uppercase whitespace-nowrap">
+              <span class="mx-6">TURNING COMPLEXITY INTO MARGIN</span><span>••</span>
+              <span class="mx-6">SYSTEMS ARCHITECT</span><span>••</span>
+              <span class="mx-6">B.S. INFORMATION TECHNOLOGY (VU)</span><span>••</span>
+              <span class="mx-6">LAHORE TO GLOBAL</span><span>••</span>
+              <span class="mx-6">TURNING COMPLEXITY INTO MARGIN</span><span>••</span>
+              <span class="mx-6">SYSTEMS ARCHITECT</span><span>••</span>
+              <span class="mx-6">B.S. INFORMATION TECHNOLOGY (VU)</span><span>••</span>
+              <span class="mx-6">LAHORE TO GLOBAL</span><span>••</span>
               <span class="mx-6">TURNING COMPLEXITY INTO MARGIN</span><span>••</span>
               <span class="mx-6">SYSTEMS ARCHITECT</span><span>••</span>
               <span class="mx-6">B.S. INFORMATION TECHNOLOGY (VU)</span><span>••</span>
@@ -1378,15 +1386,18 @@
           </div>
           <div class="ticker-banner lime-banner">
             <div class="ribbon-track-right font-mono text-xs font-bold tracking-[0.22em] uppercase whitespace-nowrap">
-              <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META
-                AD LIBRARY • DORKING</span><span>••</span>
-              <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META
-                AD LIBRARY • DORKING</span><span>••</span>
+              <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META AD LIBRARY • DORKING</span><span>••</span>
+              <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META AD LIBRARY • DORKING</span><span>••</span>
+              <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META AD LIBRARY • DORKING</span><span>••</span>
+              <span class="mx-6">HELIUM 10 • KEEPA • JUNGLE SCOUT • EVERBEE • ALURA • OAGENIUS • SEMRUSH • AHREFS • META AD LIBRARY • DORKING</span><span>••</span>
             </div>
           </div>
         </div>
 
-        <!-- Second Studio Portrait of Abdul Moiz in the Center -->
+        <!-- Foreground Stage for Portrait & Draggable Floating Collage Cards -->
+        <div class="content-container relative z-20 w-full min-h-[clamp(480px,50vw,720px)] flex items-center justify-center">
+
+          <!-- Second Studio Portrait of Abdul Moiz in the Center -->
         <div
           class="relative z-20 w-[clamp(280px,38vw,660px)] h-[clamp(380px,46vw,680px)] flex flex-col items-center justify-end select-none">
           <div class="portrait-canvas-wrap w-full h-full flex items-end justify-center">
@@ -1481,6 +1492,7 @@
         </div>
 
       </div>
+    </div>
 
       <!-- Mobile-Friendly Stack of the Collage Cards (Visible on small screens) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:hidden content-container relative z-30">
