@@ -305,9 +305,8 @@
     .orbit-scene {
       position: relative;
       width: 100%;
-      height: clamp(400px, 48vw, 760px);
-      min-height: 360px;
-      max-height: 820px;
+      height: clamp(420px, 46vw, 680px);
+      min-height: 380px;
       transform-style: preserve-3d;
       display: flex;
       align-items: center;
@@ -317,18 +316,31 @@
     /* Central Studio Cutout Portrait Container at Z = 0 */
     .portrait-monolith {
       position: relative;
-      width: clamp(230px, 62vw, 520px);
-      height: clamp(310px, 80vw, 680px);
-      max-width: 90vw;
+      width: clamp(280px, 40vw, 560px);
+      aspect-ratio: 1312 / 1199;
+      max-width: 92vw;
+      max-height: 640px;
       transform: translateZ(0px);
       transform-style: preserve-3d;
       z-index: 20;
       pointer-events: auto;
     }
 
-    /* Studio Radial Aura Behind Portrait - Disabled to prevent block shadow / bounding artifacts */
+    /* Studio Radial Aura Behind Portrait (Seamless Ambient Lighting, 0 Hard Edges) */
     .studio-backdrop-glow {
-      display: none !important;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: clamp(340px, 50vw, 680px);
+      height: clamp(340px, 50vw, 680px);
+      transform: translate(-50%, -50%) translateZ(-70px);
+      background:
+        radial-gradient(circle closest-side at 62% 38%, rgba(255, 51, 31, 0.38) 0%, rgba(123, 44, 191, 0.24) 42%, transparent 72%),
+        radial-gradient(circle closest-side at 36% 56%, rgba(212, 255, 0, 0.28) 0%, transparent 60%);
+      filter: blur(44px);
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 2;
     }
 
     /* 3D Orbiting Card Item */
@@ -477,9 +489,21 @@
       overflow: visible;
     }
 
-    /* Scanline overlay disabled to eliminate rectangular block boundary */
+    /* CRT Scanline Overlay on Portrait (Feathered Radial Vignette, 0 Hard Edges) */
     .portrait-scanlines {
-      display: none !important;
+      position: absolute;
+      inset: -4%;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.22) 3px,
+        rgba(0, 0, 0, 0.22) 4px
+      );
+      pointer-events: none;
+      z-index: 4;
+      mask-image: radial-gradient(ellipse 65% 72% at 50% 50%, black 45%, transparent 88%);
+      -webkit-mask-image: radial-gradient(ellipse 65% 72% at 50% 50%, black 45%, transparent 88%);
     }
 
     /* =========================================================================
@@ -740,6 +764,8 @@
 
               <!-- Central Portrait Monolith (Sits at Z=0 so front cards pass in front of his chest and back cards pass behind his shoulders!) -->
               <div id="hero-portrait-box" class="portrait-monolith select-none">
+                <div class="studio-backdrop-glow"></div>
+
                 <div class="portrait-canvas-wrap flex items-end justify-center">
                   <!-- Exact User-Provided Low-Poly Portrait SVG -->
                   <svg class="portrait" viewBox="0 0 1312 1199" preserveAspectRatio="xMidYMax meet" role="img"
@@ -781,11 +807,12 @@
                     <path class="hair-3" stroke-width="1.6"
                       d="M837 636 826 638 822 640 821 642 824 644 831 643 837 638ZM650 629 650 632 652 634 659 634 666 637 677 635 671 628 652 627ZM782 572 783 576 786 574 792 574 798 578 803 577 796 565 788 567ZM760 568 754 562 750 560 744 560 722 574 723 575 749 569 758 571Z" />
                   </svg>
+                  <div class="portrait-scanlines"></div>
                 </div>
 
                 <!-- Subtle Floating Telemetry Tag on His Shoulder -->
                 <div
-                  class="absolute bottom-8 sm:bottom-14 left-2 sm:-left-4 z-30 bg-void/90 border border-accent-2 px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest uppercase shadow-xl">
+                  class="absolute bottom-6 sm:bottom-10 left-2 sm:-left-3 z-30 bg-void/90 border border-accent-2 px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest uppercase shadow-xl select-none">
                   <span class="text-accent-2">●</span> SYS_OP: ABDUL MOIZ // 100K+ ORDERS
                 </div>
               </div>
@@ -1382,6 +1409,7 @@
           <!-- Second Studio Portrait of Abdul Moiz in the Center -->
           <div
             class="relative z-20 w-[clamp(300px,84vw,660px)] aspect-[1312/1199] max-h-[680px] flex flex-col items-center justify-end select-none">
+            <div class="studio-backdrop-glow"></div>
             <div class="portrait-canvas-wrap w-full h-full flex items-end justify-center">
               <!-- Exact User-Provided Low-Poly Portrait SVG (Second Collage Instance) -->
               <svg class="portrait w-full h-full" viewBox="0 0 1312 1199" preserveAspectRatio="xMidYMax meet" role="img"
@@ -1423,6 +1451,7 @@
               <path class="hair-3" stroke-width="1.6"
                 d="M837 636 826 638 822 640 821 642 824 644 831 643 837 638ZM650 629 650 632 652 634 659 634 666 637 677 635 671 628 652 627ZM782 572 783 576 786 574 792 574 798 578 803 577 796 565 788 567ZM760 568 754 562 750 560 744 560 722 574 723 575 749 569 758 571Z" />
             </svg>
+            <div class="portrait-scanlines"></div>
           </div>
         </div>
 
@@ -1683,15 +1712,17 @@
 
       const orbitBox = document.getElementById('hero-portrait-box');
       const portraitW = orbitBox ? orbitBox.offsetWidth : 480;
+      const portraitH = orbitBox ? orbitBox.offsetHeight : 440;
       const sceneW = ringContainer ? ringContainer.offsetWidth : window.innerWidth;
       const isMobile = window.innerWidth < 640;
 
       // Responsive elliptical orbit radius that scales gracefully with portrait and scene width
       const radiusX = isMobile
-        ? Math.max(95, Math.min(sceneW * 0.33, 135))
-        : Math.max(240, Math.min(portraitW * 0.58 + 35, sceneW * 0.46));
+        ? Math.max(105, Math.min(sceneW * 0.36, 145))
+        : Math.max(260, Math.min(portraitW * 0.58 + 35, sceneW * 0.46));
       const radiusZ = isMobile ? radiusX * 0.8 : radiusX * 0.82;
       const tiltSlopeY = isMobile ? radiusX * 0.22 : radiusX * 0.28; // Creates the diagonal sweep across his chest like image_28d089.jpg
+      const orbitCenterOffsetY = isMobile ? portraitH * 0.16 : portraitH * 0.22; // Sweep across collar & chest, keeping face and eyes completely clear
 
       const total = orbitElements.length;
       for (let i = 0; i < total; i++) {
@@ -1713,7 +1744,7 @@
         const opacity = 0.32 + depthNorm * 0.68;
 
         const posX = x - cachedCardW / 2;
-        const posY = y - cachedCardH / 2;
+        const posY = y + orbitCenterOffsetY - cachedCardH / 2;
 
         el.style.transform = `translate3d(${posX.toFixed(1)}px, ${posY.toFixed(1)}px, ${z.toFixed(1)}px) rotateZ(${rotZ}deg) rotateY(${rotY}deg) scale(${scale.toFixed(3)})`;
         el.style.opacity = opacity.toFixed(2);
