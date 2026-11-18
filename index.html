@@ -483,52 +483,34 @@
     }
 
     /* =========================================================================
-       SPLICED / DIAGONALLY SLICED GIANT FOOTER WORDMARK (like image_28d089.jpg)
+       MONUMENTAL FOOTER WORDMARK (CLEAN, SOLID & UNCLIPPED)
        ========================================================================= */
-    .sliced-wordmark-wrap {
+    .footer-wordmark-wrap {
       position: relative;
-      height: clamp(75px, 14vw, 240px);
       width: 100%;
-      overflow: hidden;
+      overflow: visible;
       user-select: none;
-      cursor: ew-resize;
-    }
-
-    .sliced-layer {
-      position: absolute;
-      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: clamp(20px, 3.5vw, 48px) 0;
+    }
+
+    .footer-wordmark {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(2.3rem, 11.5vw, 13rem);
-      letter-spacing: -0.05em;
-      line-height: 0.9;
+      font-size: clamp(2.6rem, 12vw, 13rem);
+      letter-spacing: -0.04em;
+      line-height: 1;
       white-space: nowrap;
-      color: rgba(243, 239, 230, 0.22);
-      transition: transform 0.15s ease-out, color 0.3s ease;
+      color: rgba(243, 239, 230, 0.18);
+      transition: color 0.35s ease;
+      display: inline-block;
+      text-align: center;
     }
 
-    .sliced-wordmark-wrap:hover .sliced-layer {
+    .footer-wordmark-wrap:hover .footer-wordmark {
       color: rgba(243, 239, 230, 0.42);
-    }
-
-    .sliced-layer.slice-top {
-      clip-path: polygon(0 0, 100% 0, 100% 36%, 0 48%);
-      transform: translateX(-14px) skewX(-8deg);
-    }
-
-    .sliced-layer.slice-mid {
-      clip-path: polygon(0 45%, 100% 33%, 100% 68%, 0 78%);
-      transform: translateX(18px) skewX(12deg);
-      color: var(--accent-primary);
-      opacity: 0.72;
-    }
-
-    .sliced-layer.slice-bot {
-      clip-path: polygon(0 75%, 100% 65%, 100% 100%, 0 100%);
-      transform: translateX(-10px) skewX(-5deg);
     }
 
     /* Brutalist Table Row Hover */
@@ -1566,12 +1548,11 @@
 
         </div>
 
-        <!-- GIANT SPLICED / FRAGMENTED FOOTER WORDMARK (Directly inspired by 'ëthan mercer' sliced typography at bottom-right of image_28d089.jpg) -->
-        <div id="sliced-footer-wordmark" class="sliced-wordmark-wrap mt-8"
-          title="Move cursor across to shear the architectural wordmark">
-          <div class="sliced-layer slice-top" id="slice-layer-1">äbdul moiz</div>
-          <div class="sliced-layer slice-mid" id="slice-layer-2">äbdul moiz</div>
-          <div class="sliced-layer slice-bot" id="slice-layer-3">äbdul moiz</div>
+        <!-- MONUMENTAL FOOTER WORDMARK (Solid, Clean & Uncut) -->
+        <div id="footer-wordmark-wrap" class="footer-wordmark-wrap mt-4 sm:mt-6">
+          <div class="footer-wordmark">
+            äbdul moiz<span class="text-accent-1">.</span>
+          </div>
         </div>
 
         <div
@@ -2031,26 +2012,6 @@
       window.addEventListener('mouseup', () => {
         draggingCard = false;
       });
-    });
-
-    // Sliced Giant Footer Wordmark Shear on Cursor Move
-    const slicedWrap = document.getElementById('sliced-footer-wordmark');
-    const slice1 = document.getElementById('slice-layer-1');
-    const slice2 = document.getElementById('slice-layer-2');
-    const slice3 = document.getElementById('slice-layer-3');
-
-    slicedWrap?.addEventListener('mousemove', (e) => {
-      const rect = slicedWrap.getBoundingClientRect();
-      const normX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to +0.5
-      if (slice1) slice1.style.transform = `translateX(${normX * -90}px) skewX(${-8 + normX * 15}deg)`;
-      if (slice2) slice2.style.transform = `translateX(${normX * 110}px) skewX(${12 - normX * 20}deg)`;
-      if (slice3) slice3.style.transform = `translateX(${normX * -65}px) skewX(${-5 + normX * 10}deg)`;
-    });
-
-    slicedWrap?.addEventListener('mouseleave', () => {
-      if (slice1) slice1.style.transform = 'translateX(-14px) skewX(-8deg)';
-      if (slice2) slice2.style.transform = 'translateX(18px) skewX(12deg)';
-      if (slice3) slice3.style.transform = 'translateX(-10px) skewX(-5deg)';
     });
 
     // Update Radar HUD on Scroll
