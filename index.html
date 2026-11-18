@@ -331,16 +331,26 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: clamp(340px, 50vw, 680px);
-      height: clamp(340px, 50vw, 680px);
-      transform: translate(-50%, -50%) translateZ(-70px);
+      width: clamp(520px, 85vw, 1150px);
+      height: clamp(480px, 65vw, 860px);
+      transform: translate(-50%, -50%);
       background:
-        radial-gradient(circle closest-side at 62% 38%, rgba(255, 51, 31, 0.38) 0%, rgba(123, 44, 191, 0.24) 42%, transparent 72%),
-        radial-gradient(circle closest-side at 36% 56%, rgba(212, 255, 0, 0.28) 0%, transparent 60%);
-      filter: blur(44px);
+        /* Right side & back rim: Warm Vermilion + Electric Violet */
+        radial-gradient(ellipse 48% 52% at 72% 40%, rgba(255, 51, 31, 0.44) 0%, rgba(147, 51, 234, 0.30) 44%, transparent 74%),
+        /* Left side: Radiant Acid Lime / Olive */
+        radial-gradient(ellipse 46% 54% at 28% 50%, rgba(212, 255, 0, 0.38) 0%, rgba(163, 230, 53, 0.16) 42%, transparent 72%),
+        /* Top hair crest: Warm Amber */
+        radial-gradient(circle at 50% 34%, rgba(255, 87, 34, 0.30) 0%, transparent 60%);
+      filter: blur(52px);
       border-radius: 9999px;
       pointer-events: none;
-      z-index: 2;
+      z-index: 1;
+    }
+
+    #hero-portrait-box .studio-backdrop-glow {
+      width: clamp(440px, 62vw, 920px);
+      height: clamp(420px, 58vw, 860px);
+      transform: translate(-50%, -50%);
     }
 
     /* 3D Orbiting Card Item */
@@ -348,8 +358,8 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: clamp(124px, 28vw, 196px);
-      height: clamp(86px, 19vw, 126px);
+      width: clamp(130px, 28vw, 204px);
+      height: clamp(88px, 19vw, 130px);
       transform-style: preserve-3d;
       backface-visibility: visible;
       cursor: default;
@@ -487,23 +497,24 @@
       width: 100%;
       height: 100%;
       overflow: visible;
+      z-index: 10;
     }
 
     /* CRT Scanline Overlay on Portrait (Feathered Radial Vignette, 0 Hard Edges) */
     .portrait-scanlines {
       position: absolute;
-      inset: -4%;
+      inset: -6%;
       background: repeating-linear-gradient(
         to bottom,
         transparent 0px,
         transparent 2px,
-        rgba(0, 0, 0, 0.22) 3px,
-        rgba(0, 0, 0, 0.22) 4px
+        rgba(0, 0, 0, 0.28) 3px,
+        rgba(0, 0, 0, 0.28) 4px
       );
       pointer-events: none;
       z-index: 4;
-      mask-image: radial-gradient(ellipse 65% 72% at 50% 50%, black 45%, transparent 88%);
-      -webkit-mask-image: radial-gradient(ellipse 65% 72% at 50% 50%, black 45%, transparent 88%);
+      mask-image: radial-gradient(ellipse 70% 75% at 50% 50%, black 50%, transparent 92%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 50%, black 50%, transparent 92%);
     }
 
     /* =========================================================================
@@ -766,7 +777,7 @@
               <div id="hero-portrait-box" class="portrait-monolith select-none">
                 <div class="studio-backdrop-glow"></div>
 
-                <div class="portrait-canvas-wrap flex items-end justify-center">
+                <div class="portrait-canvas-wrap relative z-10 w-full h-full flex items-end justify-center">
                   <!-- Exact User-Provided Low-Poly Portrait SVG -->
                   <svg class="portrait" viewBox="0 0 1312 1199" preserveAspectRatio="xMidYMax meet" role="img"
                     aria-label="Low-poly portrait of Abdul Moiz">
@@ -1410,7 +1421,7 @@
           <div
             class="relative z-20 w-[clamp(300px,84vw,660px)] aspect-[1312/1199] max-h-[680px] flex flex-col items-center justify-end select-none">
             <div class="studio-backdrop-glow"></div>
-            <div class="portrait-canvas-wrap w-full h-full flex items-end justify-center">
+            <div class="portrait-canvas-wrap relative z-10 w-full h-full flex items-end justify-center">
               <!-- Exact User-Provided Low-Poly Portrait SVG (Second Collage Instance) -->
               <svg class="portrait w-full h-full" viewBox="0 0 1312 1199" preserveAspectRatio="xMidYMax meet" role="img"
                 aria-label="Low-poly portrait of Abdul Moiz">
@@ -1681,7 +1692,7 @@
               <span style="color:${proj.accent}">•• ${proj.tag}</span>
               <span class="text-white/50">0${idx + 1}</span>
             </div>
-            <div class="font-syne font-extrabold text-[10px] sm:text-xs md:text-sm text-white leading-tight my-auto break-words">
+            <div class="font-syne font-extrabold text-[10px] sm:text-xs md:text-sm text-white leading-tight my-auto break-words" style="word-break: break-word; overflow-wrap: anywhere;">
               ${proj.title}
             </div>
             <div class="pt-1 sm:pt-1.5 border-t border-white/15 flex items-center justify-between font-mono text-[8px] sm:text-[9px] text-white/80">
