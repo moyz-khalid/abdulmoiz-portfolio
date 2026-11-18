@@ -1426,79 +1426,8 @@
           </div>
         </div>
 
-        <!-- FLOATING MULTI-LAYERED COLLAGE CARDS AROUND PORTRAIT (Draggable & Parallax-Reactive) -->
-        <!-- Floating Card A: Top Left -->
-        <div
-          class="collage-float-card hidden md:block absolute top-6 left-[3%] lg:left-[6%] z-30 w-[clamp(220px,18vw,290px)] bg-panel/95 border border-hairline p-4 shadow-2xl cursor-move"
-          data-depth="0.04">
-          <div class="flex items-center justify-between font-mono text-[10px] text-accent-2 mb-1.5">
-            <span>INNOVANTIVES // 2023–2025</span>
-            <span>[DRAG ME]</span>
-          </div>
-          <div class="font-syne font-bold text-base text-main">Lead Etsy Operator</div>
-          <p class="font-mono text-[11px] text-muted-custom mt-1">
-            Supervised 2 graphic designers. Launched 1,100+ SKUs &rarr; 50+ winners &rarr; 9,000+ sales &amp; 800+ 5★
-            reviews.
-          </p>
-        </div>
-
-        <!-- Floating Card B: Mid Left -->
-        <div
-          class="collage-float-card hidden md:block absolute top-1/2 -translate-y-1/2 left-[1%] lg:left-[3%] z-30 w-[clamp(210px,17vw,280px)] bg-void/95 border border-accent-1 p-4 shadow-2xl cursor-move"
-          data-depth="-0.05">
-          <div class="font-mono text-[10px] text-accent-1 mb-1">HIGH-VOLUME CO-MANAGED</div>
-          <div class="font-syne font-extrabold text-2xl text-main">100K+ SALES</div>
-          <div class="font-mono text-[11px] text-accent-2 mt-0.5">7,000+ VERIFIED REVIEWS</div>
-        </div>
-
-        <!-- Floating Card C: Top Right -->
-        <div
-          class="collage-float-card hidden md:block absolute top-10 right-[3%] lg:right-[6%] z-30 w-[clamp(220px,18vw,290px)] bg-panel/95 border border-hairline p-4 shadow-2xl cursor-move"
-          data-depth="0.06">
-          <div class="font-mono text-[10px] text-accent-2 mb-1">SHOPIFY &amp; META ADS // 2022–2023</div>
-          <div class="font-syne font-bold text-base text-main">Full-Funnel Dropshipping</div>
-          <p class="font-mono text-[11px] text-muted-custom mt-1">
-            Meta Ad Library espionage, high-converting SEO product pages, and relentless creative iteration.
-          </p>
-        </div>
-
-        <!-- Floating Card D: Bottom Right -->
-        <div
-          class="collage-float-card hidden md:block absolute bottom-20 right-[1%] lg:right-[4%] z-30 w-[clamp(220px,18vw,290px)] bg-void/95 border border-accent-2 p-4 shadow-2xl cursor-move"
-          data-depth="-0.04">
-          <div class="font-mono text-[10px] text-accent-2 mb-1">AMAZON &amp; WALMART // 2021–2022</div>
-          <div class="font-syne font-extrabold text-xl text-main">$7,000/MO NET PROFIT</div>
-          <p class="font-mono text-[11px] text-muted-custom mt-1">
-            Maintained &lt;5% defect rate while automating recurring tasks to save 10+ hours/week.
-          </p>
-        </div>
-
       </div>
     </div>
-
-      <!-- Mobile-Friendly Stack of the Collage Cards (Visible on small screens) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:hidden content-container relative z-30">
-        <div class="bg-panel border border-hairline p-4">
-          <div class="font-mono text-[10px] text-accent-2">INNOVANTIVES // 2023–2025</div>
-          <div class="font-syne font-bold text-base text-main mt-1">Lead Etsy Operator (9,000+ Sales)</div>
-          <p class="font-mono text-xs text-muted-custom mt-1">1,100+ SKUs launched, 50+ winners, 800+ 5★ reviews.</p>
-        </div>
-        <div class="bg-panel border border-hairline p-4">
-          <div class="font-mono text-[10px] text-accent-1">CO-MANAGED ETSY STORE</div>
-          <div class="font-syne font-bold text-base text-main mt-1">100K+ Sales &amp; 7,000+ Reviews</div>
-          <p class="font-mono text-xs text-muted-custom mt-1">High-volume catalog &amp; support orchestration.</p>
-        </div>
-        <div class="bg-panel border border-hairline p-4">
-          <div class="font-mono text-[10px] text-accent-2">SHOPIFY &amp; META ADS // 2022–2023</div>
-          <div class="font-syne font-bold text-base text-main mt-1">Full-Funnel Dropshipping</div>
-          <p class="font-mono text-xs text-muted-custom mt-1">Meta Ad Library espionage &amp; high-converting pages.</p>
-        </div>
-        <div class="bg-panel border border-hairline p-4">
-          <div class="font-mono text-[10px] text-accent-1">AMAZON &amp; WALMART // 2021–2022</div>
-          <div class="font-syne font-bold text-base text-main mt-1">$7,000/MO NET PROFIT</div>
-          <p class="font-mono text-xs text-muted-custom mt-1">&lt;5% defect rate with 10+ hrs/wk automated.</p>
-        </div>
-      </div>
 
     </section>
 
@@ -1986,33 +1915,6 @@
     }
 
     document.getElementById('cutter-mode-btn')?.addEventListener('click', toggleDeadWeightMode);
-
-    // -------------------------------------------------------------------------
-    // 7. DRAGGABLE FLOATING COLLAGE CARDS & SLICED FOOTER WORDMARK INTERACTION
-    // -------------------------------------------------------------------------
-    document.querySelectorAll('.collage-float-card').forEach((card) => {
-      let draggingCard = false;
-      let startX = 0;
-      let startY = 0;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      card.addEventListener('mousedown', (e) => {
-        e.stopPropagation();
-        draggingCard = true;
-        startX = e.clientX - offsetX;
-        startY = e.clientY - offsetY;
-      });
-      window.addEventListener('mousemove', (e) => {
-        if (!draggingCard) return;
-        offsetX = e.clientX - startX;
-        offsetY = e.clientY - startY;
-        card.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
-      });
-      window.addEventListener('mouseup', () => {
-        draggingCard = false;
-      });
-    });
 
     // Update Radar HUD on Scroll
     window.addEventListener('scroll', () => {
