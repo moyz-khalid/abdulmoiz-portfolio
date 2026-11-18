@@ -370,16 +370,20 @@
     .orbit-card-inner {
       width: 100%;
       height: 100%;
-      background: rgba(14, 12, 20, 0.92);
+      background: rgba(10, 8, 16, 0.94);
       border: 1px solid rgba(243, 239, 230, 0.28);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
+      box-shadow:
+        0 20px 48px rgba(0, 0, 0, 0.95),
+        0 0 1px 1px rgba(255, 255, 255, 0.10) inset;
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
       padding: clamp(7px, 1.8vw, 14px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
+      border-radius: 4px;
     }
 
     /* =========================================================================
@@ -1752,7 +1756,12 @@
         // Scale & opacity based on depth Z
         const depthNorm = (z + radiusZ) / (2 * radiusZ); // 0 (back) to 1 (front)
         const scale = 0.72 + depthNorm * 0.36;
-        const opacity = 0.32 + depthNorm * 0.68;
+        // When crossing in front of the portrait (z >= 0), cards maintain full 1.0 opacity
+        // so underlying blue shirt/portrait colors never bleed through or tint the card.
+        // When orbiting behind in the distance (z < 0), cards fade down to 0.40.
+        const opacity = z >= 0
+          ? 1.0
+          : Math.max(0.40, 0.40 + ((z + radiusZ) / radiusZ) * 0.60);
 
         const posX = x - cachedCardW / 2;
         const posY = y + orbitCenterOffsetY - cachedCardH / 2;
